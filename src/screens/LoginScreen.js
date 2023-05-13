@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Button } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useState } from 'react';
 
 GoogleSignin.configure({
   webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
