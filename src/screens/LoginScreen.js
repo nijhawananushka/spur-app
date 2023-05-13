@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
+import { View, Button } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { auth } from './../firebase';
+import auth from '@react-native-firebase/auth';
+
+GoogleSignin.configure();
 
 const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -9,13 +11,18 @@ const LoginScreen = () => {
   const signInWithGoogle = async () => {
     try {
       setLoading(true);
+      await GoogleSignin.hasPlayServices();
+      const { idToken } = await GoogleSignin.signIn();
 
-      const provider = new firebase.auth.GoogleAuthProvider();
-      const result = await firebase.auth().signInWithPopup(provider);
-      console.log(result);
+      // Sign in with Firebase using the Google ID token
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      await auth().signInWithCredential(googleCredential);
       
+      // Send successful pop up message
+      Alert.alert('Success', 'Signed in with Google successfully');
+  
     } catch (error) {
-      console.log(error);
+      console.log('Google Sign-In Error:', error);
     } finally {
       setLoading(false);
     }
