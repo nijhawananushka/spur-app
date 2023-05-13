@@ -1,5 +1,6 @@
 #import "AppDelegate.h"
-
+#import <Firebase.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -27,10 +28,14 @@
 ///
 /// @see: https://reactjs.org/blog/2022/03/29/react-v18.html
 /// @note: This requires to be rendering on Fabric (i.e. on the New Architecture).
-/// @return: `true` if the `concurrentRoot` feature is enabled. Otherwise, it returns `false`.
+/// @return: `true` if the `concurrentRoot` feature is enabled, otherwise it returns `false`.
 - (BOOL)concurrentRootEnabled
 {
   return true;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+  return [[GIDSignIn sharedInstance] handleURL:url];
 }
 
 @end
