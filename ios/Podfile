@@ -23,6 +23,8 @@ end
 
 target 'spurapp' do
   config = use_native_modules!
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
 
   # Add Firebase pods
   pod 'Firebase', :modular_headers => true
@@ -49,6 +51,7 @@ target 'spurapp' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  
 
   target 'spurappTests' do
     inherit! :complete

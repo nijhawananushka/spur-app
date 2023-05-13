@@ -4,6 +4,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
+import { Alert } from 'react-native';
 
 GoogleSignin.configure({
   webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
@@ -24,9 +25,10 @@ const LoginScreen = () => {
       
       // Send successful pop up message
       Alert.alert('Success', 'Signed in with Google successfully');
-  
     } catch (error) {
       console.log('Google Sign-In Error:', error);
+      Alert.alert('Error: ', error.message);
+
     } finally {
       setLoading(false);
     }
@@ -35,7 +37,7 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Text style={styles.logoText}>My App</Text>
+        <Text style={styles.logoText}>spur</Text>
       </View>
       <TouchableOpacity style={styles.googleButton} onPress={signInWithGoogle} disabled={loading}>
         {loading ? (
