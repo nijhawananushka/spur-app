@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { auth } from './../firebase';
 
 const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -12,8 +12,8 @@ const LoginScreen = () => {
 
       const provider = new firebase.auth.GoogleAuthProvider();
       const result = await firebase.auth().signInWithPopup(provider);
-
       console.log(result);
+      
     } catch (error) {
       console.log(error);
     } finally {

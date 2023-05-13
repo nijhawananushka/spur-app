@@ -1,7 +1,7 @@
 #import "AppDelegate.h"
+#import <React/RCTBundleURLProvider.h>
 #import <Firebase.h>
 #import <GoogleSignIn/GoogleSignIn.h>
-#import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
 
@@ -11,7 +11,8 @@
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
-
+  [FIRApp configure];
+  
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
@@ -34,7 +35,9 @@
   return true;
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+- (BOOL)application:(nonnull UIApplication *)application
+            openURL:(nonnull NSURL *)url
+            options:(nonnull NSDictionary<NSString *, id> *)options {
   return [[GIDSignIn sharedInstance] handleURL:url];
 }
 
