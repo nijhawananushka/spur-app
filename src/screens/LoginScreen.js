@@ -3,7 +3,9 @@ import { View, Button } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 
-GoogleSignin.configure();
+GoogleSignin.configure({
+  webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
+});
 
 const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
