@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
         width: 425,
         height: 425,
         left: 100,
+        zIndex: -2,
         top: 351,
         fill: 'rgba(225, 91, 33, 0.3)',
     },
@@ -22,6 +23,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    background: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: -1,
     },
     logoContainer: {
         alignItems: 'center',
