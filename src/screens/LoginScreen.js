@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Text, TouchableOpacity, View, Alert } from 'react-native';
+import { Svg, Ellipse } from 'react-native-svg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import { Text, TouchableOpacity, View, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styles/screens/LoginScreenStyles';
-import { Svg, Ellipse } from 'react-native-svg';
 
 GoogleSignin.configure({
   webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
