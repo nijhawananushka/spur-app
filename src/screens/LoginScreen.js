@@ -1,10 +1,9 @@
-import React from 'react';
-import { View, Button } from 'react-native';
+import React, { useState } from 'react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
-import { Alert } from 'react-native';
+import { Text, TouchableOpacity, View, Alert } from 'react-native';
+import styles from '../styles/screens/LoginScreenStyles';
+import { Svg, Ellipse } from 'react-native-svg';
 
 GoogleSignin.configure({
   webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
@@ -36,59 +35,25 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Svg style={styles.ellipse1}>
+        <Ellipse cx={225} cy={225} rx={225} ry={225} />
+      </Svg>
+      <Svg style={styles.ellipse2}>
+        <Ellipse cx={225} cy={225} rx={225} ry={225} />
+      </Svg>      
       <View style={styles.logoContainer}>
         <Text style={styles.logoText}>spur</Text>
       </View>
       <TouchableOpacity style={styles.googleButton} onPress={signInWithGoogle} disabled={loading}>
         {loading ? (
           <Text style={styles.buttonText}>Loading...</Text>
-        ) : (
-          <>
+          ) : (
             <Text style={styles.buttonText}>Sign-In with Google</Text>
-          </>
-        )}
+          )
+        }
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 50,
-  },
-  logo: {
-    width: 100,
-    height: 100,
-  },
-  logoText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 10,
-  },
-  googleButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#4285F4',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 25,
-  },
-  buttonIcon: {
-    width: 20,
-    height: 20,
-    marginRight: 15,
-  },
-  buttonText: {
-    fontSize: 16,
-    color: '#fff',
-  },
-});
 
 export default LoginScreen;
