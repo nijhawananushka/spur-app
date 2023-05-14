@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LogOutButton from '../components/logOutButton';
 
 const MainScreen = ({ navigation }) => {
   useEffect(() => {
@@ -19,8 +20,8 @@ const MainScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Main Screen</Text>
-      <Button title="Logout" onPress={handleLogout} />
-    </View>
+        <LogOutButton navigation={navigation} />   
+      </View>
   );
 };
 
