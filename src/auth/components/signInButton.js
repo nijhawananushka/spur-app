@@ -24,11 +24,12 @@ const SignInWithGoogleButton = ({ navigation }) => {
       await auth().signInWithCredential(googleCredential);
 
       const user = await firestore().collection('userProfiles').doc(idToken).get();
-      // User document exists, navigate to Main Screen
       if (user.exists) {
+        // User document exists, navigate to Main Screen
         await AsyncStorage.setItem('userToken', idToken);
         navigation.replace('Main');
       } else {
+        // User document doesn't exist, navigate to Onboarding Screen
         navigation.navigate('Onboard');
       }
 
