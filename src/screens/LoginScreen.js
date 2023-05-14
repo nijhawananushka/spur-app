@@ -34,15 +34,12 @@ const LoginScreen = ({ navigation, route }) => {
       await auth().signInWithCredential(googleCredential);
       await AsyncStorage.setItem('userToken', idToken);
 
-      // Send successful pop up message
-      Alert.alert('Success', 'Signed in with Google successfully');
-
       // Navigate to Main Screen
       navigation.navigate('Main');
 
     } catch (error) {
       console.log('Google Sign-In Error:', error);
-      Alert.alert('Error: ', error.message);
+      Alert.alert('Unable to Sign In!');
       
     } finally {
       setLoading(false);
