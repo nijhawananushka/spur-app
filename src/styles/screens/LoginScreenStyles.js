@@ -3,19 +3,20 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     ellipse1: {
         position: 'absolute',
-        width: 445,
-        height: 445,
-        left: -70,
-        top: 42,
+        width: 500,
+        height: 500,
+        left: -180,
+        top: -20,
+        zIndex: -1,
         fill: 'rgba(225, 91, 33, 0.1)',
     },
     ellipse2: {
         position: 'absolute',
-        width: 425,
-        height: 425,
+        width: 500,
+        height: 500,
         left: 100,
         zIndex: -2,
-        top: 351,
+        top: 450,
         fill: 'rgba(225, 91, 33, 0.3)',
     },
     container: {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: -1,
+        zIndex: -3,
     },
     logoContainer: {
         alignItems: 'center',

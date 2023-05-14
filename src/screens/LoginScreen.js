@@ -69,22 +69,22 @@ const LoginScreen = ({ navigation, route }) => {
 
   const translateX1 = moveAnimation1.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 300],
+    outputRange: [0, 360],
   });
 
   const translateY1 = moveAnimation1.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 300],
+    outputRange: [0, 350],
   });
 
   const translateX2 = moveAnimation2.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -300],
+    outputRange: [0, -350],
   });
 
   const translateY2 = moveAnimation2.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -300],
+    outputRange: [0, -450],
   });
 
   return (
