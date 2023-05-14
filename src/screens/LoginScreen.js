@@ -54,12 +54,12 @@ const LoginScreen = ({ navigation, route }) => {
       Animated.parallel([
         Animated.timing(moveAnimation1, {
           toValue: 1,
-          duration: 3000,
+          duration: 9000,
           useNativeDriver: true,
         }),
         Animated.timing(moveAnimation2, {
           toValue: 1,
-          duration: 3000,
+          duration: 9000,
           useNativeDriver: true,
         })
       ]),
