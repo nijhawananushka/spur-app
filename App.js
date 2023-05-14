@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './src/auth/screens/LoginScreen';
 import MainScreen from './src/feed/screens/MainScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect } from 'react';
+import OnboardingScreen from './src/auth/screens/OnboardingScreen';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +35,11 @@ const RootStack = () => {
         <Stack.Screen 
           name="Main" 
           component={MainScreen} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="Onboard" 
+          component={OnboardingScreen} 
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

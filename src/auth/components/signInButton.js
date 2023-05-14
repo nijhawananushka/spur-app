@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import logInButtonStyles from '../styles/components/signInButtonStyles';
+import firestore from '@react-native-firebase/firestore';
 
 GoogleSignin.configure({
   webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
@@ -21,10 +22,15 @@ const SignInWithGoogleButton = ({ navigation }) => {
       // Sign in with Firebase using the Google ID token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       await auth().signInWithCredential(googleCredential);
-      await AsyncStorage.setItem('userToken', idToken);
 
-      // Navigate to Main Screen
-      navigation.replace('Main');
+      const user = await firestore().collection('userProfiles').doc(idToken).get();
+      // User document exists, navigate to Main Screen
+      if (user.exists) {
+        await AsyncStorage.setItem('userToken', idToken);
+        navigation.replace('Main');
+      } else {
+        navigation.navigate('Onboard');
+      }
 
     } catch (error) {
       console.log('Google Sign-In Error:', error);
