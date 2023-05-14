@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { Text, TouchableOpacity, View, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styles/screens/LoginScreenStyles';
 import { Svg, Ellipse } from 'react-native-svg';
 
@@ -9,9 +10,19 @@ GoogleSignin.configure({
   webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
 });
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
 
+  // Check if there is an active user session
+  useEffect(() => {
+    AsyncStorage.getItem('userToken').then((userToken) => {
+      if (userToken) {
+        navigation.navigate('Main');
+      }
+    });
+  }, []);
+
+  // Otherwise sign in with Google
   const signInWithGoogle = async () => {
     try {
       setLoading(true);
@@ -21,13 +32,18 @@ const LoginScreen = () => {
       // Sign in with Firebase using the Google ID token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       await auth().signInWithCredential(googleCredential);
-      
+      await AsyncStorage.setItem('userToken', idToken);
+
       // Send successful pop up message
       Alert.alert('Success', 'Signed in with Google successfully');
+
+      // Navigate to Main Screen
+      navigation.navigate('Main');
+
     } catch (error) {
       console.log('Google Sign-In Error:', error);
       Alert.alert('Error: ', error.message);
-
+      
     } finally {
       setLoading(false);
     }
