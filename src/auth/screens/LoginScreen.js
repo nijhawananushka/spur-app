@@ -6,14 +6,14 @@ import SignInWithGoogleButton from '../components/signInButton';
 import AnimatedBubbles from '../components/animatedBubbles';
 
 const LoginScreen = ({ navigation, route }) => {
-  // Check if there is an active user session
-  useEffect(() => {
-    AsyncStorage.getItem('userToken').then((userToken) => {
-      if (userToken) {
-        navigation.replace('Main');
-      }
-    });
-  }, []);
+  // // Check if there is an active user session
+  // useEffect(() => {
+  //   AsyncStorage.getItem('userToken').then((userToken) => {
+  //     if (userToken) {
+  //       navigation.replace('Main');
+  //     }
+  //   });
+  // }, []);
 
   return (
     <View style={styles.container}>
