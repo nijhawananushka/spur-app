@@ -7,15 +7,10 @@ const MainScreen = ({ navigation }) => {
   useEffect(() => {
     AsyncStorage.getItem('userToken').then((userToken) => {
       if (!userToken) {
-        navigation.navigate('Login');
+        navigation.replace('Login');
       }
     });
   }, []);
-
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem('userToken');
-    navigation.navigate('Login');
-  };
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const LogOutButton = ({ navigation }) => {
     const handleLogout = async () => {
         await AsyncStorage.removeItem('userToken');
-        navigation.navigate('Login');
+        navigation.replace('Login');
     };
     return (
         <Button title="Logout" onPress={handleLogout} />
