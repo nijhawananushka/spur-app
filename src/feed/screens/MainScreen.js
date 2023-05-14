@@ -9,6 +9,8 @@ import { useState } from 'react';
 const MainScreen = ({ navigation }) => {
   const [user, setUser] = useState(null);
   const [greetingMessage, setGreetingMessage] = useState('');
+  const [today, setToday] = useState('');
+  const [tomorrow, setTomorrow] = useState('');
 
   useEffect(() => {
     AsyncStorage.getItem('userToken').then((userToken) => {
@@ -30,6 +32,11 @@ const MainScreen = ({ navigation }) => {
     } else {
       setGreetingMessage('good evening');
     }
+    setToday(currentDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' }));
+
+    const tomorrowDate = new Date(currentDate);
+    tomorrowDate.setDate(currentDate.getDate() + 1);
+    setTomorrow(tomorrowDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' }));
   }, []);
 
   return (
@@ -37,6 +44,13 @@ const MainScreen = ({ navigation }) => {
       <Text style={mainScreenStyles.header}> {`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`} </Text>
       <View style={mainScreenStyles.logoContainer}>
         <Text style={mainScreenStyles.logo}>spur</Text>
+      </View>
+      <View style={mainScreenStyles.scrollContainer}>
+        <Text style={mainScreenStyles.subheadings}>your spurs</Text>
+      </View>
+      <View style={mainScreenStyles.scrollContainer}>
+        <Text style={mainScreenStyles.subheadings}>today, {today.toLowerCase()}</Text>
+        <Text style={mainScreenStyles.subheadings}>tomorrow, {tomorrow.toLowerCase()}</Text>
       </View>
       <LogOutButton navigation={navigation} />   
     </View>
