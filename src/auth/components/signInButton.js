@@ -18,19 +18,21 @@ const SignInWithGoogleButton = ({ navigation }) => {
       setLoading(true);
       await GoogleSignin.hasPlayServices();
       const { idToken } = await GoogleSignin.signIn();
-
+    
       // Sign in with Firebase using the Google ID token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      await auth().signInWithCredential(googleCredential);
+      const userCredential = await auth().signInWithCredential(googleCredential);
+      const userUid = userCredential.user.uid;
+      const user = await firestore().collection('UserProfiles').doc(userUid).get();
 
-      const user = await firestore().collection('userProfiles').doc(idToken).get();
       if (user.exists) {
         // User document exists, navigate to Main Screen
         await AsyncStorage.setItem('userToken', idToken);
+        await AsyncStorage.setItem('uid', user.data().uid);
         navigation.replace('Main');
       } else {
         // User document doesn't exist, navigate to Onboarding Screen
-        navigation.navigate('Onboard');
+        navigation.navigate('Onboard', {idToken});
       }
 
     } catch (error) {

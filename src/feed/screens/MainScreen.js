@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LogOutButton from '../components/logOutButton';
+import firestore from '@react-native-firebase/firestore';
 
 const MainScreen = ({ navigation }) => {
   useEffect(() => {
