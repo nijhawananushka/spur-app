@@ -3,7 +3,6 @@ import { Animated } from 'react-native';
 import { Svg, Ellipse } from 'react-native-svg';
 import bubbleStyles from '../styles/components/animatedBubblesStyles';
 
-
 const AnimatedBubbles = () => {
   const moveAnimation1 = useRef(new Animated.Value(0)).current;
   const moveAnimation2 = useRef(new Animated.Value(0)).current;
