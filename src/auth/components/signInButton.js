@@ -24,7 +24,7 @@ const SignInWithGoogleButton = ({ navigation }) => {
       await AsyncStorage.setItem('userToken', idToken);
 
       // Navigate to Main Screen
-      navigation.replaceState('Main');
+      navigation.replace('Main');
 
     } catch (error) {
       console.log('Google Sign-In Error:', error);
