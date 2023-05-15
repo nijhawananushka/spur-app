@@ -4,8 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './src/auth/screens/LoginScreen';
 import MainScreen from './src/feed/screens/MainScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import OnboardingScreen from './src/auth/screens/OnboardingScreen';
-
+import OnboardingScreen from './src/auth/screens/OnboardingScreenUsername';
+import AddFriendsOnboarding from './src/auth/screens/addFriendsOnboarding';
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -40,6 +40,11 @@ const RootStack = () => {
         <Stack.Screen 
           name="Onboard" 
           component={OnboardingScreen} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="OnboardFriends" 
+          component={AddFriendsOnboarding} 
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
