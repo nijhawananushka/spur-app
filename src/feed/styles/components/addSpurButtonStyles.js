@@ -2,10 +2,19 @@ import { StyleSheet } from "react-native";
 
 const addSpurButtonStyles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        justifyContent: 'flex-end',
         alignItems: 'center',
+        zIndex: 3,
     },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        zIndex: -1,
+    },    
     button1: {
         top: 0,
         left: 0,
@@ -13,7 +22,7 @@ const addSpurButtonStyles = StyleSheet.create({
         width: 70,
         height: 70,
         borderRadius: 35,
-        backgroundColor: 'rgba(225, 91, 33, 0.3)',
+        backgroundColor: '#f7cebd',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -21,7 +30,7 @@ const addSpurButtonStyles = StyleSheet.create({
         top: 0,
         right: 0,
         position: 'absolute',
-        backgroundColor: 'rgba(225, 91, 33, 0.1)',
+        backgroundColor: '#fdefe9',
         borderRadius: 35,
         width: 70,
         height: 70,

@@ -1,7 +1,7 @@
 import addSpurButtonStyles from '../styles/components/addSpurButtonStyles';
 import HapticFeedback from 'react-native-haptic-feedback';
 import React, { useState } from 'react';
-import { TouchableOpacity, Animated, Text, StyleSheet, View, Alert, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { TouchableOpacity, Animated, Text, View, Alert, Dimensions, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 
 const AddSpurButton = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -86,16 +86,15 @@ const AddSpurButton = () => {
     }
   };
 
-
   const mainButtonContent = isExpanded ? (
     <Animated.View style={{ width: containerSize, height: containerSize }}>
       <Animated.View style={[ spur1Transform ]}>
-        <TouchableOpacity style={addSpurButtonStyles.button1} onPress={onPressButton1} pointerEvents="box-none">
+        <TouchableOpacity style={addSpurButtonStyles.button1} onPress={onPressButton1} pointerEvents="box-none" activeOpacity={1}>
           <Text> 1 </Text>
         </TouchableOpacity>
       </Animated.View>
       <Animated.View style={[ spur2Transform ]} >
-        <TouchableOpacity style={addSpurButtonStyles.button2} onPress={onPressButton2} pointerEvents="box-none">
+        <TouchableOpacity style={addSpurButtonStyles.button2} onPress={onPressButton2} pointerEvents="box-none" activeOpacity={1}>
           <Text> 2 </Text>
         </TouchableOpacity>
       </Animated.View>
@@ -104,34 +103,27 @@ const AddSpurButton = () => {
       <Text style = {addSpurButtonStyles.plusButtonText}> + </Text>    
     );
 
+    const styles = StyleSheet.create({
+        plusButton: {
+            ...addSpurButtonStyles.plusButton,
+            bottom: Dimensions.get('window').height * 0.03,
+        },
+        overlay: {
+            ...addSpurButtonStyles.overlay,
+            backgroundColor: isExpanded ? 'rgba(0, 0, 0, 0.15)' : 'rgba(0, 0, 0, 0)',
+        },
+    });   
+    
     return (
-        <View style={styles.container}>
+        <View style={addSpurButtonStyles.container}>
           <TouchableWithoutFeedback onPress={collapseButtons}>
             <View style={styles.overlay} pointerEvents={isExpanded ? 'auto' : 'none'} />
           </TouchableWithoutFeedback>
-          <TouchableOpacity style={addSpurButtonStyles.plusButton} onPress={toggleButton}> 
+          <TouchableOpacity style={styles.plusButton} onPress={toggleButton}> 
             {mainButtonContent}
           </TouchableOpacity>
         </View>
-      );
-    };
-    
-    const styles = StyleSheet.create({
-      container: {
-        bottom: Dimensions.get('window').height * 0.03,
-        flex: 1,
-        position: 'relative',
-        justifyContent: 'flex-end',
-        alignItems: 'center',    
-    },
-    overlay: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'transparent',
-      },    
-});
-    
-export default AddSpurButton;
+    );
+};
 
-        //   /* {isExpanded && (
-        //     <TouchableOpacity style={styles.overlay} onPress={onOverlayPress} activeOpacity={1} /> */}
-        //     )}
+export default AddSpurButton;
