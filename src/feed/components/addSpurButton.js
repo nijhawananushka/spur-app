@@ -1,7 +1,7 @@
 import addSpurButtonStyles from '../styles/components/addSpurButtonStyles';
 import HapticFeedback from 'react-native-haptic-feedback';
 import React, { useState } from 'react';
-import { TouchableOpacity, Animated, Text, StyleSheet, View, Alert, Dimensions } from 'react-native';
+import { TouchableOpacity, Animated, Text, StyleSheet, View, Alert, Dimensions, TouchableWithoutFeedback } from 'react-native';
 
 const AddSpurButton = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -80,6 +80,13 @@ const AddSpurButton = () => {
     Alert.alert('Button 2 pressed');
   };
 
+  const collapseButtons = () => {
+    if (isExpanded) {
+      toggleButton();
+    }
+  };
+
+
   const mainButtonContent = isExpanded ? (
     <Animated.View style={{ width: containerSize, height: containerSize }}>
       <Animated.View style={[ spur1Transform ]}>
@@ -99,6 +106,9 @@ const AddSpurButton = () => {
 
     return (
         <View style={styles.container}>
+          <TouchableWithoutFeedback onPress={collapseButtons}>
+            <View style={styles.overlay} pointerEvents={isExpanded ? 'auto' : 'none'} />
+          </TouchableWithoutFeedback>
           <TouchableOpacity style={addSpurButtonStyles.plusButton} onPress={toggleButton}> 
             {mainButtonContent}
           </TouchableOpacity>
@@ -108,10 +118,20 @@ const AddSpurButton = () => {
     
     const styles = StyleSheet.create({
       container: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        top: 275,
+        bottom: Dimensions.get('window').height * 0.03,
+        flex: 1,
+        position: 'relative',
+        justifyContent: 'flex-end',
+        alignItems: 'center',    
     },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'transparent',
+      },    
 });
     
 export default AddSpurButton;
+
+        //   /* {isExpanded && (
+        //     <TouchableOpacity style={styles.overlay} onPress={onOverlayPress} activeOpacity={1} /> */}
+        //     )}
