@@ -16,7 +16,6 @@ const textInputStyles = StyleSheet.create({
     paddingBottom: 5,
     paddingTop: 0, // Adjust this value to vertically align the cursor with the placeholder
     fontSize: 20,
-
   },
   placeholderContainer: {
     position: 'absolute',
@@ -28,15 +27,6 @@ const textInputStyles = StyleSheet.create({
     fontSize: 20,
     color: '#9E9E9E',
     paddingLeft: 12,
-    
-
-  },
-  buttonContainer: {
-    marginTop: 30,
-  },
-  buttonText: {
-    fontSize: 30,
-    marginTop: 10,
   },
 });
 

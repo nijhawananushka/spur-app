@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TextInputComponent from '../components/textInput';
-import textInputStyles from '../styles/components/textInputStyles';
+import logInButtonStyles from '../styles/components/signInButtonStyles';
 
 const OnboardingScreen = ({ navigation, route }) => {
   const [loading, setLoading] = useState(true);
@@ -39,8 +39,8 @@ const OnboardingScreen = ({ navigation, route }) => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <TextInputComponent onUsernameChange={handleUsernameChange} />
-      <TouchableOpacity style={textInputStyles.buttonContainer} onPress={registerUserToFireStore}>
-        <Text style={textInputStyles.buttonText}>Register</Text>
+      <TouchableOpacity style={[logInButtonStyles.googleButton, {marginTop: '20%'}]} onPress={registerUserToFireStore}>
+        <Text style={logInButtonStyles.buttonText}>Register</Text>
       </TouchableOpacity>
     </View>
   );
