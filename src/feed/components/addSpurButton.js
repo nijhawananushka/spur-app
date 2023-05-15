@@ -50,16 +50,17 @@ const AddSpurButton = () => {
       {
         translateX: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [0, -15],
+          outputRange: [-5, -15],
         }),
       },
       {
         translateY: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [0, -40],
+          outputRange: [-5, -40],
         }),
       },
     ],
+    opacity: animation,
   };
 
   const spur2Transform = {
@@ -67,16 +68,17 @@ const AddSpurButton = () => {
       {
         translateX: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [0, 15],
+          outputRange: [-5, 15],
         }),
       },
       {
         translateY: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [0, -40],
+          outputRange: [-5, -40],
         }),
       },
     ],
+    opacity: animation,
   };
   const onPressButton1 = () => {
     console.log('Button 1 pressed');
@@ -122,10 +124,3 @@ const AddSpurButton = () => {
 });
     
 export default AddSpurButton;
-    
-    
-    
-    
-    
-    
-    
