@@ -30,6 +30,7 @@ const TextInputComponent = ({ onUsernameChange }) => {
         value={text}
         onChangeText={handleTextChange}
         onSubmitEditing={handleTextSubmit}
+        autoCorrect={false} // Disable autocorrect
       />
       <View style={textInputStyles.placeholderContainer}>
         {isPlaceholderVisible && <Text style={textInputStyles.placeholder}>Enter Username</Text>}
