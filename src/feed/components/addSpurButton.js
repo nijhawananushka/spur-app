@@ -110,15 +110,17 @@ const AddSpurButton = () => {
         },
         overlay: {
             ...addSpurButtonStyles.overlay,
-            backgroundColor: isExpanded ? 'rgba(0, 0, 0, 0.15)' : 'rgba(0, 0, 0, 0)',
+            backgroundColor: isExpanded ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0)',
         },
     });   
     
     return (
-        <View style={addSpurButtonStyles.container}>
-          <TouchableWithoutFeedback onPress={collapseButtons}>
-            <View style={styles.overlay} pointerEvents={isExpanded ? 'auto' : 'none'} />
-          </TouchableWithoutFeedback>
+        <View style={addSpurButtonStyles.container} pointerEvents='box-none'>
+            {isExpanded && (
+            <TouchableWithoutFeedback onPress={collapseButtons}>
+                <View style={styles.overlay} pointerEvents="auto" />
+            </TouchableWithoutFeedback>
+            )}
           <TouchableOpacity style={styles.plusButton} onPress={toggleButton}> 
             {mainButtonContent}
           </TouchableOpacity>

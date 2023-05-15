@@ -9,11 +9,9 @@ const addSpurButtonStyles = StyleSheet.create({
         left: 0,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        zIndex: 3,
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        zIndex: -1,
     },    
     button1: {
         top: 0,
