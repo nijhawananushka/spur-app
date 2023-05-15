@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './src/auth/screens/LoginScreen';
@@ -6,6 +6,8 @@ import MainScreen from './src/feed/screens/MainScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreen from './src/auth/screens/OnboardingScreenUsername';
 import AddFriendsOnboarding from './src/auth/screens/addFriendsOnboarding';
+import AddEventScreen from './src/addEvent/screen/AddEventScreen';
+
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -23,6 +25,25 @@ const RootStack = () => {
     });
   }, []);
 
+  const verticalAnimation = {
+    gestureDirection: 'vertical',
+    headerShown: false,
+    cardStyleInterpolator: ({ current, layouts }) => {
+      return {
+        cardStyle: {
+          transform: [
+            {
+              translateY: current.progress.interpolate({
+                inputRange: [0, 1],
+                outputRange: [layouts.screen.height, 0],
+              }),
+            },
+          ],
+        },
+      };
+    },
+  };
+  
   if (!isLoading) {
     return (
       <Stack.Navigator initialRouteName={initialRoute}>
@@ -47,6 +68,10 @@ const RootStack = () => {
           component={AddFriendsOnboarding} 
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="AddEvent"
+          component={AddEventScreen}
+          options={verticalAnimation}/>
       </Stack.Navigator>
     );
   }

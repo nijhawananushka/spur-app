@@ -2,8 +2,10 @@ import addSpurButtonStyles from '../styles/components/addSpurButtonStyles';
 import HapticFeedback from 'react-native-haptic-feedback';
 import React, { useState } from 'react';
 import { TouchableOpacity, Animated, Text, View, Alert, Dimensions, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { TransitionPresets } from '@react-navigation/stack';
 
-const AddSpurButton = () => {
+const AddSpurButton = ({ navigation }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [animation] = useState(new Animated.Value(0))
   const buttonSize = Dimensions.get('window').width * 0.15;
@@ -53,7 +55,7 @@ const AddSpurButton = () => {
     opacity: animation,
   };
 
-   // Animation details and coordinates for Button 1
+   // Animation details and coordinates for Button 2
   const spur2Transform = {
     transform: [
       {
@@ -71,11 +73,14 @@ const AddSpurButton = () => {
     ],
     opacity: animation,
   };
+
   const onPressButton1 = () => {
-    console.log('Button 1 pressed');
-    Alert.alert('Button 1 pressed');
+    toggleButton();
+    navigation.navigate('AddEvent');
   };
+  
   const onPressButton2 = () => {
+    toggleButton();
     console.log('Button 2 pressed');
     Alert.alert('Button 2 pressed');
   };
