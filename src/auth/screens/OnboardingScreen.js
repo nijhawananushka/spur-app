@@ -5,6 +5,7 @@ import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TextInputComponent from '../components/textInput';
 import logInButtonStyles from '../styles/components/signInButtonStyles';
+import HapticFeedback from 'react-native-haptic-feedback';
 
 const OnboardingScreen = ({ navigation, route }) => {
   const [loading, setLoading] = useState(true);
@@ -13,6 +14,7 @@ const OnboardingScreen = ({ navigation, route }) => {
 
   const registerUserToFireStore = async () => {
     // Get the user profile
+    HapticFeedback.trigger('selection');
     const user = auth().currentUser;
     const userProfile = {
       displayName: user.displayName,

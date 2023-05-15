@@ -26,9 +26,9 @@ const MainScreen = ({ navigation }) => {
 
     const currentDate = new Date();
     const currentHour = currentDate.getHours();
-    if (currentHour < 12) {
+    if (6 < currentHour && currentHour < 12) {
       setGreetingMessage('good morning');
-    } else if (currentHour < 18) {
+    } else if (12 <= currentHour && currentHour < 18) {
       setGreetingMessage('good afternoon');
     } else {
       setGreetingMessage('good evening');
