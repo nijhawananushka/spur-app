@@ -21,6 +21,7 @@ const AddSpurButton = () => {
   const [animation] = useState(new Animated.Value(0));
 
   const toggleButton = () => {
+    HapticFeedback.trigger('selection');
     if (isExpanded) {
       Animated.timing(animation, {
         toValue: 0,
@@ -37,7 +38,6 @@ const AddSpurButton = () => {
         duration: 300,
         useNativeDriver: true,
       }).start(() => {
-        HapticFeedback.trigger('selection');
     });
     }
   };
