@@ -14,7 +14,7 @@ import HapticFeedback from 'react-native-haptic-feedback';
 
 // export default AddSpurButton;
 import React, { useState } from 'react';
-import { TouchableOpacity, Animated, Text, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, Animated, Text, StyleSheet, View, Alert } from 'react-native';
 
 const AddSpurButton = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -78,29 +78,35 @@ const AddSpurButton = () => {
       },
     ],
   };
+  const onPressButton1 = () => {
+    console.log('Button 1 pressed');
+    Alert.alert('Button 1 pressed');
+  };
+  const onPressButton2 = () => {
+    console.log('Button 2 pressed');
+    Alert.alert('Button 2 pressed');
+  };
 
   const mainButtonContent = isExpanded ? (
     <Animated.View style={{ width: containerSize, height: containerSize }}>
-      <Animated.View style={[ spur1Transform, addSpurButtonStyles.button1 ]}>
-        <Text> 1 </Text>
+      <Animated.View style={[ spur1Transform ]}>
+        <TouchableOpacity style={addSpurButtonStyles.button1} onPress={onPressButton1}>
+          <Text> 1 </Text>
+        </TouchableOpacity>
       </Animated.View>
-      <Animated.View
-        style={[
-          spur2Transform,
-          addSpurButtonStyles.button2,
-        ]}>
-        <Text> 2 </Text>
+      <Animated.View style={[ spur2Transform, addSpurButtonStyles.button2 ]}>
+        <TouchableOpacity onPress={onPressButton2}>
+          <Text> 2 </Text>
+        </TouchableOpacity>
       </Animated.View>
     </Animated.View>
     ) : (
-        <Text style = {addSpurButtonStyles.buttonText}> + </Text>    
+      <Text style = {addSpurButtonStyles.buttonText}> + </Text>    
     );
 
     return (
         <View style={styles.container}>
-          <TouchableOpacity
-            style={addSpurButtonStyles.plusButton}
-            onPress={toggleButton}>
+          <TouchableOpacity style={addSpurButtonStyles.plusButton} onPress={toggleButton}> 
             {mainButtonContent}
           </TouchableOpacity>
         </View>
