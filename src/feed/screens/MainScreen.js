@@ -5,6 +5,7 @@ import LogOutButton from '../components/logOutButton';
 import mainScreenStyles from '../styles/MainScreenStyles';
 import firestore from '@react-native-firebase/firestore';
 import { useState } from 'react';
+import AddSpurButton from '../components/addSpurButton';
 
 const MainScreen = ({ navigation }) => {
   const [user, setUser] = useState(null);
@@ -52,7 +53,10 @@ const MainScreen = ({ navigation }) => {
         <Text style={mainScreenStyles.subheadings}>today, {today.toLowerCase()}</Text>
         <Text style={mainScreenStyles.subheadings}>tomorrow, {tomorrow.toLowerCase()}</Text>
       </View>
-      <LogOutButton navigation={navigation} />   
+      <View style={mainScreenStyles.buttonContainer}>
+        <LogOutButton navigation={navigation} />   
+      </View>
+      <AddSpurButton></AddSpurButton>
     </View>
   );
 };
