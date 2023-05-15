@@ -8,7 +8,7 @@ const AddSpurButton = () => {
   const [animation] = useState(new Animated.Value(0))
   const buttonSize = Dimensions.get('window').width * 0.15;
   const containerSize = buttonSize * 2.2;
-  const x_coord = Dimensions.get('window').width * 0.04;
+  const x_coord = Dimensions.get('window').width * 0.06;
   const y_coord = Dimensions.get('window').height * 0.05;
   
   // Toggling Animation
@@ -83,12 +83,12 @@ const AddSpurButton = () => {
   const mainButtonContent = isExpanded ? (
     <Animated.View style={{ width: containerSize, height: containerSize }}>
       <Animated.View style={[ spur1Transform ]}>
-        <TouchableOpacity style={addSpurButtonStyles.button1} onPress={onPressButton1}>
+        <TouchableOpacity style={addSpurButtonStyles.button1} onPress={onPressButton1} pointerEvents="box-none">
           <Text> 1 </Text>
         </TouchableOpacity>
       </Animated.View>
-      <Animated.View style={[ spur2Transform, addSpurButtonStyles.button2 ]}>
-        <TouchableOpacity onPress={onPressButton2}>
+      <Animated.View style={[ spur2Transform ]} >
+        <TouchableOpacity style={addSpurButtonStyles.button2} onPress={onPressButton2} pointerEvents="box-none">
           <Text> 2 </Text>
         </TouchableOpacity>
       </Animated.View>
