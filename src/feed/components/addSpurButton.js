@@ -1,25 +1,17 @@
-// import React from 'react';
-// import { View, Text, TouchableOpacity } from 'react-native';
 import addSpurButtonStyles from '../styles/components/addSpurButtonStyles';
 import HapticFeedback from 'react-native-haptic-feedback';
-// const AddSpurButton = () => {
-//   return (
-//     <View style={addSpurButtonStyles.container}>
-//       <TouchableOpacity style={addSpurButtonStyles.button}>
-//         <Text style={addSpurButtonStyles.buttonText}>+</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// };
-
-// export default AddSpurButton;
 import React, { useState } from 'react';
-import { TouchableOpacity, Animated, Text, StyleSheet, View, Alert } from 'react-native';
+import { TouchableOpacity, Animated, Text, StyleSheet, View, Alert, Dimensions } from 'react-native';
 
 const AddSpurButton = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [animation] = useState(new Animated.Value(0));
-
+  const [animation] = useState(new Animated.Value(0))
+  const buttonSize = Dimensions.get('window').width * 0.15;
+  const containerSize = buttonSize * 2.2;
+  const x_coord = Dimensions.get('window').width * 0.04;
+  const y_coord = Dimensions.get('window').height * 0.05;
+  
+  // Toggling Animation
   const toggleButton = () => {
     HapticFeedback.trigger('selection');
     if (isExpanded) {
@@ -42,39 +34,38 @@ const AddSpurButton = () => {
     }
   };
 
-  const buttonSize = 70;
-  const containerSize = buttonSize * 2;
-
+  // Animation details and coordinates for Button 1
   const spur1Transform = {
     transform: [
       {
         translateX: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [-5, -15],
+          outputRange: [0, -x_coord],
         }),
       },
       {
         translateY: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [-5, -40],
+          outputRange: [0, -y_coord],
         }),
       },
     ],
     opacity: animation,
   };
 
+   // Animation details and coordinates for Button 1
   const spur2Transform = {
     transform: [
       {
         translateX: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [-5, 15],
+          outputRange: [0, x_coord],
         }),
       },
       {
         translateY: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: [-5, -40],
+          outputRange: [0, -y_coord],
         }),
       },
     ],
@@ -103,7 +94,7 @@ const AddSpurButton = () => {
       </Animated.View>
     </Animated.View>
     ) : (
-      <Text style = {addSpurButtonStyles.buttonText}> + </Text>    
+      <Text style = {addSpurButtonStyles.plusButtonText}> + </Text>    
     );
 
     return (
