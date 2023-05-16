@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, Alert, Image, StyleSheet, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
-const Camera = ({ onPhotoTaken }) => {
+const Camera = ({ onPhotoTaken, prop2 }) => {
   const [imageURI, setImageURI] = useState(null);
   const [cameraType, setCameraType] = useState(RNCamera.Constants.Type.back);
   const [isPhotoTaken, setIsPhotoTaken] = useState(false);
@@ -53,7 +53,7 @@ const Camera = ({ onPhotoTaken }) => {
                 <View style={[styles.cameraCaptureButtonContainer, {width: '40%', justifyContent: 'space-between'}]}>
                     <TouchableOpacity
                         style={[styles.acceptPhoto, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
-                        onPress={() => onPhotoTaken(imageURI)}
+                        onPress={() => { onPhotoTaken(imageURI); prop2(false);}}
                     />
                     <TouchableOpacity
                         style={[styles.acceptPhoto, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
