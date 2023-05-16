@@ -27,7 +27,6 @@
 		77938ABAC03948C9BB142ADC /* Inter-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = FC426A69FD9E41858D7F327A /* Inter-ExtraBoldItalic.otf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		824C94A3BA3241E58D7E4AF0 /* Inter-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2BDA0AE9F61C4FAB892D13BE /* Inter-BlackItalic.otf */; };
-		9B08B5DA2A140F1300051D4D /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 9B08B5D92A140F1300051D4D /* fonts */; };
 		9C99A30CCFF3BDED13D36CA7 /* Pods_spurapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C957F93ACA390EC133D52A93 /* Pods_spurapp.framework */; };
 		BABCFAAE870B2CC6DBF914B9 /* Pods_spurapp_spurappTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E481D19B07B67C236B2B46 /* Pods_spurapp_spurappTests.framework */; };
 		BF066357B5A44A3F9E1FB644 /* Inter-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = AD537FF6310E4649AE00187C /* Inter-ExtraBold.otf */; };
@@ -73,7 +72,6 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = spurapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-spurapp-spurappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spurapp-spurappTests.release.xcconfig"; path = "Target Support Files/Pods-spurapp-spurappTests/Pods-spurapp-spurappTests.release.xcconfig"; sourceTree = "<group>"; };
 		8C3CDAA6088042E3A46CC52E /* Inter-LightItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-LightItalic.otf"; path = "../assets/fonts/Inter-LightItalic.otf"; sourceTree = "<group>"; };
-		9B08B5D92A140F1300051D4D /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = "../node_modules/react-native-ionicons/fonts"; sourceTree = "<group>"; };
 		A6008DDAC58F4530915305AD /* Inter-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Light.otf"; path = "../assets/fonts/Inter-Light.otf"; sourceTree = "<group>"; };
 		AD537FF6310E4649AE00187C /* Inter-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraBold.otf"; path = "../assets/fonts/Inter-ExtraBold.otf"; sourceTree = "<group>"; };
 		B5594D9109CD4D7AB78F5465 /* Inter-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.otf"; path = "../assets/fonts/Inter-Medium.otf"; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 				BDE175A543DB4D7C8EC82ED5 /* Inter-Thin.otf */,
 				05CDFDBEED3E479A840BBBA7 /* Inter-ThinItalic.otf */,
 				0276B95B4C544B2B99D5E6C1 /* Inter-V.ttf */,
-				9B08B5D92A140F1300051D4D /* fonts */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -272,7 +269,8 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1210;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -324,7 +322,6 @@
 				BF066357B5A44A3F9E1FB644 /* Inter-ExtraBold.otf in Resources */,
 				77938ABAC03948C9BB142ADC /* Inter-ExtraBoldItalic.otf in Resources */,
 				40CB7C4C024145958CBE1A5F /* Inter-ExtraLight.otf in Resources */,
-				9B08B5DA2A140F1300051D4D /* fonts in Resources */,
 				15F24A7568B7494DAD73D56F /* Inter-ExtraLightItalic.otf in Resources */,
 				41A7F766E850425680843D1A /* Inter-Italic.otf in Resources */,
 				E5BD684D369E456D8D9954A3 /* Inter-Light.otf in Resources */,
@@ -538,6 +535,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-spurapp-spurappTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -565,6 +563,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-spurapp-spurappTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = spurappTests/Info.plist;
