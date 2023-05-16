@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput, Text, KeyboardAvoidingView, Keyboard } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { StyleSheet } from 'react-native';
 
 const TitleInputComponent = ({ onTitleChange }) => {
   const [title, setTitle] = useState('');
   const [titlePlaceholderVisible, setTitlePlaceholderVisible] = useState(true);
   const textInputRef = useRef(null);
-
+  
   useEffect(() => {
     textInputRef.current.focus();
   }, []);
@@ -36,32 +38,37 @@ const DescriptionInputComponent = ({ onDescriptionChange }) => {
   const [description, setDescription] = useState('');
   const [isPlaceholderVisible, setIsPlaceholderVisible] = useState(true);
   const textInputRef = useRef(null);
+  const scrollViewRef = useRef(null);
 
   const handleTextChange = (newText) => {
     setDescription(newText);
     setIsPlaceholderVisible(newText === '');
-    onDescriptionChange(newText); // Pass the updated description to the parent component
+    onDescriptionChange(newText); 
+    scrollViewRef.current?.scrollToEnd({ animated: true });
   };
 
   return (
-    <View style={textInputStyles.descriptionContainer}>
-      <View style={textInputStyles.descriptionPlaceholderContainer}>
-        {isPlaceholderVisible && <Text style={textInputStyles.descriptionPlaceholder}>what would you like to do?</Text>}
-      </View>
-      <TextInput
-        style={textInputStyles.descriptionTextInput}
-        ref={textInputRef}
-        selectionColor={'black'}
-        value={description}
-        onChangeText={handleTextChange}
-        onFocus={() => setIsPlaceholderVisible(false)}
-        onBlur={() => setIsPlaceholderVisible(description === '')}
-      />
-    </View>
+    <KeyboardAwareScrollView
+        contentContainerStyle={textInputStyles.descriptionContainer}
+        innerRef={scrollViewRef}>
+        <View style={textInputStyles.descriptionPlaceholderContainer}>
+          {isPlaceholderVisible && <Text style={textInputStyles.descriptionPlaceholder}>what would you like to do?</Text>}
+        </View>
+        <TextInput
+          style={textInputStyles.descriptionTextInput}
+          ref={textInputRef}
+          selectionColor={'black'}
+          value={description}
+          onChangeText={handleTextChange}
+          onFocus={() => setIsPlaceholderVisible(false)}
+          onBlur={() => setIsPlaceholderVisible(description === '')}
+          numberOfLines={5} // Specify the initial number of lines to display
+          textAlignVertical="top" // Align text to the top of the input
+          multiline={true} // Allow multiple lines
+        />
+    </KeyboardAwareScrollView>
   );
 };
-
-import { StyleSheet } from 'react-native';
 
 const textInputStyles = StyleSheet.create({
   titleContainer: {
@@ -97,7 +104,7 @@ const textInputStyles = StyleSheet.create({
     paddingTop: '2%',
     paddingLeft: '3%',
   },
-  descriptionTextInput: {
+      descriptionTextInput: {
     fontFamily: 'Inter',
     fontStyle: 'normal',
     fontWeight: '300',
@@ -118,8 +125,5 @@ const textInputStyles = StyleSheet.create({
     color: 'black',
   },
 });
-
-export default textInputStyles;
-
 
 export { TitleInputComponent, DescriptionInputComponent };
