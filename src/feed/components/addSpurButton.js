@@ -3,7 +3,7 @@ import HapticFeedback from 'react-native-haptic-feedback';
 import React, { useState } from 'react';
 import { TouchableOpacity, Animated, Text, View, Alert, Dimensions, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 
-const AddSpurButton = () => {
+const AddSpurButton = ({navigation}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [animation] = useState(new Animated.Value(0))
   const buttonSize = Dimensions.get('window').width * 0.15;
@@ -72,6 +72,7 @@ const AddSpurButton = () => {
     opacity: animation,
   };
   const onPressButton1 = () => {
+    navigation.replace("EventsRendering") // this is just for testing for now
     console.log('Button 1 pressed');
     Alert.alert('Button 1 pressed');
   };
