@@ -18,7 +18,13 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>UIAppFonts</key>
+	<array/>
+	<key>CFBundleDisplayName</key>
+	<string></string>
 </dict>
 </plist>
