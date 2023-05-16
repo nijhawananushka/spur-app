@@ -6,14 +6,15 @@ const styles = StyleSheet.create({
     marginBottom: 10, // Adjust the margin bottom as per your preference
   },
     card: {
-        width: '90%',
-        height: '50%',
+        width: 250,
+        height: 150,
         backgroundColor: '#FFFFFF',
         borderColor: '#AEABAB',
         borderWidth: 2,
         borderRadius: 15,
         padding: 10,
-        margin: 20,
+        marginTop: 20,
+        marginRight: 20,
         fontFamily: 'Inter',
     },
     title: {

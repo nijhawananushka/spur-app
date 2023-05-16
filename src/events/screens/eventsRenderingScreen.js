@@ -5,7 +5,9 @@ import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "../styles/screens/eventRenderingScreenStyles";
-const EventRenderingScreen = () => {
+import AddSpurButton from '../../feed/components/addSpurButton';
+
+const EventRenderingScreen = ({navigation}) => {
     const [myEvents, setMyEvents] = useState([]);
     const [otherEvents, setOtherEvents] = useState([]);
 
@@ -100,6 +102,7 @@ const EventRenderingScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+    <View style={styles.contentContainer}>
       <Text style={styles.headerText}>your spurs</Text>
       <View style={styles.myEventsContainer}>
         <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
@@ -108,8 +111,13 @@ const EventRenderingScreen = () => {
       <View style={styles.otherEvents}>
         <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
       </View>
-    </SafeAreaView>
+    </View>
+    {/* <View style={styles.addSpurContainer}> */}
+      <AddSpurButton navigation={navigation} />
+    {/* </View> */}
+  </SafeAreaView>
   );
 };
+
 
 export default EventRenderingScreen;
