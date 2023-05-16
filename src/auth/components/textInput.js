@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, TextInput, Text } from 'react-native';
 import textInputStyles from '../styles/components/textInputStyles';
+import { checkUsernameExists } from './usernameValidation';
 
 const TextInputComponent = ({ onUsernameChange }) => {
   const [text, setText] = useState('');
   const [isPlaceholderVisible, setIsPlaceholderVisible] = useState(true);
+  const [isUsernameValid, setIsUsernameValid] = useState(true);
   const textInputRef = useRef(null);
 
   useEffect(() => {
@@ -14,27 +16,41 @@ const TextInputComponent = ({ onUsernameChange }) => {
   const handleTextChange = (newText) => {
     setText(newText);
     setIsPlaceholderVisible(newText === '');
-    onUsernameChange(newText); // Pass the updated username to the parent component
+    setIsUsernameValid(true);
+    onUsernameChange(newText);
   };
 
-  const handleTextSubmit = () => {
-    console.log('Submitted:', text);
-    setText('');
+  const handleTextSubmit = async () => {
+    if (text.trim() === '') {
+      setIsUsernameValid(false);
+      return;
+    }
+
+    const usernameExists = await checkUsernameExists(text);
+
+    if (usernameExists) {
+      setIsUsernameValid(false);
+    } else {
+      setIsUsernameValid(true);
+      setText('');
+      onUsernameChange(text);
+    }
   };
 
   return (
     <View style={textInputStyles.container}>
       <TextInput
-        style={textInputStyles.textInput}
+        style={[textInputStyles.textInput, !isUsernameValid && textInputStyles.invalidInput]}
         ref={textInputRef}
         value={text}
         onChangeText={handleTextChange}
         onSubmitEditing={handleTextSubmit}
-        autoCorrect={false} // Disable autocorrect
+        autoCorrect={false}
       />
       <View style={textInputStyles.placeholderContainer}>
         {isPlaceholderVisible && <Text style={textInputStyles.placeholder}>Enter Username</Text>}
       </View>
+      {!isUsernameValid && <Text style={textInputStyles.errorText}>Username is already taken.</Text>}
     </View>
   );
 };
