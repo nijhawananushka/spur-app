@@ -62,6 +62,14 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Click a pretty picture!</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Help us help you plan!</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Want to show the world some more?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Add some spice to your events!</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Black.otf</string>
