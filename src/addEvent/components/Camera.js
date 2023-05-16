@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, Alert, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import CameraStyles from '../styles/components/CameraStyles';
+import HapticFeedback from 'react-native-haptic-feedback';
 
-const Camera = ({ onPhotoTaken, prop2 }) => {
+const Camera = ({ setColor, onPhotoTaken, cameraVisbility }) => {
   const [imageURI, setImageURI] = useState(null);
   const [cameraType, setCameraType] = useState(RNCamera.Constants.Type.back);
   const [isPhotoTaken, setIsPhotoTaken] = useState(false);
@@ -28,79 +30,42 @@ const Camera = ({ onPhotoTaken, prop2 }) => {
   return (
     <View>
         {!isPhotoTaken && 
-        <View style={styles.cameraContainer}>
+          <View style={CameraStyles.cameraPaneContainer}>
             <RNCamera
-            style={styles.cameraPreview}
-            ref={cameraRef}
-            type={cameraType}
-            captureAudio={false}
+              style={CameraStyles.cameraPreview}
+              ref={cameraRef}
+              type={cameraType}
+              captureAudio={false}
             />
-            <View style={styles.cameraCaptureButtonContainer}>
-                <TouchableOpacity
-                    style={[styles.cameraCaptureButton, { width: Dimensions.get('window').width * 0.15, height: Dimensions.get('window').width * 0.15, borderRadius: Dimensions.get('window').width * 0.075 }]}
-                    onPress={takePicture}
-                />
-                <TouchableOpacity
-                    style={[styles.cameraFlipButton, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
-                    onPress={toggleCameraType}
-                />
+            <View style={CameraStyles.cameraCaptureButtonContainer}>
+              <TouchableOpacity
+                style={[CameraStyles.cameraCaptureButton, {backgroundColor: setColor, width: Dimensions.get('window').width * 0.15, height: Dimensions.get('window').width * 0.15, borderRadius: Dimensions.get('window').width * 0.075 }]}
+                onPress={ () => {takePicture(); HapticFeedback.trigger('impactMedium');}}
+              />
+              <TouchableOpacity
+                style={[CameraStyles.cameraFlipButton, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
+                onPress={toggleCameraType}
+              />
             </View>
-        </View>
+          </View>
         }
         {isPhotoTaken &&
-            <View style={styles.cameraContainer}>
-                <Image source={{ uri: imageURI }} style={styles.cameraPreview} />
-                <View style={[styles.cameraCaptureButtonContainer, {width: '40%', justifyContent: 'space-between'}]}>
-                    <TouchableOpacity
-                        style={[styles.acceptPhoto, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
-                        onPress={() => { onPhotoTaken(imageURI); prop2(false);}}
-                    />
-                    <TouchableOpacity
-                        style={[styles.acceptPhoto, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
-                        onPress={() => {setIsPhotoTaken(false); setImageURI(null);}}
-                    />
-                </View>                    
-            </View>
+          <View style={CameraStyles.cameraPaneContainer}>
+            <Image source={{ uri: imageURI }} style={CameraStyles.cameraPreview} />
+            <View style={[CameraStyles.cameraCaptureButtonContainer, {width: '40%', justifyContent: 'space-between'}]}>
+              <TouchableOpacity
+                style={[CameraStyles.acceptPhoto, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
+                onPress={() => { onPhotoTaken(imageURI); cameraVisbility(false); }}
+              />
+              <TouchableOpacity
+                style={[CameraStyles.acceptPhoto, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
+                onPress={() => {setIsPhotoTaken(false); setImageURI(null);}}
+              />
+            </View>                    
+          </View>
         }
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  cameraContainer: {
-    position: 'relative',
-  },
-  cameraPreview: {
-    width: Dimensions.get('window').width,
-    height: '100%',
-    zIndex: -1,
- },
-  cameraCaptureButton: {
-    backgroundColor: 'white',
-    zIndex: 4,
-    position: 'absolute',
-    left: '42.5%',
-  },
-  cameraFlipButton: {
-    backgroundColor: 'grey',
-    zIndex: 4,
-    position: 'absolute',
-    right: '10%',
-    top: '20%'
-  },
-  acceptPhoto: {
-    backgroundColor: 'grey',
-    zIndex: 4,
-  },
-  cameraCaptureButtonContainer: {
-    position: 'absolute',
-    bottom: '20%',
-    width: '100%',
-    height: '15%',
-    flexDirection: 'row',
-    alignSelf: 'center',
-    zIndex: 4,
-  },
-});
-    
-export default Camera
+export default Camera;

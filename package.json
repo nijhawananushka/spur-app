@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-community/slider": "^4.4.2",
     "@react-native-firebase/app": "^17.5.0",
     "@react-native-firebase/auth": "^17.5.0",
     "@react-native-firebase/firestore": "^17.5.0",
@@ -19,6 +20,7 @@
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
     "core-js": "^3.30.2",
+    "deprecated-react-native-prop-types": "^4.1.0",
     "firebase": "^9.22.0",
     "moment": "^2.29.4",
     "react": "18.2.0",

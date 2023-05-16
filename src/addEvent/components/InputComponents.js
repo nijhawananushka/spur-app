@@ -82,7 +82,6 @@ const textInputStyles = StyleSheet.create({
     fontSize: 30,
     lineHeight: 40,
     color: '#666564',
-    selectionWidth: 6,
     paddingTop: '10%', // Adjust this value to vertically align the cursor with the placeholder
   },
   titlePlaceholderContainer: {
