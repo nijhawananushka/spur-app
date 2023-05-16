@@ -3,30 +3,32 @@ import { StyleSheet } from 'react-native';
 const textInputStyles = StyleSheet.create({
   container: {
     position: 'absolute',
-    width: 349,
-    height: 50,
-    left: 39,
-    top: 381.5,
-    padding: 10,
-    marginBottom: 20,
+    width: '80%',
+    paddingBottom: '8%',
+    marginBottom: '10%',
+    lineHeight: 36,
+    fontFamily: 'Inter',
   },
   textInput: {
     borderBottomWidth: 2,
     borderColor: '#000000',
-    paddingBottom: 5,
-    paddingTop: 0, // Adjust this value to vertically align the cursor with the placeholder
+    paddingBottom: '2%',
+    paddingTop: '5%', 
     fontSize: 20,
+    lineHeight: 30,
+    fontFamily: 'Inter',
   },
   placeholderContainer: {
     position: 'absolute',
-    top: 10, // Adjust this value to vertically align the placeholder with the cursor
+    top: '30%',
     left: 0,
     right: 0,
   },
-  placeholder: {
+  placeholderText: {
     fontSize: 20,
     color: '#9E9E9E',
-    paddingLeft: 12,
+    lineHeight: 30,
+    fontFamily: 'Inter',
   },
 });
 

@@ -45,10 +45,11 @@ const TextInputComponent = ({ onUsernameChange }) => {
         value={text}
         onChangeText={handleTextChange}
         onSubmitEditing={handleTextSubmit}
+        selectionColor={'#666564'}
         autoCorrect={false}
       />
       <View style={textInputStyles.placeholderContainer}>
-        {isPlaceholderVisible && <Text style={textInputStyles.placeholder}>Enter Username</Text>}
+        {isPlaceholderVisible && <Text style={textInputStyles.placeholderText}>Enter Username</Text>}
       </View>
       {!isUsernameValid && <Text style={textInputStyles.errorText}>Username is already taken.</Text>}
     </View>

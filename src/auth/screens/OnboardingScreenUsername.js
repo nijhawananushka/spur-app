@@ -7,6 +7,8 @@ import TextInputComponent from '../components/textInput';
 import logInButtonStyles from '../styles/components/signInButtonStyles';
 import HapticFeedback from 'react-native-haptic-feedback';
 import { checkUsernameExists } from '../components/usernameValidation';
+import {Animated,  Easing } from 'react-native';
+import { useEffect } from 'react';
 
 const OnboardingScreen = ({ navigation, route }) => {
   const [loading, setLoading] = useState(true);
@@ -14,6 +16,49 @@ const OnboardingScreen = ({ navigation, route }) => {
   const [username, setUsername] = useState('');
   const [isUsernameTaken, setIsUsernameTaken] = useState(false);
   const [isInvalidCharacters, setIsInvalidCharacters] = useState(false);
+  const [shouldShake, setShouldShake] = useState(false);
+  const shakeAnimation = new Animated.Value(0);
+
+  useEffect(() => {
+    if (shouldShake) {
+      startShakeAnimation();
+    }
+  }, [shouldShake]);
+
+  const startShakeAnimation = () => {
+    shakeAnimation.setValue(0);
+    Animated.sequence([
+      Animated.timing(shakeAnimation, {
+        toValue: 1,
+        duration: 50,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -1,
+        duration: 50,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 50,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const shakeTransformStyle = {
+    transform: [
+      {
+        translateX: shakeAnimation.interpolate({
+          inputRange: [-1, 1],
+          outputRange: [-5, 5],
+        }),
+      },
+    ],
+  };
 
   const registerUserToFireStore = async () => {
     HapticFeedback.trigger('selection');
@@ -21,6 +66,7 @@ const OnboardingScreen = ({ navigation, route }) => {
 
     if (!username.trim()) {
       console.log('Username cannot be empty');
+      setShouldShake(true);
       return;
     }
     const trimmedUsername = username.trim(); // trim username to remove whitespace
@@ -29,6 +75,7 @@ const OnboardingScreen = ({ navigation, route }) => {
     const invalidCharactersRegex = /[^a-zA-Z0-9_.]/;
     if (invalidCharactersRegex.test(trimmedUsername)) {
       setIsInvalidCharacters(true);
+      setShouldShake(true);
       return;
     }
 
@@ -36,6 +83,7 @@ const OnboardingScreen = ({ navigation, route }) => {
     if (usernameExists) {
       HapticFeedback.trigger('notificationError');
       setIsUsernameTaken(true);
+      setShouldShake(true);
       return;
     }
 
@@ -62,21 +110,21 @@ const OnboardingScreen = ({ navigation, route }) => {
     setUsername(newUsername);
     setIsUsernameTaken(false);
     setIsInvalidCharacters(false);
+    setShouldShake(false);
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', alignContent: 'center' }}>
       <TextInputComponent onUsernameChange={handleUsernameChange} />
       {isUsernameTaken && (
-        <Text style={{ color: 'red', marginTop: 10 }}>Username is already taken</Text>
+        <Text style={{ color: 'red', position: 'absolute', top: '43%' }}>username not available</Text>
       )}
       {isInvalidCharacters && (
-        <Text style={{ color: 'blue', marginTop: 10 }}>no need for punctuation here!</Text>
+        <Text style={{ color: 'blue', position: 'absolute', top: '43%' }}>no need to punctuate here ;)</Text>
       )}
       <TouchableOpacity
-        style={[logInButtonStyles.googleButton, { marginTop: '20%' }]}
-        onPress={registerUserToFireStore}
-      >
+        style={[logInButtonStyles.googleButton, { marginTop: '2%', position: 'absolute', top: '52%' }, shouldShake && shakeTransformStyle]}
+        onPress={registerUserToFireStore}>
         <Text style={logInButtonStyles.buttonText}>Register</Text>
       </TouchableOpacity>
     </View>
