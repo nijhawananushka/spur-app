@@ -56,7 +56,7 @@ const MainScreen = ({ navigation }) => {
       <View style={mainScreenStyles.buttonContainer}>
         <LogOutButton navigation={navigation} />   
       </View>
-      <AddSpurButton></AddSpurButton>
+      <AddSpurButton navigation={navigation} />
     </View>
   );
 };
