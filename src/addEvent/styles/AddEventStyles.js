@@ -3,16 +3,16 @@ import { StyleSheet } from 'react-native';
 const addEventStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FEFDF9',
+        backgroundColor: '#A5A5A5',
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 50,
-        marginBottom: 20,
-        marginLeft: 20,
-        marginRight: 20,
+        marginTop: '20%',
+        marginLeft: '5%',
+        marginRight: '5%',
+        marginBottom: '5%',
     },
     headerText: {
         fontSize: 20,
@@ -22,13 +22,20 @@ const addEventStyles = StyleSheet.create({
         lineHeight: 24.2,
     },
     roundedContainer: {
-        backgroundColor: '#F7CEBD',
+        backgroundColor: '#FEFDF9',
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         height: '85%',
         width: '100%',
         bottom: 0,
-    }
+        flexDirection: 'column',
+        flex: 1,
+        alignContent: 'center',
+        alignItems: 'center',
+    },
+    inputContainer: {
+        width: '85%',
+    },
 });
 
 export default addEventStyles;

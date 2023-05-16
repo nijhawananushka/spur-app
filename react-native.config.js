@@ -4,4 +4,11 @@ module.exports = {
       android: {},
     },
     assets: ['./assets/fonts/'],
+    dependencies: {
+      'react-native-ionicons': {
+        platforms: {
+          ios: null,
+        },
+      },
+    },  
   };  
