@@ -16,10 +16,6 @@ const TitleInputComponent = ({ onTitleChange }) => {
     onTitleChange(newText);
   };
 
-//   const handleTextSubmit = () => {
-//     setTitle('');
-//   };
-
   return (
     <View style={textInputStyles.titleContainer}>
       <View style={textInputStyles.titlePlaceholderContainer}>
@@ -31,7 +27,6 @@ const TitleInputComponent = ({ onTitleChange }) => {
         value={title}
         selectionColor={'#666564'}
         onChangeText={handleTitleChange}
-        // onSubmitEditing={handleTextSubmit}        
       />
     </View>
   );
@@ -48,11 +43,6 @@ const DescriptionInputComponent = ({ onDescriptionChange }) => {
     onDescriptionChange(newText); // Pass the updated description to the parent component
   };
 
-//   const handleTextSubmit = () => {
-//     console.log('Submitted description:', description);
-//     setDescription('');
-//   };
-
   return (
     <View style={textInputStyles.descriptionContainer}>
       <View style={textInputStyles.descriptionPlaceholderContainer}>
@@ -64,7 +54,8 @@ const DescriptionInputComponent = ({ onDescriptionChange }) => {
         selectionColor={'black'}
         value={description}
         onChangeText={handleTextChange}
-        // onSubmitEditing={handleTextSubmit}
+        onFocus={() => setIsPlaceholderVisible(false)}
+        onBlur={() => setIsPlaceholderVisible(description === '')}
       />
     </View>
   );
