@@ -16,9 +16,9 @@ const TitleInputComponent = ({ onTitleChange }) => {
     onTitleChange(newText);
   };
 
-  const handleTextSubmit = () => {
-    setTitle('');
-  };
+//   const handleTextSubmit = () => {
+//     setTitle('');
+//   };
 
   return (
     <View style={textInputStyles.titleContainer}>
@@ -31,7 +31,7 @@ const TitleInputComponent = ({ onTitleChange }) => {
         value={title}
         selectionColor={'#666564'}
         onChangeText={handleTitleChange}
-        onSubmitEditing={handleTextSubmit}        
+        // onSubmitEditing={handleTextSubmit}        
       />
     </View>
   );
@@ -48,10 +48,10 @@ const DescriptionInputComponent = ({ onDescriptionChange }) => {
     onDescriptionChange(newText); // Pass the updated description to the parent component
   };
 
-  const handleTextSubmit = () => {
-    console.log('Submitted description:', description);
-    setDescription('');
-  };
+//   const handleTextSubmit = () => {
+//     console.log('Submitted description:', description);
+//     setDescription('');
+//   };
 
   return (
     <View style={textInputStyles.descriptionContainer}>
@@ -64,14 +64,13 @@ const DescriptionInputComponent = ({ onDescriptionChange }) => {
         selectionColor={'black'}
         value={description}
         onChangeText={handleTextChange}
-        onSubmitEditing={handleTextSubmit}
+        // onSubmitEditing={handleTextSubmit}
       />
     </View>
   );
 };
 
 import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const textInputStyles = StyleSheet.create({
   titleContainer: {
