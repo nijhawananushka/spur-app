@@ -51,7 +51,7 @@ const TextInputComponent = ({ onUsernameChange, placeholder }) => {
         autoCorrect={false}
       />
       <View style={textInputStyles.placeholderContainer}>
-        {isPlaceholderVisible && <Text style={textInputStyles.placeholder}>{placeholder}</Text>}
+        {isPlaceholderVisible && <Text style={textInputStyles.placeholderText}>{placeholder}</Text>}
       </View>
       {!isUsernameValid && <Text style={textInputStyles.errorText}>Username is already taken.</Text>}
     </View>
