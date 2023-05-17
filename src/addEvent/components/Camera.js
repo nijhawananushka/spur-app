@@ -42,6 +42,10 @@ const Camera = ({ setColor, onPhotoTaken, cameraVisbility }) => {
                 style={[CameraStyles.cameraCaptureButton, {backgroundColor: setColor, width: Dimensions.get('window').width * 0.15, height: Dimensions.get('window').width * 0.15, borderRadius: Dimensions.get('window').width * 0.075 }]}
                 onPress={ () => {takePicture(); HapticFeedback.trigger('impactMedium');}}
               />
+              <TouchableOpacity
+                style={[CameraStyles.cameraFlipButton, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
+                onPress={toggleCameraType}
+              />
             </View>
           </View>
         }
