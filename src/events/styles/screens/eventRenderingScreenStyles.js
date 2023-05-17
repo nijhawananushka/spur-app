@@ -5,6 +5,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  header: {
+    fontSize: 20,
+    marginBottom: 20,
+    marginLeft: 20,
+    fontFamily: 'Inter-Regular',
+    fontWeight: 300,
+    marginTop: '5%',
+},
   myEventsContainer: {
     flex: 1,
     marginTop: 5, // Adjust the margin top as per your preference

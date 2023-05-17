@@ -11,6 +11,39 @@ const EventRenderingScreen = ({navigation}) => {
     const [myEvents, setMyEvents] = useState([]);
     const [otherEvents, setOtherEvents] = useState([]);
 
+    const [user, setUser] = useState(null);
+  const [greetingMessage, setGreetingMessage] = useState('');
+  const [today, setToday] = useState('');
+  const [tomorrow, setTomorrow] = useState('');
+
+  useEffect(() => {
+    AsyncStorage.getItem('userToken').then((userToken) => {
+      if (!userToken) {
+        navigation.replace('Login');
+      }
+    });
+    AsyncStorage.getItem('uid').then(async (uid) => {
+      const userDoc = await firestore().collection('UserProfiles').doc(uid).get();
+      setUser(userDoc.data());
+    });
+     // morning greeting
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+    if (6 < currentHour && currentHour < 12) {
+      setGreetingMessage('good morning');
+    } else if (12 <= currentHour && currentHour < 18) {
+      setGreetingMessage('good afternoon');
+    } else {
+      setGreetingMessage('good evening');
+    }
+    setToday(currentDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' }));
+
+    const tomorrowDate = new Date(currentDate);
+    tomorrowDate.setDate(currentDate.getDate() + 1);
+    setTomorrow(tomorrowDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' }));
+  }, []);
+
+
   const convertEventList = async (eventList) => {
     return Promise.all(
       eventList.map(async (event) => {
@@ -39,10 +72,18 @@ const EventRenderingScreen = ({navigation}) => {
   
         // Replace the participant userIds with the actual user data
         const participants = event.participants.map((id) => userIdToUser[id.trim()]);  // Trim the id
-  
+        // Format and display the eventDate property
+        const formattedEventDate = new Date(event.eventDate).toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+        });
         return {
           ...event,
           participants,
+          formattedEventDate,
         };
       })
     );
@@ -102,6 +143,7 @@ const EventRenderingScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
+         <Text style={styles.header}> {`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`} </Text>
     <View style={styles.contentContainer}>
       <Text style={styles.headerText}>your spurs</Text>
       <View style={styles.myEventsContainer}>
@@ -112,9 +154,8 @@ const EventRenderingScreen = ({navigation}) => {
         <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
       </View>
     </View>
-    {/* <View style={styles.addSpurContainer}> */}
       <AddSpurButton navigation={navigation} />
-    {/* </View> */}
+
   </SafeAreaView>
   );
 };
