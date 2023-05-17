@@ -35,12 +35,20 @@ const addEventStyles = StyleSheet.create({
         alignItems: 'center',
     },
     inputContainer: {
-        width: '85%',
+        width: '90%',
+    },
+    calendarContainer: {
+        width: '100%',
+        height: '100%',
     },
     imagePreview: {
         width: '100%',
         height: '100%',
     },
+    navigationButtonsContainer: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+    }
 });
 
 export default addEventStyles;
