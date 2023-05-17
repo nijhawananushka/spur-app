@@ -17,9 +17,8 @@ const AddCircle = ({navigation }) => {
       };
     
     const handleCircleName = () => {
-        navigation.replace("CreateNewCircleWithFriends")
-    }
-
+        navigation.navigate("CreateNewCircleWithFriends", { circleTitle: username });
+      };
     return (
         
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

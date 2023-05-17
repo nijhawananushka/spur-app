@@ -17,21 +17,36 @@ const AddFriendsCircleScreen = ({ navigation }) => {
   const handleAddCirlce = async () => {
     navigation.replace('AddCircle');
   };
-  // adding friends 
+  // need to modify this to all the people on spur that you are not yet friends with
   useEffect(() => {
     if (currentUser) {
+      // Fetch current user's friends
       db.collection('UserProfiles')
+        .doc(currentUser.uid)
         .get()
-        .then(querySnapshot => {
-          if (querySnapshot && Array.isArray(querySnapshot.docs)) {
-            const friends = querySnapshot.docs
-              .map(doc => doc.data())
-              .filter(friend => friend.uid !== currentUser.uid); // Exclude self
-            setFriends(friends);
+        .then(documentSnapshot => {
+          if (documentSnapshot.exists) {
+            const userData = documentSnapshot.data();
+            const userFriends = userData.friends || [];
+  
+            // Fetch all UserProfiles and filter out current user and their friends
+            db.collection('UserProfiles')
+              .get()
+              .then(querySnapshot => {
+                if (querySnapshot && Array.isArray(querySnapshot.docs)) {
+                  const friends = querySnapshot.docs
+                    .map(doc => doc.data())
+                    .filter(friend => friend.uid !== currentUser.uid && !userFriends.includes(friend.uid)); // Exclude self and friends
+                  setFriends(friends);
+                }
+              })
+              .catch(error => {
+                console.log('Error fetching friends:', error);
+              });
           }
         })
         .catch(error => {
-          console.log('Error fetching friends:', error);
+          console.log('Error fetching user data:', error);
         });
     }
   }, [currentUser]);
@@ -68,11 +83,13 @@ const AddFriendsCircleScreen = ({ navigation }) => {
         <Text style={styles.backButtonText}>{'<'}</Text>
     </TouchableOpacity>
     <View style={{ alignItems: 'center', marginTop: 50 }}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>add your friends</Text>
+      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>add new friends</Text>
+
     </View>
       <TouchableOpacity style={buttonStyles.buttonStyle} onPress = {handleAddCirlce}>
         <Text style={buttonStyles.buttonText}>create a new circle</Text>
         </TouchableOpacity>
+        
      
       <View style={{ borderRadius: 10, borderWidth: 1, marginTop: 20, marginLeft: 30, marginRight: 30 }}>
         
@@ -80,7 +97,7 @@ const AddFriendsCircleScreen = ({ navigation }) => {
           style={{ height: 40, paddingHorizontal: 10 }}
           onChangeText={handleSearchTextChange}
           value={searchText}
-          placeholder="search for friends"
+          placeholder="search for people to add"
         />
       </View>
       <ScrollView contentContainerStyle={{ paddingTop: 40 }}>
