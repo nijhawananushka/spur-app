@@ -7,7 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreen from './src/auth/screens/OnboardingScreenUsername';
 import AddFriendsOnboarding from './src/auth/screens/addFriendsOnboarding';
 import AddEventScreen from './src/addEvent/screen/AddEventScreen';
-import CalendarScreen from './src/addEvent/screen/ChooseDateScreen';
 
 const Stack = createStackNavigator();
 
@@ -72,10 +71,6 @@ const RootStack = () => {
         <Stack.Screen
           name="AddEvent"
           component={AddEventScreen}
-          options={verticalAnimation}/>
-        <Stack.Screen
-          name="Calendar"
-          component={CalendarScreen}
           options={verticalAnimation}/>
       </Stack.Navigator>
     );
