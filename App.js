@@ -71,6 +71,30 @@ const RootStack = () => {
           component={AddFriendsOnboarding} 
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="AddEvent"
+          component={AddEventScreen}
+          options={verticalAnimation}/>
+                 <Stack.Screen 
+          name="EventsRendering" 
+          component={EventsRendering} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="AddNewFriendsCircles" 
+          component={AddFriendsCircleScreen} 
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen 
+          name="AddCircle" 
+          component={AddCircle} 
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen 
+          name="CreateNewCircleWithFriends" 
+          component={CreateNewCircleWithFriends} 
+          options={{ headerShown: false }}
+        />        
       </Stack.Navigator>
     );
   }
