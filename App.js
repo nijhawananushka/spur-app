@@ -9,6 +9,7 @@ import AddFriendsOnboarding from './src/auth/screens/addFriendsOnboarding';
 import EventsRendering from './src/events/screens/eventsRenderingScreen';
 import AddFriendsCircleScreen from './src/events/screens/addFriendsCircleScreen';
 import AddCircle from './src/events/screens/addCircleScreen';
+import CreateNewCircleWithFriends from './src/events/screens/addFriendsToCircleScreen';
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -65,7 +66,11 @@ const RootStack = () => {
           component={AddCircle} 
           options={{ headerShown: false }}
         />
-        
+         <Stack.Screen 
+          name="CreateNewCircleWithFriends" 
+          component={CreateNewCircleWithFriends} 
+          options={{ headerShown: false }}
+        />        
 
       </Stack.Navigator>
     );

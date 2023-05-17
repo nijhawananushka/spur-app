@@ -9,13 +9,16 @@ import HapticFeedback from 'react-native-haptic-feedback';
 import textInputStyles from '../../auth/styles/components/textInputStyles';
 
 // you want to use anushkas pop up screen for this, title and description
-const AddCircle = ({ }) => {
+const AddCircle = ({navigation }) => {
     const [username, setUsername] = useState('');
   
     const handleUsernameChange = (newUsername) => {
         setUsername(newUsername);
       };
-
+    
+    const handleCircleName = () => {
+        navigation.replace("CreateNewCircleWithFriends")
+    }
 
     return (
         
@@ -24,6 +27,7 @@ const AddCircle = ({ }) => {
       
         <TouchableOpacity
           style={[logInButtonStyles.googleButton, { marginTop: '20%' }]}
+          onPress={handleCircleName}
         >
           <Text style={logInButtonStyles.buttonText}>Next</Text>
         </TouchableOpacity>

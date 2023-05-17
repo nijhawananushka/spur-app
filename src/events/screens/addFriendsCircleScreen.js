@@ -6,7 +6,8 @@ import auth from '@react-native-firebase/auth';
 import FriendCard from '../../auth/components/friendCard';
 import OnboardingCompleteButton from '../../auth/components/onboardingCompleteButton';
 import HapticFeedback from 'react-native-haptic-feedback';
-import styles from "../styles/components/addFriendsCircleButtonStyles";
+import buttonStyles from "../styles/components/addFriendsCircleButtonStyles";
+import styles from '../styles/screens/addFriendsCircleScreenStyles';
 const AddFriendsCircleScreen = ({ navigation }) => {
   const [friends, setFriends] = useState([]);
   const [searchText, setSearchText] = useState('');
@@ -63,11 +64,14 @@ const AddFriendsCircleScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
+         <TouchableOpacity style={styles.backButton} onPress={() => navigation.replace("Main")}>
+        <Text style={styles.backButtonText}>{'<'}</Text>
+    </TouchableOpacity>
     <View style={{ alignItems: 'center', marginTop: 50 }}>
       <Text style={{ fontSize: 20, fontWeight: 'bold' }}>add your friends</Text>
     </View>
-      <TouchableOpacity style={styles.buttonStyle} onPress = {handleAddCirlce}>
-        <Text style={styles.buttonText}>create a new circle</Text>
+      <TouchableOpacity style={buttonStyles.buttonStyle} onPress = {handleAddCirlce}>
+        <Text style={buttonStyles.buttonText}>create a new circle</Text>
         </TouchableOpacity>
      
       <View style={{ borderRadius: 10, borderWidth: 1, marginTop: 20, marginLeft: 30, marginRight: 30 }}>
@@ -88,7 +92,6 @@ const AddFriendsCircleScreen = ({ navigation }) => {
             onRemoveFriend={handleRemoveFriend}
           />
         ))}
-        <OnboardingCompleteButton />
       </ScrollView>
     </View>
   );

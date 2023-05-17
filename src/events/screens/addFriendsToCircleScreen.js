@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, TextInput, View, TouchableOpacity, Text } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import FriendCard from '../components/friendCard';
-import OnboardingCompleteButton from '../components/onboardingCompleteButton';
+import FriendCard from '../../auth/components/friendCard';
+import OnboardingCompleteButton from '../../auth/components/onboardingCompleteButton';
 import HapticFeedback from 'react-native-haptic-feedback';
+
 
 const AddFriendsOnboarding = ({ navigation }) => {
   const [friends, setFriends] = useState([]);
@@ -58,9 +59,6 @@ const AddFriendsOnboarding = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-    <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-    <Text style={styles.backButtonText}>{'<'}</Text>
-  </TouchableOpacity>
       <View style={{ borderRadius: 10, borderWidth: 1, marginTop: 60, marginLeft: 30, marginRight: 30 }}>
         <TextInput
           style={{ height: 40, paddingHorizontal: 10 }}
