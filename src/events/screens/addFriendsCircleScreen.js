@@ -12,7 +12,10 @@ const AddFriendsCircleScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState('');
   const db = firestore();
   const currentUser = auth().currentUser;
-
+  
+  const handleAddCirlce = async () => {
+    navigation.replace('AddCircle');
+  };
   // adding friends 
   useEffect(() => {
     if (currentUser) {
@@ -63,7 +66,7 @@ const AddFriendsCircleScreen = ({ navigation }) => {
     <View style={{ alignItems: 'center', marginTop: 50 }}>
       <Text style={{ fontSize: 20, fontWeight: 'bold' }}>add your friends</Text>
     </View>
-      <TouchableOpacity style={styles.buttonStyle}>
+      <TouchableOpacity style={styles.buttonStyle} onPress = {handleAddCirlce}>
         <Text style={styles.buttonText}>create a new circle</Text>
         </TouchableOpacity>
      
