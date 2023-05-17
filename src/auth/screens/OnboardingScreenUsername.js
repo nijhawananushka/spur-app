@@ -114,8 +114,8 @@ const OnboardingScreen = ({ navigation, route }) => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', alignContent: 'center' }}>
-      <TextInputComponent onUsernameChange={handleUsernameChange} />
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <TextInputComponent onUsernameChange={handleUsernameChange} placeholder="Enter Username"/>
       {isUsernameTaken && (
         <Text style={{ color: 'red', position: 'absolute', top: '43%' }}>username not available</Text>
       )}

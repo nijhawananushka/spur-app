@@ -75,7 +75,8 @@ const AddSpurButton = ({ navigation }) => {
   };
 
   const onPressButton1 = () => {
-    toggleButton();
+    navigation.replace("EventsRendering") // this is just for testing for now
+    console.log('Button 1 pressed');
     Alert.alert('Button 1 pressed');
   };
   

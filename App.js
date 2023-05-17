@@ -6,6 +6,10 @@ import MainScreen from './src/feed/screens/MainScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreen from './src/auth/screens/OnboardingScreenUsername';
 import AddFriendsOnboarding from './src/auth/screens/addFriendsOnboarding';
+import EventsRendering from './src/events/screens/eventsRenderingScreen';
+import AddFriendsCircleScreen from './src/events/screens/addFriendsCircleScreen';
+import AddCircle from './src/events/screens/addCircleScreen';
+import CreateNewCircleWithFriends from './src/events/screens/addFriendsToCircleScreen';
 import AddEventScreen from './src/addEvent/screen/AddEventScreen';
 
 const Stack = createStackNavigator();
@@ -24,7 +28,6 @@ const RootStack = () => {
       setIsLoading(false);
     });
   }, []);
-
   const verticalAnimation = {
     gestureDirection: 'vertical',
     headerShown: false,
@@ -68,10 +71,6 @@ const RootStack = () => {
           component={AddFriendsOnboarding} 
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="AddEvent"
-          component={AddEventScreen}
-          options={verticalAnimation}/>
       </Stack.Navigator>
     );
   }

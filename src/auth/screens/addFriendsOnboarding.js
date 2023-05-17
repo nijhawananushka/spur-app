@@ -58,6 +58,9 @@ const AddFriendsOnboarding = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
+    <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+    <Text style={styles.backButtonText}>{'<'}</Text>
+  </TouchableOpacity>
       <View style={{ borderRadius: 10, borderWidth: 1, marginTop: 60, marginLeft: 30, marginRight: 30 }}>
         <TextInput
           style={{ height: 40, paddingHorizontal: 10 }}
