@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, StyleSheet, Dimensions, View, Text } from 'react-native';
-import { CalendarProvider, WeekCalendar } from 'react-native-calendars';
+import CalendarStrip from 'react-native-scrollable-calendar-strip';
 
 const darkenColor = (color, saturate, darken) => {
     const hslRegex = /^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/;
@@ -16,64 +16,50 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
   const currentDate = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`;
   const accent = color !== '#FFFFFF' ? color : `hsl(0, 0%, 75%)`;
   const darkenedAccent = color !== '#FFFFFF' ? darkenColor(accent, 60, 40): `hsl(0, 0%, 20%)`;
-  const [selectedMonth, setSelectedMonth] = useState(currentDate);
-
-  // Extract year from selectedMonth
-  const selectedYear = selectedMonth.split('-')[0];
 
   return (
     <>
-      <View style={styles.outerContainer}>
-        <View style={[styles.innerContainer, {backgroundColor: accent}]}>
-          <Text style={[styles.dateHeaderText]}>{`${new Date(selectedMonth).toLocaleString('default', { month: 'long' })} ${selectedYear}`}</Text>
-        </View>
-      </View>
-      <CalendarProvider
-        date={currentDate}
-        onDateChanged={(date) => {
-          const selectedDate = new Date(date);
-          setSelectedMonth(selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2));
-          setEventDate(selectedDate);
-        }}
-      >
-        <WeekCalendar
-          animateScroll={false}
-          staticHeader={true}
-          theme={{
-            backgroundColor: '#ffffff',
-            calendarBackground: '#ffffff',
-            todayTextColor: darkenedAccent,
-            textSectionTitleColor: '#b6c1cd',
-            selectedDayBackgroundColor: accent,
-            selectedDayTextColor: 'black',
-            dayTextColor: '#2d4150',
-          }}
-        />
-      </CalendarProvider>
+      <CalendarStrip 
+        scrollable
+        calendarAnimation={{type: 'sequence', duration: 30}}
+        style={styles.outerContainer}
+        onDateSelected={(date) => setEventDate(new Date(date))}
+        selectedDate={currentDate}
+        calendarHeaderStyle={styles.dateHeaderText}
+        innerStyle={{backgroundColor: '#ffffff', flex:1}}
+        calendarHeaderContainerStyle={[styles.innerContainer, {backgroundColor: accent}]}
+        dateNumberStyle={{fontWeight: 300, fontSize: 17}}
+        dateNameStyle={{color: '#2d4150', marginBottom: '10%', fontSize: 10, fontWeight: '300'}}
+        highlightDateNumberStyle={{color: darkenedAccent}}
+        calendarHeaderFormat={'MMMM YYYY'}
+        daySelectionAnimation={{type: 'background', duration: 200, highlightColor: accent}}
+        highlightDateNameStyle={{color: 'black'}}
+        iconContainer={{flex: 0.1}}
+      />
     </>
   );
 };
 
 const styles = StyleSheet.create({
   outerContainer: {
-    paddingTop: '2%',
+    height: '12.5%',
+    borderTopRightRadius: 25,
+    borderTopLeftRadius: 25,
     backgroundColor: '#ffffff',
-    borderRadius: 20,
   },
   innerContainer: {
     backgroundColor: '#ffffff',
     alignContent: 'center',
     paddingTop: '3%',
     paddingBottom: '2%',
+    width: '100%',
     alignItems: 'center',
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
     justifyContent: 'center',
   },
   dateHeaderText: {
     fontSize: 18,
     fontFamily: 'Inter-Medium',
-    paddingRight: 5,
+    fontWeight: '500',
   }
 });
 

@@ -4,6 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import FriendCard from '../../auth/components/friendCard';
 import HapticFeedback from 'react-native-haptic-feedback';
+import styles from '../styles/components/addFriendsCircleButtonStyles';
 
 const CreateNewCircleWithFriends = ({ navigation, route }) => {
   const [friends, setFriends] = useState([]);
@@ -108,10 +109,13 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
             onRemoveFriend={handleRemoveFriend}
           />
         ))}
-        
         {/* <OnboardingCompleteButton navigation={navigation} />  */}
-        <TouchableOpacity onPress={saveCircle}>
-        <Text>Save Circle</Text>
+        <TouchableOpacity 
+        style={styles.buttonStyle} 
+        onPress={saveCircle}
+        activeOpacity = {0.5}
+        >
+        <Text style = {styles.buttonText}>Create Circle</Text>
       </TouchableOpacity>
       </ScrollView>
     </View>

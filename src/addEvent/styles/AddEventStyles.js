@@ -22,11 +22,11 @@ const addEventStyles = StyleSheet.create({
     },
     roundedContainer: {
         backgroundColor: '#FEFDF9',
-        borderTopRightRadius: 20,
+        borderTopRightRadius: 25,
         borderTopWidth: 5,
         borderLeftWidth: 5,
         borderRightWidth: 5,
-        borderTopLeftRadius: 20,
+        borderTopLeftRadius: 25,
         height: '85%',
         width: '100%',
         bottom: '3%',
@@ -40,6 +40,8 @@ const addEventStyles = StyleSheet.create({
     calendarContainer: {
         width: '100%',
         height: '100%',
+        borderTopRightRadius: 25,
+        borderTopLeftRadius: 25,
     },
     imagePreview: {
         width: '100%',

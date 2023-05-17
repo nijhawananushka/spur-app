@@ -7,14 +7,15 @@ const buttonStyles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.2)',
         borderRadius: 10, 
         borderWidth: 1, 
-        marginTop: 40, 
-        marginLeft: 30, 
+        marginTop: 30, 
+        marginLeft: 50, 
         marginRight: 30 
     },
     buttonText: {
         fontSize: 16,
-        marginLeft: 10,
         height: 30,
+        marginRight: 5,
+        marginLeft: 5,
         marginTop: 10,
         textAlign: 'center',
         padding: 5,

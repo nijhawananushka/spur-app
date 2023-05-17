@@ -64,10 +64,10 @@ const AddEventScreen = ({ navigation }) => {
         }
         {calendarVisible &&
           <View style={addEventStyles.calendarContainer}>
-            <View style={[addEventStyles.navigationButtonsContainer, {paddingTop: '2%', width:'90%', alignSelf: 'center'}]}>
+            {/* <View style={[addEventStyles.navigationButtonsContainer, {paddingTop: '2%', width:'90%', alignSelf: 'center'}]}>
               <Button title='<' style={{fontFamily: 'Inter-Bold', color: 'black', height: '10%', width: '10%'}} onPress={() => setCalendarVisible(false)} />
               <Button title='>' style={{fontFamily: 'Inter-Bold', color: 'black', height: '10%', width: '10%'}} onPress={() => Alert.alert("Calendar")} />
-            </View>
+            </View> */}
             <CalendarView color={color} returnSelectedDate={setSelectedDate} setEventDate={setEventDate}/>
           </View>
         } 
