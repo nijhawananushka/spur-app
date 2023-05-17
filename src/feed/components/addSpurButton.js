@@ -75,14 +75,14 @@ const AddSpurButton = ({ navigation }) => {
   };
 
   const onPressButton1 = () => {
-    toggleButton();
-    navigation.navigate('AddEvent');
+    navigation.replace("EventsRendering") // this is just for testing for now
+    console.log('Button 1 pressed');
+    Alert.alert('Button 1 pressed');
   };
   
   const onPressButton2 = () => {
     toggleButton();
-    console.log('Button 2 pressed');
-    Alert.alert('Button 2 pressed');
+    navigation.navigate('AddEvent');
   };
 
   const collapseButtons = () => {

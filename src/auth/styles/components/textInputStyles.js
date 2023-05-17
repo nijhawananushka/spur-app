@@ -6,8 +6,8 @@ const textInputStyles = StyleSheet.create({
     width: '80%',
     paddingBottom: '8%',
     marginBottom: '10%',
-    lineHeight: 36,
     fontFamily: 'Inter',
+    height: 100,
   },
   textInput: {
     borderBottomWidth: 2,
@@ -15,19 +15,19 @@ const textInputStyles = StyleSheet.create({
     paddingBottom: '2%',
     paddingTop: '5%', 
     fontSize: 20,
-    lineHeight: 30,
+    lineHeight: 25,
     fontFamily: 'Inter',
   },
   placeholderContainer: {
     position: 'absolute',
-    top: '30%',
+    top: '20%',
     left: 0,
     right: 0,
   },
   placeholderText: {
     fontSize: 20,
     color: '#9E9E9E',
-    lineHeight: 30,
+    lineHeight: 25,
     fontFamily: 'Inter',
   },
 });

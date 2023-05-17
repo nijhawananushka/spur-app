@@ -33,6 +33,7 @@ target 'spurapp' do
   pod 'FirebaseCore', :modular_headers => true
   pod 'GoogleSignIn', :modular_headers => true
   pod 'FirebaseAuth', :modular_headers => true
+  pod 'react-native-camera', path: '../node_modules/react-native-camera'
   # Flags change depending on the env values.
   flags = get_default_flags()
 

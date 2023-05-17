@@ -2,40 +2,53 @@ import { StyleSheet } from 'react-native';
 
 const addEventStyles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: '#A5A5A5',
     },
     header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        height: '30%',
+    },
+    heading: {
+        flexDirection: 'column',
         alignItems: 'center',
-        marginTop: '20%',
-        marginLeft: '5%',
-        marginRight: '5%',
-        marginBottom: '5%',
+        justifyContent: 'center',
+        alignSelf: 'center',
     },
     headerText: {
-        fontSize: 20,
-        fontFamily: 'Inter-Regular',
+        fontSize: 30,
+        fontFamily: 'Inter-ExtraBold',
         fontWeight: 300,
         color: '#483F3F',
-        lineHeight: 24.2,
+        lineHeight: 50,
     },
     roundedContainer: {
         backgroundColor: '#FEFDF9',
         borderTopRightRadius: 20,
+        borderTopWidth: 5,
+        borderLeftWidth: 5,
+        borderRightWidth: 5,
         borderTopLeftRadius: 20,
         height: '85%',
         width: '100%',
-        bottom: 0,
+        bottom: '3%',
         flexDirection: 'column',
-        flex: 1,
         alignContent: 'center',
         alignItems: 'center',
     },
     inputContainer: {
-        width: '85%',
+        width: '90%',
     },
+    calendarContainer: {
+        width: '100%',
+        height: '100%',
+    },
+    imagePreview: {
+        width: '100%',
+        height: '100%',
+    },
+    navigationButtonsContainer: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+    }
 });
 
 export default addEventStyles;

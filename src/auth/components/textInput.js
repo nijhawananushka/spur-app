@@ -3,15 +3,17 @@ import { View, TextInput, Text } from 'react-native';
 import textInputStyles from '../styles/components/textInputStyles';
 import { checkUsernameExists } from './usernameValidation';
 
-const TextInputComponent = ({ onUsernameChange }) => {
+const TextInputComponent = ({ onUsernameChange, placeholder }) => {
   const [text, setText] = useState('');
   const [isPlaceholderVisible, setIsPlaceholderVisible] = useState(true);
   const [isUsernameValid, setIsUsernameValid] = useState(true);
   const textInputRef = useRef(null);
 
   useEffect(() => {
-    textInputRef.current.focus();
-  }, []);
+    if (textInputRef.current) {
+      textInputRef.current.focus();
+    }
+  }, [textInputRef.current]);
 
   const handleTextChange = (newText) => {
     setText(newText);
@@ -49,7 +51,7 @@ const TextInputComponent = ({ onUsernameChange }) => {
         autoCorrect={false}
       />
       <View style={textInputStyles.placeholderContainer}>
-        {isPlaceholderVisible && <Text style={textInputStyles.placeholderText}>Enter Username</Text>}
+        {isPlaceholderVisible && <Text style={textInputStyles.placeholderText}>{placeholder}</Text>}
       </View>
       {!isUsernameValid && <Text style={textInputStyles.errorText}>Username is already taken.</Text>}
     </View>
