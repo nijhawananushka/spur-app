@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreen from './src/auth/screens/OnboardingScreenUsername';
 import AddFriendsOnboarding from './src/auth/screens/addFriendsOnboarding';
 import EventsRendering from './src/events/screens/eventsRenderingScreen';
+import AddFriendsCircleScreen from './src/events/screens/addFriendsCircleScreen';
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -53,6 +54,13 @@ const RootStack = () => {
           component={EventsRendering} 
           options={{ headerShown: false }}
         />
+        <Stack.Screen 
+          name="AddNewFriendsCircles" 
+          component={AddFriendsCircleScreen} 
+          options={{ headerShown: false }}
+        />
+        
+
       </Stack.Navigator>
     );
   }

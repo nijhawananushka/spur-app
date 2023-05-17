@@ -15,17 +15,18 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 20,
         marginRight: 20,
-        fontFamily: 'Inter',
+        fontFamily: 'Inter-Regular',
     },
     title: {
         fontSize: 20,
-        fontWeight: 'bold',
         color: 'black',
-        fontFamily: 'Inter',
+        fontFamily: 'Inter-Regular',
     },
     dateTime: {
         fontSize: 16,
+        fontWeight: 'bold',
         color: 'darkgrey',
+        fontFamily: 'Inter-Regular',
     },
     locationWrapper: {
         position: 'absolute',
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
     },
     location: {
         marginLeft: 5,
+        fontFamily: 'Inter-Regular',
     },
 });
 

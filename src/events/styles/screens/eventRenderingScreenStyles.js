@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 20,
     marginBottom: 20,
-    marginLeft: 20,
     fontFamily: 'Inter-Regular',
     fontWeight: 300,
     marginTop: '5%',
@@ -23,6 +22,13 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight:0,
   },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+  },
+
   myEvents: {
     flex: 1,
   },

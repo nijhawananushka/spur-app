@@ -13,8 +13,8 @@ const MyEventCard = ({ event }) => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>{event.title}</Text>
       <Text style={styles.dateTime}>{formattedDateTime}</Text>
+      <Text style={styles.title}>{event.title}</Text>
       <View style={styles.locationWrapper}>
         <Text style={styles.location}>{event.location}</Text>
       </View>

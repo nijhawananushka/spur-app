@@ -6,7 +6,7 @@ import firebase from '@react-native-firebase/app';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "../styles/screens/eventRenderingScreenStyles";
 import AddSpurButton from '../../feed/components/addSpurButton';
-
+import AddFriendsCirclesButton from '../components/addFriendsCirclesButton';
 const EventRenderingScreen = ({navigation}) => {
     const [myEvents, setMyEvents] = useState([]);
     const [otherEvents, setOtherEvents] = useState([]);
@@ -143,7 +143,10 @@ const EventRenderingScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-         <Text style={styles.header}> {`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`} </Text>
+     <View style={styles.headerContainer}>
+     <Text style={styles.header}> {`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`} </Text>
+    <AddFriendsCirclesButton navigation={navigation} />
+    </View>
     <View style={styles.contentContainer}>
       <Text style={styles.headerText}>your spurs</Text>
       <View style={styles.myEventsContainer}>
@@ -155,7 +158,7 @@ const EventRenderingScreen = ({navigation}) => {
       </View>
     </View>
       <AddSpurButton navigation={navigation} />
-
+  
   </SafeAreaView>
   );
 };

@@ -11,12 +11,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        fontWeight: 'bold',
         color: 'black',
         fontFamily: 'Inter',
     },
     dateTime: {
         fontSize: 16,
+        fontWeight: 'bold',
         color: 'darkgrey',
     },
     locationWrapper: {
