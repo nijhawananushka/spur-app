@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text,TextInput, TouchableOpacity } from 'react-native';
 import addEventStyles from '../styles/AddEventStyles';
 import FriendCard from '../../auth/components/friendCard';
 import CircleCard from '../../auth/components/circleCard';
@@ -140,7 +140,14 @@ const AddFriendsCircles = ({ navigation }) => {
       <View style={addEventStyles.testHeader}>
         <EventCard event={myEvent} />
       </View>
-
+      <View style={{ borderRadius: 10, borderWidth: 1, marginTop: 20, marginLeft: 20, marginRight: 20 }}>
+        <TextInput
+          style={{ height: 40, paddingHorizontal: 10 }}
+          onChangeText={handleSearchTextChange}
+          value={searchText}
+          placeholder="Search friends/circles"
+        />
+      </View>
       <ScrollView contentContainerStyle={addFriendsCirclesStyles.scrollViewContainer}>
       <Text style={addFriendsCirclesStyles.headerText}>circles</Text>
         <View style={addFriendsCirclesStyles.contentContainer}>
@@ -157,6 +164,7 @@ const AddFriendsCircles = ({ navigation }) => {
             ))}
             </View> 
         <Text style={addFriendsCirclesStyles.headerText}>friends</Text>
+        
         <View style={addFriendsCirclesStyles.contentContainer}>
           {friends
             .filter((friend) => friend.username.toLowerCase().includes(searchText.toLowerCase()))
@@ -172,8 +180,6 @@ const AddFriendsCircles = ({ navigation }) => {
 
          
         </View>
-
-       
       </ScrollView>
       <TouchableOpacity onPress={createEvent} style={addFriendsCirclesStyles.buttonContainer}>
           <Text style={addFriendsCirclesStyles.buttonText}>create spur! </Text>
