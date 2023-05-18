@@ -1,6 +1,25 @@
-import React, { useState, useRef } from 'react';
-import { Alert, StyleSheet, Dimensions, View, Text } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { Alert, StyleSheet, FlatList, View, Text } from 'react-native';
 import CalendarStrip from 'react-native-scrollable-calendar-strip';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const fetchEvents = async (date, accessToken) => {
+  const startOfDay = new Date(date);
+  startOfDay.setHours(0, 0, 0, 0);
+
+  const endOfDay = new Date(date);
+  endOfDay.setHours(23, 59, 59, 999);
+
+  const startTime = startOfDay.toISOString();
+  const endTime = endOfDay.toISOString();
+
+  const response = await fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${startTime}&timeMax=${endTime}&orderBy=startTime&singleEvents=true`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+
+  const data = await response.json();
+  return data.items;
+};
 
 const darkenColor = (color, saturate, darken) => {
     const hslRegex = /^hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)$/;
@@ -17,6 +36,27 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
   const accent = color !== '#FFFFFF' ? color : `hsl(0, 0%, 75%)`;
   const darkenedAccent = color !== '#FFFFFF' ? darkenColor(accent, 60, 40): `hsl(0, 0%, 20%)`;
   const calendarRef = useRef(null);
+  const [events, setEvents] = useState([]);
+  const [accessToken, setAccessToken] = useState(null);
+
+  useEffect(() => {
+    async function fetchToken() {
+      const token = await AsyncStorage.getItem('userToken');
+      setAccessToken(token);
+    }
+    fetchToken();
+  }, []);
+
+  const onDateSelected = async (date) => {
+    setEventDate(new Date(date));
+    if (accessToken) {
+      const fetchedEvents = await fetchEvents(date, accessToken);
+      setEvents(fetchedEvents);
+    }
+    else{
+      Alert.alert('Unable to fetch events');
+    }
+  }; 
 
   return (
     <>
@@ -38,6 +78,16 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
         daySelectionAnimation={{type: 'background', duration: 200, highlightColor: accent}}
         highlightDateNameStyle={{color: 'black'}}
         iconContainer={{flex: 0.1}}
+      />
+      <FlatList
+        data={events}
+        renderItem={({ item }) => (
+          <View style={styles.eventItem}>
+            <Text style={styles.eventTitle}>{item.summary}</Text>
+            <Text style={styles.eventTime}>{item.start.dateTime ? new Date(item.start.dateTime).toLocaleTimeString() : 'All day'}</Text>
+          </View>
+        )}
+        keyExtractor={(item) => item.id}
       />
     </>
   );
@@ -62,7 +112,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Inter-Medium',
     fontWeight: '500',
-  }
+  },
+  eventItem: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 5,
+    marginHorizontal: 10,
+  },
+  eventTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  eventTime: {
+    fontSize: 14,
+    color: '#777',
+  },
+
 });
 
 export default CalendarView;
