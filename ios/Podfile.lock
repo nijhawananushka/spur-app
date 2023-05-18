@@ -1068,6 +1068,8 @@ PODS:
     - React-Core
   - react-native-camera/RN (4.2.1):
     - React-Core
+  - react-native-date-picker (4.2.13):
+    - React-Core
   - react-native-image-picker (5.3.1):
     - React-Core
   - react-native-safe-area-context (4.5.3):
@@ -1251,6 +1253,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-camera (from `../node_modules/react-native-camera`)
+  - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
@@ -1350,6 +1353,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
+  react-native-date-picker:
+    :path: "../node_modules/react-native-date-picker"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-safe-area-context:
@@ -1454,6 +1459,7 @@ SPEC CHECKSUMS:
   React-jsinspector: c712f9e3bb9ba4122d6b82b4f906448b8a281580
   React-logger: 342f358b8decfbf8f272367f4eacf4b6154061be
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
+  react-native-date-picker: 04e866ba4e7857f83abd504ad42e787f0f02ae00
   react-native-image-picker: ec9b713e248760bfa0f879f0715391de4651a7cb
   react-native-safe-area-context: b8979f5eda6ed5903d4dbc885be3846ea3daa753
   react-native-slider: 33b8d190b59d4f67a541061bb91775d53d617d9d

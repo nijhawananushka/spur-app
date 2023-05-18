@@ -57,7 +57,7 @@ const AddEventScreen = ({ navigation }) => {
               <Button title='x' style={{fontFamily: 'Inter-Bold', color: 'black', zIndex: 2, height: '10%', width: '10%'}} onPress={() => navigation.goBack()} />
               <Button title='>' style={{fontFamily: 'Inter-Bold', color: 'black', zIndex: 2, height: '10%', width: '10%'}} onPress={() => setCalendarVisible(true)} />
             </View>
-            <TitleInputComponent onTitleChange={setTitle} onEnterPressed={focusOnDescription} />
+            <TitleInputComponent onTitleChange={setTitle} onEnterPressed={focusOnDescription}/>
             <DescriptionInputComponent ref={descriptionRef} onDescriptionChange={setDescription} onEnterPressed={() => setCalendarVisible(true)}/>          
         </View>
         }

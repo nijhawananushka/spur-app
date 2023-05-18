@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ActivityIndicator, Alert, StyleSheet, Dimensions, ScrollView, FlatList, View, Text, Animated } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, Dimensions, ScrollView, Button, View, Text, Animated } from 'react-native';
 import CalendarStrip from 'react-native-scrollable-calendar-strip';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DatePicker from 'react-native-date-picker'
 
 const hourHeight = Dimensions.get('window').height * 0.06;
 
@@ -100,6 +101,10 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
   const [accessToken, setAccessToken] = useState(null);
   const [fadeAnim] = useState(new Animated.Value(0)); // For animation
   const [loadingEvents, setLoadingEvents] = useState(true);
+  const [selectedStartTime, setSelectedStartTime] = useState(new Date());
+  const [selectedEndTime, setSelectedEndTime] = useState(60); // Initial duration is set to 60 minutes
+  const [open, setOpen] = useState(false)
+  const [open1, setOpen1] = useState(false)
 
   useEffect(() => {
     async function fetchToken() {
@@ -151,6 +156,43 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
 
   return (
     <>
+    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: '5%', paddingTop: '2%'}}>
+      <Button title="Start Time" onPress={() => setOpen(true)} />
+        <DatePicker
+          modal
+          open={open}
+          date={date}
+          mode="time"
+          onConfirm={(date) => {
+            setOpen(false)
+            setSelectedStartTime(date)
+          }}
+          onCancel={() => {
+            setOpen(false)
+          }}
+        />
+        <Button title="End Time" onPress={() => setOpen(true)} />
+        <DatePicker
+          modal
+          open={open}
+          date={date}
+          mode="time"
+          onConfirm={(date) => {
+            setOpen1(false)
+            if (date < selectedStartTime){
+              const nextDate = new Date(date.getTime());
+              nextDate.setDate(date.getDate() + 1);
+              setSelectedEndTime(nextDate)
+            }
+            else {
+              setSelectedEndTime(date)
+            }
+          }}
+          onCancel={() => {
+            setOpen1(false)
+          }}
+        />
+      </View>
       <CalendarStrip 
         scrollable
         ref={calendarRef}
@@ -179,19 +221,12 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
           renderItem={({ item }) => {
             const rgbColor = hexToRgb(item.color);
             const pastelColor = rgbToHsl(rgbColor.r, rgbColor.g, rgbColor.b);   
-            const start = item.start.dateTime;
-            const end = item.end.dateTime;
             const startDateTime = new Date(item.start.dateTime);
             const endDateTime = new Date(item.end.dateTime);
             const durationInMilliseconds = endDateTime - startDateTime;
             const durationInMinutes = Math.floor(durationInMilliseconds / (1000 * 60));
             const durationWithinDayInMinutes = Math.min(durationInMinutes, 24 * 60);
             const durationWithinDayInHours = durationWithinDayInMinutes / 60;
-            const startHour = startDateTime.getHours();
-            const startMinute = startDateTime.getMinutes();
-            const currentDateTime = new Date();
-            const currentHour = currentDateTime.getHours();
-            const currentMinute = currentDateTime.getMinutes();  
             const eventStyle = {
               height: durationWithinDayInHours * hourHeight,
               // top: (startHour + startMinute / 60) * hourHeight,

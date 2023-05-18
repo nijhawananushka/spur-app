@@ -2,11 +2,12 @@ import { StyleSheet } from 'react-native';
 
 const addEventStyles = StyleSheet.create({
     container: {
-        backgroundColor: '#A5A5A5',
+        backgroundColor: '#FEFDF9',
         flex: 1,
     },
     header: {
         height: '34%',
+        backgroundColor: '#A5A5A5',
     },
     heading: {
         flexDirection: 'column',
@@ -29,7 +30,6 @@ const addEventStyles = StyleSheet.create({
         borderLeftWidth: 5,
         borderRightWidth: 5,
         borderTopLeftRadius: 25,
-        height: '85%',
         width: '100%',
         bottom: '3%',
         flexDirection: 'column',
