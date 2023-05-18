@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Alert, StyleSheet, FlatList, View, Text, Animated } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, FlatList, View, Text, Animated } from 'react-native';
 import CalendarStrip from 'react-native-scrollable-calendar-strip';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -91,13 +91,13 @@ const darkenColor = (color, saturate, darken) => {
   
 const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
   const date = new Date();
-  const currentDate = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`;
   const accent = color !== '#FFFFFF' ? color : `hsl(0, 0%, 75%)`;
   const darkenedAccent = color !== '#FFFFFF' ? darkenColor(accent, 60, 40): `hsl(0, 0%, 20%)`;
   const calendarRef = useRef(null);
   const [events, setEvents] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
   const [fadeAnim] = useState(new Animated.Value(0)); // For animation
+  const [loadingEvents, setLoadingEvents] = useState(true);
 
   useEffect(() => {
     async function fetchToken() {
@@ -106,22 +106,35 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
     }
     fetchToken();
   }, []);
-  
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      onDateSelected(currentDate);
-    }, 60000);  // fetch every 60 seconds
-  
-    // Clean up the interval on unmount
-    return () => clearInterval(intervalId);
-  }, [currentDate]);  // refetch when date changes  
 
+  useEffect(() => {
+    const fetchInitialEvents = async () => {
+      if (accessToken) {
+        const fetchedEvents = await fetchEvents(date, accessToken);
+        setEvents(fetchedEvents);
+        // Start the fade-in animation
+        setLoadingEvents(false);
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true
+        }).start();
+      }
+      else{
+        console.log('Unable to fetch events');
+      }
+    };
+    fetchInitialEvents();
+  }, [accessToken]);  // fetch events when the component mounts and the accessToken changes  
+  
   const onDateSelected = async (date) => {
+    setLoadingEvents(true);
     setEvents([]);
     setEventDate(new Date(date));
     if (accessToken) {
       const fetchedEvents = await fetchEvents(date, accessToken);
       setEvents(fetchedEvents);
+      setLoadingEvents(false);
       // Start the fade-in animation
       Animated.timing(fadeAnim, {
         toValue: 1,
@@ -140,10 +153,10 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
         scrollable
         ref={calendarRef}
         calendarAnimation={{type: 'sequence', duration: 30}}
-        onHeaderSelected={(d1, d2) => {calendarRef.current.setSelectedDate(currentDate); calendarRef.current.scrollToInitialIndex();}}
+        onHeaderSelected={(d1, d2) => {calendarRef.current.setSelectedDate(date); calendarRef.date.scrollToInitialIndex();}}
         style={styles.outerContainer}
         onDateSelected={(date) => {setEventDate(new Date(date)); onDateSelected(date); returnSelectedDate(date);}}
-        selectedDate={currentDate}
+        selectedDate={date}
         calendarHeaderStyle={styles.dateHeaderText}
         innerStyle={{backgroundColor: '#ffffff', flex:1}}
         calendarHeaderContainerStyle={[styles.innerContainer, {backgroundColor: accent}]}
@@ -155,6 +168,9 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
         highlightDateNameStyle={{color: 'black'}}
         iconContainer={{flex: 0.1}}
       />
+      {
+        loadingEvents ?
+      <ActivityIndicator size="small" color="black"/> :
       <Animated.FlatList
         data={events}
         renderItem={({ item }) => {
@@ -174,6 +190,7 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
         keyExtractor={(item) => item.id}
         style={{ opacity: fadeAnim }} // Apply fade-in animation
       />
+    }
     </>
   );
 };
@@ -213,7 +230,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'black',
   },
-
+  timeline: {
+    position: 'absolute',
+    width: 2,
+    backgroundColor: 'black',
+    left: '50%',
+    top: 0,
+    bottom: 0,
+  }  
 });
 
 export default CalendarView;
