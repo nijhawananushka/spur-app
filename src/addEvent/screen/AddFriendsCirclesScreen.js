@@ -10,7 +10,7 @@ import addFriendsCirclesStyles from '../styles/components/addFriendsCirclesScree
 
 const EventCard = ({ event }) => {
   return (
-    <View style={[addEventStyles.roundedContainer, { borderColor: event.color }]}>
+    <View style={[addEventStyles.roundedContainer3, { borderColor: event.color }]}>
       <Text style={addEventStyles.eventTitle}>{event.title}</Text>
       <Text style={addEventStyles.eventDate}>{event.date}</Text>
       <Text style={addEventStyles.eventLocation}>{event.location}</Text>
@@ -136,13 +136,28 @@ const AddFriendsCircles = ({ navigation }) => {
   };
 
   return (
-    <View style={addEventStyles.container}>
+    <View style={addFriendsCirclesStyles.container}>
       <View style={addEventStyles.testHeader}>
         <EventCard event={myEvent} />
       </View>
 
-      <View style={addEventStyles.roundedContainer2}>
-        <ScrollView contentContainerStyle={{ paddingTop: 40 }}>
+      <ScrollView contentContainerStyle={addFriendsCirclesStyles.scrollViewContainer}>
+      <Text style={addFriendsCirclesStyles.headerText}>circles</Text>
+        <View style={addFriendsCirclesStyles.contentContainer}>
+        {circles
+            .filter((circle) => circle.title.toLowerCase().includes(searchText.toLowerCase()))
+            .map((circle) => (
+              <CircleCard
+                key={circle.id}
+                circle={circle}
+                onAddCircle={handleAddCircle}
+                onRemoveCircle={handleRemoveCircle}
+                isSelected={selectedCircles.some((selectedCircle) => selectedCircle.id === circle.id)}
+              />
+            ))}
+            </View> 
+        <Text style={addFriendsCirclesStyles.headerText}>friends</Text>
+        <View style={addFriendsCirclesStyles.contentContainer}>
           {friends
             .filter((friend) => friend.username.toLowerCase().includes(searchText.toLowerCase()))
             .map((friend) => (
@@ -155,27 +170,14 @@ const AddFriendsCircles = ({ navigation }) => {
               />
             ))}
 
-          {circles
-            .filter((circle) => circle.title.toLowerCase().includes(searchText.toLowerCase()))
-            .map((circle) => (
-              <CircleCard
-                key={circle.id}
-                circle={circle}
-                onAddCircle={handleAddCircle}
-                onRemoveCircle={handleRemoveCircle}
-                isSelected={selectedCircles.some((selectedCircle) => selectedCircle.id === circle.id)}
-              />
-            ))}
-            <TouchableOpacity onPress={createEvent} style={addFriendsCirclesStyles.buttonContainer}>
-        <Text style={addFriendsCirclesStyles.buttonText}>Create Event</Text>
-      </TouchableOpacity>
-           
-        </ScrollView>
-        
-        
-      </View>
+         
+        </View>
 
-     
+       
+      </ScrollView>
+      <TouchableOpacity onPress={createEvent} style={addFriendsCirclesStyles.buttonContainer}>
+          <Text style={addFriendsCirclesStyles.buttonText}>create spur! </Text>
+        </TouchableOpacity>
     </View>
   );
 };

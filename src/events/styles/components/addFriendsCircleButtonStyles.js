@@ -9,7 +9,8 @@ const buttonStyles = StyleSheet.create({
         borderWidth: 1, 
         marginTop: 20, 
         marginLeft: 40, 
-        marginRight: 30 
+        marginRight: 30, 
+        marginBottom: 40,
     },
     buttonText: {
         fontSize: 16,

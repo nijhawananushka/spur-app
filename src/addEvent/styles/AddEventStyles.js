@@ -2,31 +2,36 @@ import { StyleSheet } from 'react-native';
 
 const addEventStyles = StyleSheet.create({
     container: {
-        backgroundColor: '#A5A5A5',
+        backgroundColor: '#FEFDF9',
     },
+
       eventTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 5,
+        fontFamily: 'Inter',
+        marginTop: 15,
       },
       eventDate: {
-        marginTop: 30,
+        marginTop: 10,
+        fontFamily: 'Inter',
         fontSize: 16,
         marginBottom: 5,
       },
       eventLocation: {
+        fontFamily: 'Inter',
         fontSize: 16,
         marginBottom: 5,
       },
       eventDescription: {
-        fontSize: 14,
+        fontFamily: 'Inter',
+        fontSize: 16,
       },
     header: {
         height: '30%',
     },
-    testHeader: {
-        height: '20%',
-    },
+    // testHeader: {
+    //     height: '20%',
+    // },
     heading: {
         flexDirection: 'column',
         alignItems: 'center',
@@ -51,6 +56,11 @@ const addEventStyles = StyleSheet.create({
         width: '100%',
         bottom: '3%',
 
+    },
+    roundedContainer3: {
+        backgroundColor: '#FEFDF9',
+        alignItems: 'center',
+        marginTop: 40,
     },
     roundedContainer: {
         backgroundColor: '#FEFDF9',
