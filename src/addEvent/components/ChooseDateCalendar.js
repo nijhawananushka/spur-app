@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Alert, StyleSheet, Dimensions, View, Text } from 'react-native';
 import CalendarStrip from 'react-native-scrollable-calendar-strip';
 
@@ -16,12 +16,15 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
   const currentDate = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`;
   const accent = color !== '#FFFFFF' ? color : `hsl(0, 0%, 75%)`;
   const darkenedAccent = color !== '#FFFFFF' ? darkenColor(accent, 60, 40): `hsl(0, 0%, 20%)`;
+  const calendarRef = useRef(null);
 
   return (
     <>
       <CalendarStrip 
         scrollable
+        ref={calendarRef}
         calendarAnimation={{type: 'sequence', duration: 30}}
+        onHeaderSelected={(d1, d2) => {calendarRef.current.setSelectedDate(currentDate); calendarRef.current.scrollToInitialIndex();}}
         style={styles.outerContainer}
         onDateSelected={(date) => setEventDate(new Date(date))}
         selectedDate={currentDate}
