@@ -10,7 +10,7 @@ const LoginScreen = ({ navigation, route }) => {
   useEffect(() => {
     AsyncStorage.getItem('userToken').then((userToken) => {
       if (userToken) {
-        navigation.replace('Main');
+        navigation.replace('EventsRendering');
       }
     });
   }, []);

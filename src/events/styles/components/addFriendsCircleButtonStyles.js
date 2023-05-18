@@ -7,8 +7,8 @@ const buttonStyles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.2)',
         borderRadius: 10, 
         borderWidth: 1, 
-        marginTop: 30, 
-        marginLeft: 50, 
+        marginTop: 20, 
+        marginLeft: 40, 
         marginRight: 30 
     },
     buttonText: {

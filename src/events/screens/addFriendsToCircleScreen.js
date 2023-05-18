@@ -101,7 +101,7 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
   
       await updateUserCircles([currentUser.uid, ...selectedFriends], circleId);
   
-      navigation.navigate('Main');
+      navigation.navigate('EventsRendering');
     } catch (error) {
       console.log('Error saving circle:', error);
     }

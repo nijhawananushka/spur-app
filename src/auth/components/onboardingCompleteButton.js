@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, Alert } from 'react-native';
 const OnboardingCompleteButton = ({ navigation }) => {
     // Handle "Done" button press
     const handleDone = async () => {
-        navigation.replace('Main');
+        navigation.replace('EventsRendering');
       };
     return (
         <TouchableOpacity style={styles.doneButton} onPress={handleDone}>
