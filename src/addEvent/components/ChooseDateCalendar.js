@@ -1,7 +1,48 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Alert, StyleSheet, FlatList, View, Text } from 'react-native';
+import { Alert, StyleSheet, FlatList, View, Text, Animated } from 'react-native';
 import CalendarStrip from 'react-native-scrollable-calendar-strip';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// First, define a function to convert hex color to RGB
+const hexToRgb = (hex) => {
+  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+
+// Then, define the RGB to HSL conversion function we used earlier
+const rgbToHsl = (r, g, b) => {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  let max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+
+  if (max === min){
+    h = s = 0; // achromatic
+  } else {
+    let d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch(max){
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+
+  s *= 100;
+  s = Math.round(s);
+  l *= 100;
+  l = Math.round(l);
+  h = Math.round(360*h);
+  
+  // Adjust the saturation and lightness to make the color pastel
+  return `hsl(${h}, ${Math.max(s - 50, 40)}%, ${90}%)`;
+};
 
 const fetchEvents = async (date, accessToken) => {
   const startOfDay = new Date(date);
@@ -13,12 +54,30 @@ const fetchEvents = async (date, accessToken) => {
   const startTime = startOfDay.toISOString();
   const endTime = endOfDay.toISOString();
 
-  const response = await fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${startTime}&timeMax=${endTime}&orderBy=startTime&singleEvents=true`, {
+  // First fetch all calendars
+  const calendarResponse = await fetch(`https://www.googleapis.com/calendar/v3/users/me/calendarList`, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
+  const calendarData = await calendarResponse.json();
 
-  const data = await response.json();
-  return data.items;
+  // Then fetch events from each calendar
+  const allEvents = [];
+  for (const calendar of calendarData.items) {
+    const response = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendar.id)}/events?timeMin=${startTime}&timeMax=${endTime}&orderBy=startTime&singleEvents=true`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    const data = await response.json();
+    
+    // Add color to each event
+    for (const event of data.items) {
+      event.color = calendar.backgroundColor;  // use this color to display event
+    }
+    allEvents.push(...data.items);
+  }
+  
+  // Sort all events by start time
+  allEvents.sort((a, b) => new Date(a.start.dateTime || a.start.date) - new Date(b.start.dateTime || b.start.date));
+  return allEvents;
 };
 
 const darkenColor = (color, saturate, darken) => {
@@ -38,23 +97,40 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
   const calendarRef = useRef(null);
   const [events, setEvents] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
+  const [fadeAnim] = useState(new Animated.Value(0)); // For animation
 
   useEffect(() => {
     async function fetchToken() {
-      const token = await AsyncStorage.getItem('userToken');
+      const token = await AsyncStorage.getItem('calAccessToken');
       setAccessToken(token);
     }
     fetchToken();
   }, []);
+  
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      onDateSelected(currentDate);
+    }, 60000);  // fetch every 60 seconds
+  
+    // Clean up the interval on unmount
+    return () => clearInterval(intervalId);
+  }, [currentDate]);  // refetch when date changes  
 
   const onDateSelected = async (date) => {
+    setEvents([]);
     setEventDate(new Date(date));
     if (accessToken) {
       const fetchedEvents = await fetchEvents(date, accessToken);
       setEvents(fetchedEvents);
+      // Start the fade-in animation
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      }).start();
     }
     else{
-      Alert.alert('Unable to fetch events');
+      console.log('Unable to fetch events');
     }
   }; 
 
@@ -66,7 +142,7 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
         calendarAnimation={{type: 'sequence', duration: 30}}
         onHeaderSelected={(d1, d2) => {calendarRef.current.setSelectedDate(currentDate); calendarRef.current.scrollToInitialIndex();}}
         style={styles.outerContainer}
-        onDateSelected={(date) => setEventDate(new Date(date))}
+        onDateSelected={(date) => {setEventDate(new Date(date)); onDateSelected(date); returnSelectedDate(date);}}
         selectedDate={currentDate}
         calendarHeaderStyle={styles.dateHeaderText}
         innerStyle={{backgroundColor: '#ffffff', flex:1}}
@@ -79,15 +155,24 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
         highlightDateNameStyle={{color: 'black'}}
         iconContainer={{flex: 0.1}}
       />
-      <FlatList
+      <Animated.FlatList
         data={events}
-        renderItem={({ item }) => (
-          <View style={styles.eventItem}>
+        renderItem={({ item }) => {
+          const rgbColor = hexToRgb(item.color);
+          const pastelColor = rgbToHsl(rgbColor.r, rgbColor.g, rgbColor.b);      
+          return (
+          <View style={[styles.eventItem, {backgroundColor: pastelColor}]}>
             <Text style={styles.eventTitle}>{item.summary}</Text>
-            <Text style={styles.eventTime}>{item.start.dateTime ? new Date(item.start.dateTime).toLocaleTimeString() : 'All day'}</Text>
+            <Text style={styles.eventTime}>
+                {(item.start.dateTime ? new Date(item.start.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'All day') +
+                ' - ' +
+                (item.end.dateTime ? new Date(item.end.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'All day')}
+              </Text>
           </View>
-        )}
+          );
+        }}
         keyExtractor={(item) => item.id}
+        style={{ opacity: fadeAnim }} // Apply fade-in animation
       />
     </>
   );
@@ -126,7 +211,7 @@ const styles = StyleSheet.create({
   },
   eventTime: {
     fontSize: 14,
-    color: '#777',
+    color: 'black',
   },
 
 });

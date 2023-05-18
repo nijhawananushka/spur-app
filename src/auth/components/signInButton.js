@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -8,17 +8,21 @@ import firestore from '@react-native-firebase/firestore';
 
 GoogleSignin.configure({
   webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
-  scopes: ['https://www.googleapis.com/auth/calendar.events.readonly', 'https://www.googleapis.com/auth/calendar.app.created'],
+  scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
+  offlineAccess: false,
 });
+
 const SignInWithGoogleButton = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
+  const [calendarAccessToken, setCalendarAccessToken] = useState(null);
 
   const signInWithGoogle = async () => {
     try {
       setLoading(true);
       await GoogleSignin.hasPlayServices();
-      const { idToken, accessToken } = await GoogleSignin.signIn();
-    
+      const { idToken } = await GoogleSignin.signIn();
+      const { _, accessToken } = await GoogleSignin.getTokens();
+
       // Sign in with Firebase using the Google ID token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       const userCredential = await auth().signInWithCredential(googleCredential);
@@ -27,9 +31,13 @@ const SignInWithGoogleButton = ({ navigation }) => {
 
       if (user.exists) {
         // User document exists, navigate to Main Screen
-        await AsyncStorage.setItem('userToken', idToken);
-        await AsyncStorage.setItem('calAccessToken', accessToken);
         await AsyncStorage.setItem('uid', user.data().uid);
+        await AsyncStorage.setItem('userToken', idToken);
+        if (accessToken) {
+          await AsyncStorage.setItem('calAccessToken', accessToken);
+        } else {
+          await AsyncStorage.removeItem('calAccessToken');
+        }
         navigation.replace('Main');
       } else {
         // User document doesn't exist, navigate to Onboarding Screen
@@ -39,7 +47,6 @@ const SignInWithGoogleButton = ({ navigation }) => {
     } catch (error) {
       console.log('Google Sign-In Error:', error);
       Alert.alert('Unable to Sign In!');
-      
     } finally {
       setLoading(false);
     }
