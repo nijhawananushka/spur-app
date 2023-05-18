@@ -78,7 +78,7 @@ const AddFriendsCircleScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-         <TouchableOpacity style={styles.backButton} onPress={() => navigation.replace("Main")}>
+         <TouchableOpacity style={styles.backButton} onPress={() => navigation.replace("EventsRendering")}>
         <Text style={styles.backButtonText}>{'<'}</Text>
     </TouchableOpacity>
     <View style={{ alignItems: 'center', marginTop: 55 }}>
