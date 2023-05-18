@@ -1,9 +1,13 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Alert, Keyboard, Image, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import addEventStyles from '../styles/AddEventStyles';
 import FriendCard from '../../auth/components/friendCard';
+import CircleCard from '../../auth/components/circleCard';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import HapticFeedback from 'react-native-haptic-feedback';
+import addFriendsCirclesStyles from '../styles/components/addFriendsCirclesScreenStyles';
+
 const EventCard = ({ event }) => {
   return (
     <View style={[addEventStyles.roundedContainer, { borderColor: event.color }]}>
@@ -16,83 +20,111 @@ const EventCard = ({ event }) => {
 };
 
 const AddFriendsCircles = ({ navigation }) => {
-  const [isCameraVisible, setIsCameraVisible] = useState(false);
-  const [calendarVisible, setCalendarVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
-
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [imageURI, setimageURI] = useState(false);
-  const [eventDate, setEventDate] = useState('');
-  const [color, setColor] = useState('#FFFFFF');
-  const [friends, setFriends] = useState([]);
-  const [searchText, setSearchText] = useState('');
-  const descriptionRef = useRef(null);
-  const focusOnDescription = () => {
-    descriptionRef.current.focus();
-  };
-  const db = firestore();
   const currentUser = auth().currentUser;
+  const db = firestore();
 
-  const filteredFriends = friends.filter((friend) => {
-    const friendName = friend.displayName ? friend.displayName.toLowerCase() : '';
-    const searchLower = searchText.toLowerCase();
-    return friendName.includes(searchLower);
-  });
-  
-
-  const handleAddFriend = useCallback((userId) => {
-    setSelectedFriends((prevSelectedFriends) => [...prevSelectedFriends, userId]);
-  }, []);
-
-  const handleRemoveFriend = useCallback((userId) => {
-    setSelectedFriends((prevSelectedFriends) => prevSelectedFriends.filter((id) => id !== userId));
-  }, []);
-
-  const handleSearchTextChange = (text) => {
-    setSearchText(text);
-  };
+  const [selectedFriends, setSelectedFriends] = useState([]);
+  const [selectedCircles, setSelectedCircles] = useState([]);
+  const [friends, setFriends] = useState([]);
+  const [circles, setCircles] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     if (currentUser) {
       db.collection('UserProfiles')
         .doc(currentUser.uid)
         .get()
-        .then(async documentSnapshot => {
+        .then(async (documentSnapshot) => {
           if (documentSnapshot.exists) {
             const userData = documentSnapshot.data();
-  
+
             // Check if user has friends
             if (userData.friends && userData.friends.length > 0) {
-              const batchSize = 10;
-              const friendsData = [];
-              const numberOfBatches = Math.ceil(userData.friends.length / batchSize);
-  
-              for (let i = 0; i < numberOfBatches; i++) {
-                // Get the current batch of friend UIDs (up to 10 friends)
-                const batchUids = userData.friends.slice(i * batchSize, (i + 1) * batchSize);
-  
-                try {
-                  // Retrieve data for the current batch of friends
-                  const querySnapshot = await db.collection('UserProfiles')
-                    .where('uid', 'in', batchUids)
-                    .get();
-  
-                  friendsData.push(...querySnapshot.docs.map(doc => doc.data()));
-                } catch (error) {
-                  console.log('Error fetching friends data:', error);
-                }
-              }
-  
-              setFriends(friendsData);
+              const friendData = await Promise.all(
+                userData.friends.map(async (friendId) => {
+                  const friendSnapshot = await db.collection('UserProfiles').doc(friendId).get();
+                  if (friendSnapshot.exists) {
+                    return { id: friendSnapshot.id, ...friendSnapshot.data() };
+                  }
+                  return null;
+                })
+              );
+              setFriends(friendData.filter((friend) => friend !== null));
             }
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log('Error fetching user data:', error);
         });
     }
-  }, [currentUser]);
+  }, [currentUser, db]);
+
+  useEffect(() => {
+    db.collection('Circles')
+      .get()
+      .then((querySnapshot) => {
+        const circleData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setCircles(circleData);
+      })
+      .catch((error) => {
+        console.log('Error fetching circles data:', error);
+      });
+  }, [db]);
+
+  const handleAddFriend = (friend) => {
+    HapticFeedback.trigger('impactMedium');
+    setSelectedFriends((prevSelectedFriends) => [...prevSelectedFriends, friend]);
+  };
+
+  const handleRemoveFriend = (friend) => {
+    HapticFeedback.trigger('impactMedium');
+    setSelectedFriends((prevSelectedFriends) =>
+      prevSelectedFriends.filter((selectedFriend) => selectedFriend.id !== friend.id)
+    );
+  };
+
+  const handleAddCircle = (circle) => {
+    HapticFeedback.trigger('impactMedium');
+    setSelectedCircles((prevSelectedCircles) => [...prevSelectedCircles, circle]);
+  };
+
+  const handleRemoveCircle = (circle) => {
+    HapticFeedback.trigger('impactMedium');
+    setSelectedCircles((prevSelectedCircles) =>
+      prevSelectedCircles.filter((selectedCircle) => selectedCircle.id !== circle.id)
+    );
+  };
+
+  const handleSearchTextChange = (text) => {
+    setSearchText(text);
+  };
+
+  const createEvent = async () => {
+    try {
+      const eventRef = db.collection('Events').doc();
+      const eventId = eventRef.id;
+
+      const eventData = {
+        title: 'Your Event Title',
+        description: 'Your Event Description',
+        participants: [...selectedFriends, ...selectedCircles],
+      };
+
+      await eventRef.set(eventData);
+
+      // Reset selected friends and circles
+      setSelectedFriends([]);
+      setSelectedCircles([]);
+
+      // Navigate to the desired screen
+      navigation.navigate('EventsRendering');
+    } catch (error) {
+      console.log('Error creating event:', error);
+    }
+  };
 
   const myEvent = {
     id: '1',
@@ -100,7 +132,7 @@ const AddFriendsCircles = ({ navigation }) => {
     date: '2023-05-20',
     location: 'Location 1',
     description: 'Description for Event 1',
-    color: color,
+    color: '#FFFFFF',
   };
 
   return (
@@ -109,19 +141,41 @@ const AddFriendsCircles = ({ navigation }) => {
         <EventCard event={myEvent} />
       </View>
 
-      <View style={[addEventStyles.roundedContainer2, { borderColor: color }]}>
-      <ScrollView contentContainerStyle={{ paddingTop: 40 }}>
-        {filteredFriends.map(friend => (
-          <FriendCard
-            key={friend.uid}
-            friend={friend}
-            onAddFriend={handleAddFriend}
-            onRemoveFriend={handleRemoveFriend}
-          />
-        ))}
-        {/* <OnboardingCompleteButton navigation={navigation} /> */}
-      </ScrollView>
+      <View style={addEventStyles.roundedContainer2}>
+        <ScrollView contentContainerStyle={{ paddingTop: 40 }}>
+          {friends
+            .filter((friend) => friend.username.toLowerCase().includes(searchText.toLowerCase()))
+            .map((friend) => (
+              <FriendCard
+                key={friend.id}
+                friend={friend}
+                onAddFriend={handleAddFriend}
+                onRemoveFriend={handleRemoveFriend}
+                isSelected={selectedFriends.some((selectedFriend) => selectedFriend.id === friend.id)}
+              />
+            ))}
+
+          {circles
+            .filter((circle) => circle.title.toLowerCase().includes(searchText.toLowerCase()))
+            .map((circle) => (
+              <CircleCard
+                key={circle.id}
+                circle={circle}
+                onAddCircle={handleAddCircle}
+                onRemoveCircle={handleRemoveCircle}
+                isSelected={selectedCircles.some((selectedCircle) => selectedCircle.id === circle.id)}
+              />
+            ))}
+            <TouchableOpacity onPress={createEvent} style={addFriendsCirclesStyles.buttonContainer}>
+        <Text style={addFriendsCirclesStyles.buttonText}>Create Event</Text>
+      </TouchableOpacity>
+           
+        </ScrollView>
+        
+        
       </View>
+
+     
     </View>
   );
 };
