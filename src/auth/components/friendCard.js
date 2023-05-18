@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import friendCardStyles from '../styles/components/friendCardStyles';
 
-const FriendCard = ({ friend, onAddFriend, onRemoveFriend }) => {
+const FriendCard = ({ friend, onAddFriend, onRemoveFriend, resetState }) => {
   const { uid, username, displayName, photoURL } = friend;
   const [isAdded, setIsAdded] = useState(false);
-
+  const [added, setAdded] = useState(false);
+  useEffect(() => {
+    if (resetState) {
+      setAdded(false);
+    }
+  }, [resetState]);
   const handleAddFriend = () => {
     if (!isAdded) {
       setIsAdded(true);

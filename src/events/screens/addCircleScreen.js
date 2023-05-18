@@ -20,7 +20,7 @@ const AddCircle = ({navigation }) => {
         navigation.navigate("CreateNewCircleWithFriends", { circleTitle: username });
       };
     return (
-        
+        // might want to change this text input component to enable autocorrect
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TextInputComponent onUsernameChange={handleUsernameChange} placeholder="Enter Name of Circle"/>
       

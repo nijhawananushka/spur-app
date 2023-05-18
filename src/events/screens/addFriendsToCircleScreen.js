@@ -91,21 +91,22 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
   });
 
   const saveCircle = async () => {
-    try {
-      const circleRef = await db.collection('Circles').add({
-        title: circleTitle,
-        members: [currentUser.uid, ...selectedFriends],
-      });
-  
-      const circleId = circleRef.id;
-  
-      await updateUserCircles([currentUser.uid, ...selectedFriends], circleId);
-  
-      navigation.navigate('EventsRendering');
-    } catch (error) {
-      console.log('Error saving circle:', error);
-    }
-  };
+  try {
+    const circleRef = await db.collection('Circles').add({
+      title: circleTitle,
+      owner: currentUser.uid,
+      members: [currentUser.uid, ...selectedFriends],
+    });
+
+    const circleId = circleRef.id;
+
+    await updateUserCircles([currentUser.uid], circleId);
+    setSelectedFriends([]);
+    navigation.navigate('EventsRendering');
+  } catch (error) {
+    console.log('Error saving circle:', error);
+  }
+};
   return (
     <View style={{ flex: 1 }}>
       <View style={{ borderRadius: 10, borderWidth: 1, marginTop: 60, marginLeft: 30, marginRight: 30 }}>
