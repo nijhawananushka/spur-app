@@ -32,14 +32,13 @@ const SignInWithGoogleButton = ({ navigation }) => {
       if (user.exists) {
         // User document exists, navigate to Main Screen
         await AsyncStorage.setItem('uid', user.data().uid);
-        // navigation.replace('EventsRendering');
         await AsyncStorage.setItem('userToken', idToken);
         if (accessToken) {
           await AsyncStorage.setItem('calAccessToken', accessToken);
         } else {
           await AsyncStorage.removeItem('calAccessToken');
         }
-        navigation.replace('Main');
+        navigation.replace('EventsRendering');
       } else {
         // User document doesn't exist, navigate to Onboarding Screen
         navigation.navigate('Onboard', {idToken});

@@ -7,6 +7,7 @@ const LogOutButton = ({ navigation }) => {
     const handleLogout = async () => {
         await AsyncStorage.removeItem('userToken');
         await AsyncStorage.removeItem('uid');
+        await AsyncStorage.removeItem('calAccessToken');
         navigation.replace('Login');
     };
     return (
