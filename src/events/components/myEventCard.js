@@ -10,7 +10,7 @@ const MyEventCard = ({ event }) => {
     hour: 'numeric',
     minute: 'numeric',
   });
-
+// commented out date for testing purposes
   return (
     <View style={styles.card}>
       <Text style={styles.dateTime}>{formattedDateTime}</Text>

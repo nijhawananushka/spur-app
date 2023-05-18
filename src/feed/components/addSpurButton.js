@@ -82,7 +82,7 @@ const AddSpurButton = ({ navigation }) => {
   
   const onPressButton2 = () => {
     toggleButton();
-    navigation.navigate('AddEvent');
+    navigation.navigate('AddFriendsCirclesEventFlow');
   };
 
   const collapseButtons = () => {
