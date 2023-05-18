@@ -94,6 +94,7 @@ const OnboardingScreen = ({ navigation, route }) => {
       uid: user.uid,
       username: trimmedUsername,
       friends: [],
+      circles: [],
     };
 
     await firestore().collection('UserProfiles').doc(user.uid).set(userProfile);
