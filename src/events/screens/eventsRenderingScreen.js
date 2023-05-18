@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "../styles/screens/eventRenderingScreenStyles";
 import AddSpurButton from '../../feed/components/addSpurButton';
 import AddFriendsCirclesButton from '../components/addFriendsCirclesButton';
+import LogOutButton from '../../feed/components/logOutButton';
 const EventRenderingScreen = ({navigation}) => {
     const [myEvents, setMyEvents] = useState([]);
     const [otherEvents, setOtherEvents] = useState([]);
@@ -97,7 +98,9 @@ const EventRenderingScreen = ({navigation}) => {
             
             // Fetch 'myEvents', events that you have created, and you are going to go for? 
             const userDoc = await firestore().collection('UserProfiles').doc(uid).get();
+            
             const userDocData = userDoc.data();
+            console.log('userDoc',userDocData);
             const myEventIds = Array.isArray(userDocData.myEvents) ? userDocData.myEvents : [];
     
             Promise.all(myEventIds.map(async id => {
@@ -144,10 +147,13 @@ const EventRenderingScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
      <View style={styles.headerContainer}>
+     
      <Text style={styles.header}> {`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`} </Text>
+     
     <AddFriendsCirclesButton navigation={navigation} />
     </View>
     <View style={styles.contentContainer}>
+    <LogOutButton navigation={navigation} /> 
       <Text style={styles.headerText}>your spurs</Text>
       <View style={styles.myEventsContainer}>
         <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
@@ -157,8 +163,9 @@ const EventRenderingScreen = ({navigation}) => {
         <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
       </View>
     </View>
+   
       <AddSpurButton navigation={navigation} />
-  
+    
   </SafeAreaView>
   );
 };

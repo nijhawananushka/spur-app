@@ -58,7 +58,20 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
     }
   }, [currentUser]);
   
-
+  const updateUserCircles = async (users, circleId) => {
+    const chunkSize = 500;
+    for (let i = 0; i < users.length; i += chunkSize) {
+      const usersChunk = users.slice(i, i + chunkSize);
+      const batch = db.batch();
+  
+      usersChunk.forEach(userId => {
+        const docRef = db.collection('UserProfiles').doc(userId);
+        batch.update(docRef, { circles: firestore.FieldValue.arrayUnion(circleId) });
+      });
+  
+      await batch.commit();
+    }
+  };
   const handleAddFriend = useCallback((userId) => {
     setSelectedFriends((prevSelectedFriends) => [...prevSelectedFriends, userId]);
   }, []);
@@ -79,13 +92,16 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
 
   const saveCircle = async () => {
     try {
-      await db.collection('Circles').add({
+      const circleRef = await db.collection('Circles').add({
         title: circleTitle,
         members: [currentUser.uid, ...selectedFriends],
       });
-
-      // Navigate to the desired screen after saving the circle, navigating to main for now but will change this to reflect feed page with all the new events added
-      navigation.navigate('Main');
+  
+      const circleId = circleRef.id;
+  
+      await updateUserCircles([currentUser.uid, ...selectedFriends], circleId);
+  
+      navigation.navigate('EventsRendering');
     } catch (error) {
       console.log('Error saving circle:', error);
     }

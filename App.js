@@ -21,7 +21,7 @@ const RootStack = () => {
   useEffect(() => {
     AsyncStorage.getItem('userToken').then((userToken) => {
       if (userToken) {
-        setInitialRoute('Main');
+        setInitialRoute('EventsRendering');
       } else {
         setInitialRoute('Login');
       }
@@ -56,11 +56,11 @@ const RootStack = () => {
           options={{ headerShown: false }}
           initialParams={{ navigation: null }} // Pass navigation as initialParams
         />
-        <Stack.Screen 
+        {/* <Stack.Screen 
           name="Main" 
           component={MainScreen} 
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen 
           name="Onboard" 
           component={OnboardingScreen} 
