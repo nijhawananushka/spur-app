@@ -4,7 +4,6 @@ import addEventStyles from '../styles/AddEventStyles';
 import {TitleInputComponent, DescriptionInputComponent} from '../components/InputComponents';
 import Camera from '../components/Camera';
 import PastelColorPicker from '../components/PastelColorPicker';
-import CalendarScreen from './ChooseDateScreen';
 import CalendarView from '../components/ChooseDateCalendar';
 
 const AddEventScreen = ({ navigation }) => {
@@ -64,11 +63,16 @@ const AddEventScreen = ({ navigation }) => {
         }
         {calendarVisible &&
           <View style={addEventStyles.calendarContainer}>
-            {/* <View style={[addEventStyles.navigationButtonsContainer, {paddingTop: '2%', width:'90%', alignSelf: 'center'}]}>
-              <Button title='<' style={{fontFamily: 'Inter-Bold', color: 'black', height: '10%', width: '10%'}} onPress={() => setCalendarVisible(false)} />
-              <Button title='>' style={{fontFamily: 'Inter-Bold', color: 'black', height: '10%', width: '10%'}} onPress={() => Alert.alert("Calendar")} />
-            </View> */}
             <CalendarView color={color} returnSelectedDate={setSelectedDate} setEventDate={setEventDate}/>
+            <View style={[{position:'absolute', top: 500, width:'90%', alignSelf: 'center', justifyContent:'space-between', flexDirection: 'row'}]}>
+              <TouchableOpacity style={{backgroundColor: 'grey', padding: '5%', alignContent: 'center', justifyContent: 'center'}} onPress={() => setCalendarVisible(false)}>
+                <Text>Back</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{backgroundColor: 'grey', alignContent: 'center', justifyContent: 'center'}} onPress={() => Alert.alert("Calendar")}>
+                <Text>Accept</Text>
+              </TouchableOpacity>
+            </View>
+
           </View>
         } 
       </View>
