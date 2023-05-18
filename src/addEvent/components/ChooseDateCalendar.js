@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ActivityIndicator, Alert, StyleSheet, FlatList, View, Text, Animated } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, Dimensions, ScrollView, FlatList, View, Text, Animated } from 'react-native';
 import CalendarStrip from 'react-native-scrollable-calendar-strip';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const hourHeight = Dimensions.get('window').height * 0.06;
 
 // First, define a function to convert hex color to RGB
 const hexToRgb = (hex) => {
@@ -91,8 +93,8 @@ const darkenColor = (color, saturate, darken) => {
   
 const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
   const date = new Date();
-  const accent = color !== '#FFFFFF' ? color : `hsl(0, 0%, 75%)`;
-  const darkenedAccent = color !== '#FFFFFF' ? darkenColor(accent, 60, 40): `hsl(0, 0%, 20%)`;
+  const accent = color !== '#FFFFFF' && color !== 'white' ? color : `hsl(0, 0%, 75%)`;
+  const darkenedAccent = color !== '#FFFFFF' && color !== 'white' ? darkenColor(accent, 60, 40): `hsl(0, 0%, 20%)`;
   const calendarRef = useRef(null);
   const [events, setEvents] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
@@ -112,8 +114,8 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
       if (accessToken) {
         const fetchedEvents = await fetchEvents(date, accessToken);
         setEvents(fetchedEvents);
-        // Start the fade-in animation
         setLoadingEvents(false);
+        // Start the fade-in animation
         Animated.timing(fadeAnim, {
           toValue: 1,
           duration: 1000,
@@ -133,8 +135,8 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
     setEventDate(new Date(date));
     if (accessToken) {
       const fetchedEvents = await fetchEvents(date, accessToken);
-      setEvents(fetchedEvents);
       setLoadingEvents(false);
+      setEvents(fetchedEvents);
       // Start the fade-in animation
       Animated.timing(fadeAnim, {
         toValue: 1,
@@ -153,7 +155,7 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
         scrollable
         ref={calendarRef}
         calendarAnimation={{type: 'sequence', duration: 30}}
-        onHeaderSelected={(d1, d2) => {calendarRef.current.setSelectedDate(date); calendarRef.date.scrollToInitialIndex();}}
+        onHeaderSelected={(d1, d2) => {calendarRef.current.setSelectedDate(date); calendarRef.current.scrollToInitialIndex();}}
         style={styles.outerContainer}
         onDateSelected={(date) => {setEventDate(new Date(date)); onDateSelected(date); returnSelectedDate(date);}}
         selectedDate={date}
@@ -161,7 +163,7 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
         innerStyle={{backgroundColor: '#ffffff', flex:1}}
         calendarHeaderContainerStyle={[styles.innerContainer, {backgroundColor: accent}]}
         dateNumberStyle={{fontWeight: 300, fontSize: 17}}
-        dateNameStyle={{color: '#2d4150', marginBottom: '10%', fontSize: 10, fontWeight: '300'}}
+        dateNameStyle={{color: '#2d4150', marginBottom: '5%', fontSize: 10, fontWeight: '300', marginTop: '5%'}}
         highlightDateNumberStyle={{color: darkenedAccent}}
         calendarHeaderFormat={'MMMM YYYY'}
         daySelectionAnimation={{type: 'background', duration: 200, highlightColor: accent}}
@@ -170,26 +172,45 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
       />
       {
         loadingEvents ?
-      <ActivityIndicator size="small" color="black"/> :
-      <Animated.FlatList
-        data={events}
-        renderItem={({ item }) => {
-          const rgbColor = hexToRgb(item.color);
-          const pastelColor = rgbToHsl(rgbColor.r, rgbColor.g, rgbColor.b);      
-          return (
-          <View style={[styles.eventItem, {backgroundColor: pastelColor}]}>
-            <Text style={styles.eventTitle}>{item.summary}</Text>
-            <Text style={styles.eventTime}>
-                {(item.start.dateTime ? new Date(item.start.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'All day') +
-                ' - ' +
-                (item.end.dateTime ? new Date(item.end.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'All day')}
-              </Text>
-          </View>
-          );
-        }}
-        keyExtractor={(item) => item.id}
-        style={{ opacity: fadeAnim }} // Apply fade-in animation
-      />
+        <ActivityIndicator size="small" color="black"/> :
+        <>
+        <Animated.FlatList
+          data={events}
+          renderItem={({ item }) => {
+            const rgbColor = hexToRgb(item.color);
+            const pastelColor = rgbToHsl(rgbColor.r, rgbColor.g, rgbColor.b);   
+            const start = item.start.dateTime;
+            const end = item.end.dateTime;
+            const startDateTime = new Date(item.start.dateTime);
+            const endDateTime = new Date(item.end.dateTime);
+            const durationInMilliseconds = endDateTime - startDateTime;
+            const durationInMinutes = Math.floor(durationInMilliseconds / (1000 * 60));
+            const durationWithinDayInMinutes = Math.min(durationInMinutes, 24 * 60);
+            const durationWithinDayInHours = durationWithinDayInMinutes / 60;
+            const startHour = startDateTime.getHours();
+            const startMinute = startDateTime.getMinutes();
+            const currentDateTime = new Date();
+            const currentHour = currentDateTime.getHours();
+            const currentMinute = currentDateTime.getMinutes();  
+            const eventStyle = {
+              height: durationWithinDayInHours * hourHeight,
+              // top: (startHour + startMinute / 60) * hourHeight,
+            };
+            return (
+            <View style={[styles.eventItem, {backgroundColor: pastelColor}, eventStyle]}>
+              <Text style={styles.eventTitle}>{item.summary}</Text>
+              <Text style={styles.eventTime}>
+                  {(item.start.dateTime ? new Date(item.start.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'All day') +
+                  ' - ' +
+                  (item.end.dateTime ? new Date(item.end.dateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'All day')}
+                </Text>
+            </View>
+            );
+          }}
+          keyExtractor={(item) => item.id}
+          style={{ opacity: fadeAnim }} // Apply fade-in animation
+        />
+        </>
     }
     </>
   );
@@ -197,7 +218,7 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
 
 const styles = StyleSheet.create({
   outerContainer: {
-    height: '12.5%',
+    height: '20%',
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
     backgroundColor: '#ffffff',
@@ -217,10 +238,17 @@ const styles = StyleSheet.create({
   },
   eventItem: {
     backgroundColor: '#f0f0f0',
+    shadowColor: 'black',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 0.25,
+    shadowRadius: 2,
     borderRadius: 10,
-    padding: 10,
-    marginVertical: 5,
-    marginHorizontal: 10,
+    width: '95%',
+    alignContent: 'center',
+    padding: '2%',
+    marginTop: '2.5%',
+    alignSelf: 'center',
+    flex: 1,
   },
   eventTitle: {
     fontSize: 16,
@@ -230,14 +258,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'black',
   },
-  timeline: {
-    position: 'absolute',
-    width: 2,
-    backgroundColor: 'black',
-    left: '50%',
-    top: 0,
-    bottom: 0,
-  }  
 });
 
 export default CalendarView;

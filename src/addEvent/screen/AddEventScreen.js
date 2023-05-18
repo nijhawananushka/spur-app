@@ -72,7 +72,6 @@ const AddEventScreen = ({ navigation }) => {
                 <Text>Accept</Text>
               </TouchableOpacity>
             </View>
-
           </View>
         } 
       </View>

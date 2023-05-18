@@ -3,9 +3,10 @@ import { StyleSheet } from 'react-native';
 const addEventStyles = StyleSheet.create({
     container: {
         backgroundColor: '#A5A5A5',
+        flex: 1,
     },
     header: {
-        height: '30%',
+        height: '34%',
     },
     heading: {
         flexDirection: 'column',
@@ -21,6 +22,7 @@ const addEventStyles = StyleSheet.create({
         lineHeight: 50,
     },
     roundedContainer: {
+        flex: 1,
         backgroundColor: '#FEFDF9',
         borderTopRightRadius: 25,
         borderTopWidth: 5,
@@ -38,10 +40,12 @@ const addEventStyles = StyleSheet.create({
         width: '90%',
     },
     calendarContainer: {
-        width: '100%',
+        width: '98%',
         height: '100%',
         borderTopRightRadius: 25,
         borderTopLeftRadius: 25,
+        marginTop: '1%',
+        flex: 1,
     },
     imagePreview: {
         width: '100%',
