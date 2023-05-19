@@ -20,7 +20,7 @@ const AddEventScreen = ({ navigation, route }) => {
   const [description, setDescription] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [selectedStartTime, setSelectedStartTime] = useState(new Date().toString());
-const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 60 * 60 * 1000).toString()); // Initial duration is set to 60 minutes
+  const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 60 * 60 * 1000).toString()); // Initial duration is set to 60 minutes
   const descriptionRef = useRef(null);
   const focusOnDescription = () => {
     descriptionRef.current.focus();
@@ -82,14 +82,9 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
         {calendarVisible && (
           <View style={addEventStyles.calendarContainer}>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: '5%', paddingTop: '2%' }}
-            >
+              style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: '5%', paddingTop: '2%' }}>
               <Button title="Start Time" onPress={() => setOpen(true)} />
-              <DatePicker
-                modal
-                open={open}
-                date={date}
-                mode="time"
+              <DatePicker modal open={open} date={date} mode="time"
                 onConfirm={(date) => {
                   setOpen(false);
                   setSelectedStartTime(date);
@@ -99,13 +94,8 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
                 }}
               />
               <Button title="End Time" onPress={() => setOpen1(true)} />
-              <DatePicker
-                modal
-                open={open1}
-                date={date}
-                mode="time"
-                onConfirm={(date) => {
-                  setOpen1(false);
+              <DatePicker modal open={open1} date={date} mode="time" onConfirm={(date) => 
+                { setOpen1(false);
                   if (date < selectedStartTime) {
                     const nextDate = new Date(date.getTime());
                     nextDate.setDate(date.getDate() + 1);
