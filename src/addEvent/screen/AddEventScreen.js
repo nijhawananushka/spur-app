@@ -5,17 +5,23 @@ import {TitleInputComponent, DescriptionInputComponent} from '../components/Inpu
 import Camera from '../components/Camera';
 import PastelColorPicker from '../components/PastelColorPicker';
 import CalendarView from '../components/ChooseDateCalendar';
+import DatePicker from 'react-native-date-picker'
 
 const AddEventScreen = ({ navigation }) => {
+  const date = new Date();
   const [isCameraVisible, setIsCameraVisible] = useState(false);
   const [calendarVisible, setCalendarVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [imageURI, setimageURI] = useState(false);
+  const [color, setColor] = useState('#FFFFFF');
+  const [open, setOpen] = useState(false)
+  const [open1, setOpen1] = useState(false)
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [imageURI, setimageURI] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
   const [eventDate, setEventDate] = useState('');
-  const [color, setColor] = useState('#FFFFFF');
+  const [selectedStartTime, setSelectedStartTime] = useState(new Date());
+  const [selectedEndTime, setSelectedEndTime] = useState(60); // Initial duration is set to 60 minutes
 
   const descriptionRef = useRef(null);
   const focusOnDescription = () => {
@@ -63,12 +69,59 @@ const AddEventScreen = ({ navigation }) => {
         }
         {calendarVisible &&
           <View style={addEventStyles.calendarContainer}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: '5%', paddingTop: '2%'}}>
+              <Button title="Start Time" onPress={() => setOpen(true)} />
+              <DatePicker
+                modal
+                open={open}
+                date={date}
+                mode="time"
+                onConfirm={(date) => {
+                  setOpen(false)
+                  setSelectedStartTime(date)
+                }}
+                onCancel={() => {
+                  setOpen(false)
+                }}
+              />
+              <Button title="End Time" onPress={() => setOpen1(true)} />
+              <DatePicker
+                modal
+                open={open1}
+                date={date}
+                mode="time"
+                onConfirm={(date) => {
+                  setOpen1(false)
+                  if (date < selectedStartTime){
+                    const nextDate = new Date(date.getTime());
+                    nextDate.setDate(date.getDate() + 1);
+                    setSelectedEndTime(nextDate)
+                  }
+                  else {
+                    setSelectedEndTime(date)
+                  }
+                }}
+                onCancel={() => {
+                  setOpen1(false)
+                }}
+              />
+            </View>
             <CalendarView color={color} returnSelectedDate={setSelectedDate} setEventDate={setEventDate}/>
             <View style={[{position:'absolute', top: 500, width:'90%', alignSelf: 'center', justifyContent:'space-between', flexDirection: 'row'}]}>
               <TouchableOpacity style={{backgroundColor: 'grey', padding: '5%', alignContent: 'center', justifyContent: 'center'}} onPress={() => setCalendarVisible(false)}>
                 <Text>Back</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={{backgroundColor: 'grey', alignContent: 'center', justifyContent: 'center'}} onPress={() => Alert.alert("Calendar")}>
+              <TouchableOpacity style={{backgroundColor: 'grey', alignContent: 'center', justifyContent: 'center'}} onPress={() => {   
+                const eventObject = {
+                  title: title,
+                  description: description,
+                  selectedDate: selectedDate,
+                  eventDate: eventDate,
+                  selectedStartTime: selectedStartTime,
+                  selectedEndTime: selectedEndTime,
+                };
+                // navigation.navigate('AddFriends', { eventObject: eventObject });
+              }}>
                 <Text>Accept</Text>
               </TouchableOpacity>
             </View>
