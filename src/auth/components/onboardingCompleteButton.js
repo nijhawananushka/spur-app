@@ -5,9 +5,10 @@ const OnboardingCompleteButton = ({ navigation }) => {
     // Handle "Done" button press
     const handleDone = async () => {
         navigation.replace('EventsRendering');
-      };
+    };
+    
     return (
-        <TouchableOpacity style={styles.doneButton} onPress={handleDone}>
+      <TouchableOpacity style={styles.doneButton} onPress={handleDone}>
         <Text style={styles.doneButtonText}>Done</Text>
       </TouchableOpacity>
     )

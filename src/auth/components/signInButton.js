@@ -14,7 +14,6 @@ GoogleSignin.configure({
 
 const SignInWithGoogleButton = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-  const [calendarAccessToken, setCalendarAccessToken] = useState(null);
 
   const signInWithGoogle = async () => {
     try {
