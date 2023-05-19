@@ -94,7 +94,7 @@ const darkenColor = (color, saturate, darken) => {
 const CalendarView = ({color, setEventDate}) => {
   const date = new Date();
   const accent = color !== '#FFFFFF' && color !== 'white' ? color : `hsl(0, 0%, 75%)`;
-  const darkenedAccent = color !== '#FFFFFF' && color !== 'white' ? darkenColor(accent, 60, 40): `hsl(0, 0%, 20%)`;
+  const darkenedAccent = color !== '#FFFFFF' && color !== 'white' ? darkenColor(accent, 20, 60): `hsl(0, 0%, 20%)`;
   const calendarRef = useRef(null);
   const [events, setEvents] = useState([]);
   const [accessToken, setAccessToken] = useState(null);

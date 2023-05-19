@@ -79,7 +79,8 @@ const DescriptionInputComponent = React.forwardRef(({ onDescriptionChange, onEnt
 
 const textInputStyles = StyleSheet.create({
   titleContainer: {
-    paddingBottom: '2%'
+    paddingBottom: '2%',
+    paddingTop: '2%',
   },
   titleTextInput: {
     fontFamily: 'Inter',
@@ -90,6 +91,7 @@ const textInputStyles = StyleSheet.create({
   },
   titlePlaceholder: {
     position: 'absolute',
+    top: '20%',
     fontFamily: 'Inter',
     fontStyle: 'normal',
     fontWeight: '600',
@@ -98,7 +100,7 @@ const textInputStyles = StyleSheet.create({
   },
   descriptionContainer: {
     paddingTop: '2%',
-    paddingLeft: '2%',
+    // paddingLeft: '2%',
   },
   descriptionTextInput: {
     fontFamily: 'Inter',
