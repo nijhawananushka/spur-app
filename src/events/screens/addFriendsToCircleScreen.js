@@ -64,22 +64,30 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
 
   const saveCircle = async () => {
     try {
-      const circleRef = db.collection('Circles').doc(currentUser.uid);
-
-      await circleRef.set({
-        id: currentUser.uid,
+      const circlesRef = db.collection('Circles');
+      
+      const circleData = {
         title: circleTitle,
         owner: currentUser.uid,
         members: [currentUser.uid, ...selectedFriends],
+      };
+  
+      const circleDoc = await circlesRef.add(circleData);
+      const circleId = circleDoc.id;
+  
+      // Save the circle ID in the user's profile
+      const userProfileRef = db.collection('UserProfiles').doc(currentUser.uid);
+      await userProfileRef.update({
+        circles: firestore.FieldValue.arrayUnion(circleId),
       });
-
+  
       setSelectedFriends([]);
-      navigation.replace("EventsRendering")
+      navigation.replace('EventsRendering');
     } catch (error) {
       console.log('Error saving circle:', error);
     }
   };
-
+  
   return (
     <View style={{ flex: 1 }}>
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
