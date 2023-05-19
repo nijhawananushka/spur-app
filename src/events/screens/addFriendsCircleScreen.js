@@ -82,7 +82,7 @@ const AddFriendsCircleScreen = ({ navigation }) => {
       <View style={{ alignItems: 'center', marginTop: '20%' }}>
         <Text style={{ fontSize: 20, fontFamily: 'Inter-Medium'}}>add new friends</Text>
       </View>
-      <TouchableOpacity style={styles.buttonStyle} onPress = {handleAddCirlce}>
+      <TouchableOpacity style={styles.buttonStyle} onPress = {() => navigation.replace('AddCircle')}>
         <Text style={styles.buttonText}>create a new circle</Text>
       </TouchableOpacity>
       <View style={styles.searchContainer}>

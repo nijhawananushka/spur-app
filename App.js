@@ -75,7 +75,7 @@ const RootStack = () => {
           name="AddEvent"
           component={AddEventScreen}
           options={verticalAnimation}/>
-                 <Stack.Screen 
+        <Stack.Screen 
           name="EventsRendering" 
           component={EventsRendering} 
           options={{ headerShown: false }}
