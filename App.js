@@ -11,7 +11,7 @@ import AddFriendsCircleScreen from './src/events/screens/addFriendsCircleScreen'
 import AddCircle from './src/events/screens/addCircleScreen';
 import CreateNewCircleWithFriends from './src/events/screens/addFriendsToCircleScreen';
 import AddEventScreen from './src/addEvent/screen/AddEventScreen';
-
+import AddFriendsCircles from './src/addEvent/screen/AddFriendsCirclesScreen';
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -93,6 +93,11 @@ const RootStack = () => {
          <Stack.Screen 
           name="CreateNewCircleWithFriends" 
           component={CreateNewCircleWithFriends} 
+          options={{ headerShown: false }}
+        />  
+         <Stack.Screen 
+          name="AddFriendsCirclesEventFlow" 
+          component={AddFriendsCircles} 
           options={{ headerShown: false }}
         />        
       </Stack.Navigator>
