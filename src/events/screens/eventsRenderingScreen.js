@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import {SafeAreaView, StyleSheet, View, Text } from 'react-native';
+import {SafeAreaView, TouchableOpacity, View, Text } from 'react-native';
 import EventFeed from '../components/eventFeed';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "../styles/screens/eventRenderingScreenStyles";
 import AddSpurButton from '../../feed/components/addSpurButton';
-import AddFriendsCirclesButton from '../components/addFriendsCirclesButton';
 import LogOutButton from '../../feed/components/logOutButton';
-const EventRenderingScreen = ({navigation}) => {
-    const [myEvents, setMyEvents] = useState([]);
-    const [otherEvents, setOtherEvents] = useState([]);
+import Icon from 'react-native-vector-icons/Ionicons';
 
-    const [user, setUser] = useState(null);
+const EventRenderingScreen = ({navigation}) => {
+  const [myEvents, setMyEvents] = useState([]);
+  const [otherEvents, setOtherEvents] = useState([]);
+  const [user, setUser] = useState(null);
   const [greetingMessage, setGreetingMessage] = useState('');
   const [today, setToday] = useState('');
   const [tomorrow, setTomorrow] = useState('');
@@ -54,9 +54,7 @@ const EventRenderingScreen = ({navigation}) => {
             return Promise.resolve(event);  // Return the event unchanged
           }
           
-  
         const uniqueParticipantIds = [...new Set(event.participants.map(id => id.trim()))];  // Trim the ids
-  
         console.log('uniqueParticipantIds:', uniqueParticipantIds);
   
         // Fetch the user profiles of the participants
@@ -146,26 +144,24 @@ const EventRenderingScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-     <View style={styles.headerContainer}>
-     
-     <Text style={styles.header}> {`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`} </Text>
-     
-    <AddFriendsCirclesButton navigation={navigation} />
-    </View>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}> {`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`} </Text>
+        <TouchableOpacity onPress={() => {navigation.replace('AddNewFriendsCircles')}}>
+          <Icon name="people-outline" size={28} color="black"/>
+        </TouchableOpacity>
+      </View>
     <View style={styles.contentContainer}>
     <LogOutButton navigation={navigation} /> 
       <Text style={styles.headerText}>your spurs</Text>
-      <View style={styles.myEventsContainer}>
-        <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
-      </View>
+        <View style={styles.myEventsContainer}>
+          <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
+        </View>
       <Text style={styles.headerText}>spurs happening</Text>
       <View style={styles.otherEvents}>
         <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
       </View>
     </View>
-   
-      <AddSpurButton navigation={navigation} />
-    
+    <AddSpurButton navigation={navigation} />
   </SafeAreaView>
   );
 };

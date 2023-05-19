@@ -4,7 +4,6 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import FriendCard from '../../auth/components/friendCard';
 import HapticFeedback from 'react-native-haptic-feedback';
-import buttonStyles from '../styles/components/addFriendsCircleButtonStyles';
 import styles from '../styles/screens/addFriendsCircleScreenStyles';
 
 const CreateNewCircleWithFriends = ({ navigation, route }) => {
