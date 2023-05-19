@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     marginTop: '8%', 
     width: '83%',
     alignSelf: 'center',
+    marginBottom: '10%',
   },
   buttonText: {
     fontSize: 16,
