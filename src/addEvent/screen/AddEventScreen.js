@@ -120,7 +120,7 @@ const AddEventScreen = ({ navigation }) => {
                   selectedStartTime: selectedStartTime,
                   selectedEndTime: selectedEndTime,
                 };
-                // navigation.navigate('AddFriends', { eventObject: eventObject });
+                navigation.navigate('AddFriendsCirclesEventFlow', { eventObject: eventObject });
               }}>
                 <Text>Accept</Text>
               </TouchableOpacity>

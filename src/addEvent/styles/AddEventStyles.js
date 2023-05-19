@@ -3,36 +3,33 @@ import { StyleSheet } from 'react-native';
 const addEventStyles = StyleSheet.create({
     container: {
         backgroundColor: '#FEFDF9',
+        flex: 1,
     },
-
-      eventTitle: {
+    eventTitle: {
         fontSize: 18,
         fontWeight: 'bold',
         fontFamily: 'Inter',
-        marginTop: 15,
-      },
-      eventDate: {
-        marginTop: 10,
+        marginTop: '5%',
+    },
+    eventDate: {
+        marginTop: '5%',
+        fontFamily: 'Inter',
+        fontSize: 16,
+        marginBottom: '5%',
+    },
+    eventLocation: {
         fontFamily: 'Inter',
         fontSize: 16,
         marginBottom: 5,
-      },
-      eventLocation: {
+    },
+    eventDescription: {
         fontFamily: 'Inter',
         fontSize: 16,
-        marginBottom: 5,
-      },
-      eventDescription: {
-        fontFamily: 'Inter',
-        fontSize: 16,
-      },
+    },
     header: {
         height: '34%',
         backgroundColor: '#A5A5A5',
     },
-    // testHeader: {
-    //     height: '20%',
-    // },
     heading: {
         flexDirection: 'column',
         alignItems: 'center',
@@ -56,26 +53,14 @@ const addEventStyles = StyleSheet.create({
         borderTopLeftRadius: 25,
         width: '100%',
         bottom: '3%',
-
+        flexDirection: 'column',
+        alignContent: 'center',
+        alignItems: 'center',
     },
     roundedContainer3: {
         backgroundColor: '#FEFDF9',
         alignItems: 'center',
         marginTop: 40,
-    },
-    roundedContainer: {
-        flex: 1,
-        backgroundColor: '#FEFDF9',
-        borderTopRightRadius: 25,
-        borderTopWidth: 5,
-        borderLeftWidth: 5,
-        borderRightWidth: 5,
-        borderTopLeftRadius: 25,
-        width: '100%',
-        bottom: '3%',
-        flexDirection: 'column',
-        alignContent: 'center',
-        alignItems: 'center',
     },
     inputContainer: {
         width: '90%',
