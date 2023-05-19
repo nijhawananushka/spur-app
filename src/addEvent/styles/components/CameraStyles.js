@@ -16,10 +16,9 @@ const CameraStyles = StyleSheet.create({
       left: '42.5%',
     },
     cameraFlipButton: {
-      backgroundColor: 'grey',
       position: 'absolute',
       right: '10%',
-      top: '20%'
+      top: '25%'
     },
     acceptPhoto: {
       backgroundColor: 'grey',

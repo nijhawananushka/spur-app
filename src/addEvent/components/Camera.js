@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import CameraStyles from '../styles/components/CameraStyles';
 import HapticFeedback from 'react-native-haptic-feedback';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Camera = ({ setColor, onPhotoTaken, cameraVisbility }) => {
   const [imageURI, setImageURI] = useState(null);
@@ -43,9 +44,10 @@ const Camera = ({ setColor, onPhotoTaken, cameraVisbility }) => {
                 onPress={ () => {takePicture(); HapticFeedback.trigger('impactMedium');}}
               />
               <TouchableOpacity
-                style={[CameraStyles.cameraFlipButton, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
-                onPress={toggleCameraType}
-              />
+                style={CameraStyles.cameraFlipButton}
+                onPress={toggleCameraType}>
+                <Icon name="camera-reverse-outline" size={25} color="white" />
+              </TouchableOpacity>
             </View>
           </View>
         }

@@ -6,20 +6,18 @@ import Camera from '../components/Camera';
 import PastelColorPicker from '../components/PastelColorPicker';
 import CalendarView from '../components/ChooseDateCalendar';
 import DatePicker from 'react-native-date-picker';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const AddEventScreen = ({ navigation, route }) => {
-  
   const date = new Date();
   const [isCameraVisible, setIsCameraVisible] = useState(false);
   const [calendarVisible, setCalendarVisible] = useState(false);
   const [imageURI, setimageURI] = useState(false);
   const [color, setColor] = useState('#FFFFFF');
-  const [open, setOpen] = useState(false);
-  const [open1, setOpen1] = useState(false);
-
+  const [open, setOpen] = useState(false)
+  const [open1, setOpen1] = useState(false)
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [selectedStartTime, setSelectedStartTime] = useState(new Date().toString());
 const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 60 * 60 * 1000).toString()); // Initial duration is set to 60 minutes
@@ -76,18 +74,14 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
       <View style={[addEventStyles.roundedContainer, { borderColor: color }]}>
         {!calendarVisible && (
           <View style={addEventStyles.inputContainer}>
-            <PastelColorPicker setColor={setColor} />
-            <View style={[addEventStyles.navigationButtonsContainer, { paddingTop: '5%' }]}>
-              <Button
-                title="x"
-                style={{ fontFamily: 'Inter-Bold', color: 'black', zIndex: 2, height: '10%', width: '10%' }}
-                onPress={() => navigation.goBack()}
-              />
-              <Button
-                title=">"
-                style={{ fontFamily: 'Inter-Bold', color: 'black', zIndex: 2, height: '10%', width: '10%' }}
-                onPress={() => setCalendarVisible(true)}
-              />
+            <PastelColorPicker setColor={setColor}/>
+            <View style={[addEventStyles.navigationButtonsContainer, {paddingTop: '5%'}]}>
+              <TouchableOpacity style={{zIndex: 2}} onPress={() => navigation.goBack()}>
+                <Icon name="chevron-back-outline" size={22} color="black" />
+              </TouchableOpacity>
+              <TouchableOpacity style={{zIndex: 2}} onPress={() => setCalendarVisible(true)}>
+                <Icon name="chevron-forward-outline" size={22} color="black" />
+              </TouchableOpacity>
             </View>
             <TitleInputComponent onTitleChange={setTitle} onEnterPressed={focusOnDescription} />
             <DescriptionInputComponent
@@ -137,13 +131,10 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
                 }}
               />
             </View>
-            <CalendarView color={color} returnSelectedDate={setSelectedDate} setEventDate={setEventDate} />
-            <View style={{ position: 'absolute', top: 500, width: '90%', alignSelf: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
-              <TouchableOpacity
-                style={{ backgroundColor: 'grey', padding: '5%', alignContent: 'center', justifyContent: 'center' }}
-                onPress={() => setCalendarVisible(false)}
-              >
-                <Text>Back</Text>
+            <CalendarView color={color} setEventDate={setEventDate}/>
+            <View style={[{position:'absolute', top: 500, width:'90%', alignSelf: 'center', justifyContent:'space-between', flexDirection: 'row'}]}>
+              <TouchableOpacity style={{padding: '2.5%', alignContent: 'center', justifyContent: 'center'}} onPress={() => setCalendarVisible(false)}>
+                <Icon name="chevron-back-outline" size={20} color="black" />
               </TouchableOpacity>
               <TouchableOpacity
   style={{ backgroundColor: 'grey', alignContent: 'center', justifyContent: 'center' }}

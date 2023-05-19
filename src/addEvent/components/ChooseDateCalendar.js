@@ -91,7 +91,7 @@ const darkenColor = (color, saturate, darken) => {
     return newColor;
 };
   
-const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
+const CalendarView = ({color, setEventDate}) => {
   const date = new Date();
   const accent = color !== '#FFFFFF' && color !== 'white' ? color : `hsl(0, 0%, 75%)`;
   const darkenedAccent = color !== '#FFFFFF' && color !== 'white' ? darkenColor(accent, 60, 40): `hsl(0, 0%, 20%)`;
@@ -157,7 +157,7 @@ const CalendarView = ({color, returnSelectedDate, setEventDate}) => {
         calendarAnimation={{type: 'sequence', duration: 30}}
         onHeaderSelected={(d1, d2) => {calendarRef.current.setSelectedDate(date); calendarRef.current.scrollToInitialIndex();}}
         style={styles.outerContainer}
-        onDateSelected={(date) => {setEventDate(new Date(date)); onDateSelected(date); returnSelectedDate(date);}}
+        onDateSelected={(date) => {setEventDate(new Date(date)); onDateSelected(date);}}
         selectedDate={date}
         calendarHeaderStyle={styles.dateHeaderText}
         innerStyle={{backgroundColor: '#ffffff', flex:1}}
