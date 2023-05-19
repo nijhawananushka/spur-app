@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, BackHandler } from 'react-native'; // Import BackHandler
+import { SafeAreaView, StyleSheet, View, Text, BackHandler, TouchableOpacity } from 'react-native'; // Import BackHandler
 import EventFeed from '../components/eventFeed';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "../styles/screens/eventRenderingScreenStyles";
 import AddSpurButton from '../../feed/components/addSpurButton';
 import LogOutButton from '../../feed/components/logOutButton';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const EventRenderingScreen = ({ navigation, route }) => {
   const [myEvents, setMyEvents] = useState([]);
