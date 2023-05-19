@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text,TextInput, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import addEventStyles from '../styles/AddEventStyles';
 import FriendCard from '../../auth/components/friendCard';
 import CircleCard from '../../auth/components/circleCard';
@@ -12,16 +12,18 @@ const EventCard = ({ event }) => {
   return (
     <View style={[addEventStyles.roundedContainer3, { borderColor: event.color }]}>
       <Text style={addEventStyles.eventTitle}>{event.title}</Text>
-      <Text style={addEventStyles.eventDate}>{event.date}</Text>
-      <Text style={addEventStyles.eventLocation}>{event.location}</Text>
+      <Text style={addEventStyles.eventDate}>{event.eventDate.toString()}</Text>
+      <Text style={addEventStyles.eventDescription}>{event.selectedStartTime.toString()}</Text>
+      <Text style={addEventStyles.eventDescription}>{event.selectedEndTime.toString()}</Text>
       <Text style={addEventStyles.eventDescription}>{event.description}</Text>
     </View>
   );
 };
 
-const AddFriendsCircles = ({ navigation }) => {
+const AddFriendsCircles = ({ navigation, route }) => {
   const currentUser = auth().currentUser;
   const db = firestore();
+  const { event } = route.params;
 
   const [selectedFriends, setSelectedFriends] = useState([]);
   const [selectedCircles, setSelectedCircles] = useState([]);
@@ -108,9 +110,12 @@ const AddFriendsCircles = ({ navigation }) => {
       const eventId = eventRef.id;
 
       const eventData = {
-        title: 'Your Event Title',
-        description: 'Your Event Description',
+        title: event.title,
+        description: event.description,
         participants: [...selectedFriends, ...selectedCircles],
+        eventDate: event.eventDate.toString(),
+        startTime: event.selectedStartTime.toString(),
+        endTime: event.selectedEndTime.toString(),
       };
 
       await eventRef.set(eventData);
@@ -126,19 +131,10 @@ const AddFriendsCircles = ({ navigation }) => {
     }
   };
 
-  const myEvent = {
-    id: '1',
-    title: 'Event 1',
-    date: '2023-05-20',
-    location: 'Location 1',
-    description: 'Description for Event 1',
-    color: '#FFFFFF',
-  };
-
   return (
     <View style={addFriendsCirclesStyles.container}>
       <View style={addEventStyles.testHeader}>
-        <EventCard event={myEvent} />
+        <EventCard event={event} />
       </View>
       <View style={{ borderRadius: 10, borderWidth: 1, marginTop: 20, marginLeft: 20, marginRight: 20 }}>
         <TextInput
@@ -149,9 +145,9 @@ const AddFriendsCircles = ({ navigation }) => {
         />
       </View>
       <ScrollView contentContainerStyle={addFriendsCirclesStyles.scrollViewContainer}>
-      <Text style={addFriendsCirclesStyles.headerText}>circles</Text>
+        <Text style={addFriendsCirclesStyles.headerText}>circles</Text>
         <View style={addFriendsCirclesStyles.contentContainer}>
-        {circles
+          {circles
             .filter((circle) => circle.title.toLowerCase().includes(searchText.toLowerCase()))
             .map((circle) => (
               <CircleCard
@@ -162,9 +158,9 @@ const AddFriendsCircles = ({ navigation }) => {
                 isSelected={selectedCircles.some((selectedCircle) => selectedCircle.id === circle.id)}
               />
             ))}
-            </View> 
+        </View>
         <Text style={addFriendsCirclesStyles.headerText}>friends</Text>
-        
+
         <View style={addFriendsCirclesStyles.contentContainer}>
           {friends
             .filter((friend) => friend.username.toLowerCase().includes(searchText.toLowerCase()))
@@ -177,13 +173,11 @@ const AddFriendsCircles = ({ navigation }) => {
                 isSelected={selectedFriends.some((selectedFriend) => selectedFriend.id === friend.id)}
               />
             ))}
-
-         
         </View>
       </ScrollView>
       <TouchableOpacity onPress={createEvent} style={addFriendsCirclesStyles.buttonContainer}>
-          <Text style={addFriendsCirclesStyles.buttonText}>create spur! </Text>
-        </TouchableOpacity>
+        <Text style={addFriendsCirclesStyles.buttonText}>create spur! </Text>
+      </TouchableOpacity>
     </View>
   );
 };
