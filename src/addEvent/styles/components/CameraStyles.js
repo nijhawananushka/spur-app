@@ -14,6 +14,14 @@ const CameraStyles = StyleSheet.create({
       backgroundColor: 'white',
       position: 'absolute',
       left: '42.5%',
+      justifyContent: 'center',
+    },
+    cameraCaptureButtonInner: {
+      backgroundColor: 'black',
+      borderColor: 'black',
+      borderWidth: 2,
+      alignSelf: 'center',
+      justifySelf: 'center',
     },
     cameraFlipButton: {
       position: 'absolute',
@@ -22,6 +30,9 @@ const CameraStyles = StyleSheet.create({
     },
     acceptPhoto: {
       backgroundColor: 'grey',
+      alignContent: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     cameraCaptureButtonContainer: {
       position: 'absolute',

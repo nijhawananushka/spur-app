@@ -41,8 +41,9 @@ const Camera = ({ setColor, onPhotoTaken, cameraVisbility }) => {
             <View style={CameraStyles.cameraCaptureButtonContainer}>
               <TouchableOpacity
                 style={[CameraStyles.cameraCaptureButton, {backgroundColor: setColor, width: Dimensions.get('window').width * 0.15, height: Dimensions.get('window').width * 0.15, borderRadius: Dimensions.get('window').width * 0.075 }]}
-                onPress={ () => {takePicture(); HapticFeedback.trigger('impactMedium');}}
-              />
+                onPress={ () => {takePicture(); HapticFeedback.trigger('impactMedium');}}>
+                <View style={[CameraStyles.cameraCaptureButtonInner, {backgroundColor: setColor, width: Dimensions.get('window').width * 0.13, height: Dimensions.get('window').width * 0.13, borderRadius: Dimensions.get('window').width * 0.065 }]} />
+              </TouchableOpacity>
               <TouchableOpacity
                 style={CameraStyles.cameraFlipButton}
                 onPress={toggleCameraType}>
@@ -58,11 +59,14 @@ const Camera = ({ setColor, onPhotoTaken, cameraVisbility }) => {
               <TouchableOpacity
                 style={[CameraStyles.acceptPhoto, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
                 onPress={() => { onPhotoTaken(imageURI); cameraVisbility(false); }}
-              />
+              >
+                <Icon name="checkmark-outline" size={22} color="white" />
+              </TouchableOpacity>
               <TouchableOpacity
                 style={[CameraStyles.acceptPhoto, { width: Dimensions.get('window').width * 0.10, height: Dimensions.get('window').width * 0.10, borderRadius: Dimensions.get('window').width * 0.05 }]}
-                onPress={() => {setIsPhotoTaken(false); setImageURI(null);}}
-              />
+                onPress={() => {setIsPhotoTaken(false); setImageURI(null);}}>
+                <Icon name="refresh-outline" size={22} color="white" />
+              </TouchableOpacity>
             </View>                    
           </View>
         }

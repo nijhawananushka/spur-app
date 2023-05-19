@@ -42,31 +42,19 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
         )}
         {isCameraVisible && !imageURI && (
           <>
-            <Camera setColor={color} onPhotoTaken={setimageURI} cameraVisbility={setIsCameraVisible} />
-            <TouchableOpacity
-              style={{ position: 'absolute', top: '20%', right: '5%' }}
-              onPress={() => {
-                setimageURI(null);
-                setIsCameraVisible(false);
-              }}
-            >
-              <Text style={{ fontFamily: 'Inter-ExtraBold', fontSize: 30, lineHeight: 18, paddingTop: 6, zIndex: 2 }}>
-                x
-              </Text>
-            </TouchableOpacity>
+          <Camera setColor={color} onPhotoTaken={setimageURI} cameraVisbility={setIsCameraVisible}/>
+            <TouchableOpacity style={{position: 'absolute', top: '20%', right: '5%'}} 
+                onPress={() => {setimageURI(null); setIsCameraVisible(false);}}>
+              <Icon name="close" size={25} color="white" />
+          </TouchableOpacity>
           </>
         )}
         {imageURI && !isCameraVisible && (
           <>
             <Image source={{ uri: imageURI }} style={addEventStyles.imagePreview} />
-            <TouchableOpacity
-              style={{ position: 'absolute', top: '20%', right: '5%' }}
-              onPress={() => {
-                setimageURI(null);
-                setIsCameraVisible(false);
-              }}
-            >
-              <Text style={{ fontFamily: 'Inter-ExtraBold', fontSize: 30, lineHeight: 18, paddingTop: 6 }}>x</Text>
+            <TouchableOpacity style={{position: 'absolute', top: '20%', right: '5%'}} 
+              onPress={() => {setimageURI(null); setIsCameraVisible(false);}}>
+              <Icon name="close" size={25} color="white" />
             </TouchableOpacity>
           </>
         )}
