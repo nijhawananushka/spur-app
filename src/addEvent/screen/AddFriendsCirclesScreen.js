@@ -108,7 +108,7 @@ const AddFriendsCircles = ({ navigation, route }) => {
     try {
       const eventRef = db.collection('Events').doc();
       const eventId = eventRef.id;
-
+  
       const eventData = {
         title: event.title,
         description: event.description,
@@ -117,17 +117,38 @@ const AddFriendsCircles = ({ navigation, route }) => {
         startTime: event.selectedStartTime.toString(),
         endTime: event.selectedEndTime.toString(),
       };
-
+  
+      console.log('Creating event:', eventData); // Log the event data for debugging purposes
+  
       await eventRef.set(eventData);
-
+  
+      // Update the event details for the current user
+      const currentUserProfile = await db.collection('UserProfiles').doc(currentUser.uid).get();
+      const myEvents = Array.isArray(currentUserProfile.data()?.myEvents)
+        ? [...currentUserProfile.data().myEvents, eventId]
+        : [eventId];
+      await currentUserProfile.ref.update({ myEvents });
+  
+      // Update the event details for other participants
+      const participantUserProfiles = await Promise.all(
+        eventData.participants.map(async (participant) => {
+          const participantProfile = await db.collection('UserProfiles').doc(participant.id).get();
+          const otherEvents = Array.isArray(participantProfile.data()?.otherEvents)
+            ? [...participantProfile.data().otherEvents, eventId]
+            : [eventId];
+          await participantProfile.ref.update({ otherEvents });
+          return participantProfile;
+        })
+      );
+  
       // Reset selected friends and circles
       setSelectedFriends([]);
       setSelectedCircles([]);
-
+  
       // Navigate to the desired screen
-      navigation.navigate('EventsRendering');
+      navigation.navigate('EventsRendering', { timestamp: Date.now() });
     } catch (error) {
-      console.log('Error creating event:', error);
+      console.error('Error creating event:', error); // Log the specific error for debugging purposes
     }
   };
 
