@@ -125,21 +125,21 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
                 <Icon name="chevron-back-outline" size={20} color="black" />
               </TouchableOpacity>
               <TouchableOpacity
-  style={{ backgroundColor: 'grey', alignContent: 'center', justifyContent: 'center' }}
-  onPress={() => {
-    const eventObject = {
-      color: color,
-      title: title,
-      description: description,
-      eventDate: eventDate,
-      selectedStartTime: selectedStartTime.toString(),
-      selectedEndTime: selectedEndTime.toString(),
-    };
-    navigation.navigate('AddFriendsCirclesEventFlow', { event: eventObject });
-  }}
->
-  <Text>Accept</Text>
-</TouchableOpacity>
+                style={{ padding: '2.5%', alignContent: 'center', justifyContent: 'center' }}
+                onPress={() => {
+                  const eventObject = {
+                    color: color,
+                    title: title,
+                    description: description,
+                    eventDate: eventDate,
+                    selectedStartTime: selectedStartTime.toString(),
+                    selectedEndTime: selectedEndTime.toString(),
+                  };
+                  navigation.navigate('AddFriendsCirclesEventFlow', { event: eventObject });
+                }}
+              >
+                <Icon name="checkmark-outline" size={20} color="black" />
+              </TouchableOpacity>
             </View>
           </View>
         )}

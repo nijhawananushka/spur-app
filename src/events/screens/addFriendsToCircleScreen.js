@@ -110,8 +110,8 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
           />
         ))}
       </ScrollView>
-      <TouchableOpacity style={buttonStyles.buttonStyle} onPress={saveCircle} activeOpacity={0.5}>
-        <Text style={buttonStyles.buttonText}>Create Circle</Text>
+      <TouchableOpacity style={styles.buttonStyle} onPress={saveCircle} activeOpacity={0.5}>
+        <Text style={styles.buttonText}>Create Circle</Text>
       </TouchableOpacity>
     </View>
   );
