@@ -4,7 +4,7 @@ import addEventStyles from '../styles/AddEventStyles';
 import { TitleInputComponent, DescriptionInputComponent } from '../components/InputComponents';
 import Camera from '../components/Camera';
 import PastelColorPicker from '../components/PastelColorPicker';
-import CalendarView from '../components/ChooseDateCalendar';
+import CalendarView from '../components/CalendarView';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -72,11 +72,7 @@ const AddEventScreen = ({ navigation, route }) => {
               </TouchableOpacity>
             </View>
             <TitleInputComponent onTitleChange={setTitle} onEnterPressed={focusOnDescription} />
-            <DescriptionInputComponent
-              ref={descriptionRef}
-              onDescriptionChange={setDescription}
-              onEnterPressed={() => setCalendarVisible(true)}
-            />
+            <DescriptionInputComponent ref={descriptionRef} onDescriptionChange={setDescription} onEnterPressed={() => setCalendarVisible(true)}/>
           </View>
         )}
         {calendarVisible && (
@@ -126,8 +122,7 @@ const AddEventScreen = ({ navigation, route }) => {
                     selectedEndTime: selectedEndTime.toString(),
                   };
                   navigation.navigate('AddFriendsCirclesEventFlow', { event: eventObject });
-                }}
-              >
+                }}>
                 <Icon name="checkmark-outline" size={20} color="black" />
               </TouchableOpacity>
             </View>
