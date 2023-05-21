@@ -32,8 +32,10 @@ const styles = StyleSheet.create({
   myEvents: {
     flex: 1,
   },
-  otherEvents: {
+  otherEventsContainer: {
     flex: 2,
+    marginBottom: 0,
+    marginTop: -10,  // This is the new line
   },
   headerText: {
     marginTop: 20,
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    marginBottom:60,
+    marginBottom:-10,
   },
   addSpurContainer: {
     alignItems: 'center', // Align the button to the right side

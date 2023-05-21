@@ -134,7 +134,7 @@ const EventRenderingScreen = ({ navigation, route }) => {
       }
 
       // Fetch 'otherEvents' events that you have been invited to, but not yet accepted (vertical scroll)
-      const otherEventIds = Array.isArray(userDocData.invitedEvents) ? userDocData.invitedEvents : [];
+      const otherEventIds = Array.isArray(userDocData.otherEvents) ? userDocData.otherEvents : [];
 
       if (otherEventIds.length === 0) {
         setOtherEvents([]);
@@ -188,8 +188,8 @@ const EventRenderingScreen = ({ navigation, route }) => {
           <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
         </View>
         <Text style={styles.headerText}>spurs happening</Text>
-        <View style={styles.otherEvents}>
-          <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
+        <View style={styles.otherEventsContainer}>
+        <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
         </View>
       </View>
 
