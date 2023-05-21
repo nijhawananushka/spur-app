@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView,StyleSheet, View, Text, BackHandler } from 'react-native'; // Import BackHandler
+import { SafeAreaView, StyleSheet, View, Text, BackHandler } from 'react-native'; // Import BackHandler
 import EventFeed from '../components/eventFeed';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
@@ -177,24 +177,23 @@ const EventRenderingScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.headerContainer}>
-          <Text style={styles.header}>{`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`}</Text>
-          <AddFriendsCirclesButton navigation={navigation} />
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>{`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`}</Text>
+        <AddFriendsCirclesButton navigation={navigation} />
+      </View>
+      <View style={styles.contentContainer}>
+        <LogOutButton navigation={navigation} />
+        <Text style={styles.headerText}>your spurs</Text>
+        <View style={styles.myEventsContainer}>
+          <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
         </View>
-        <View style={styles.contentContainer}>
-  <LogOutButton navigation={navigation} />
-  <Text style={styles.headerText}>your spurs</Text>
-  <View style={styles.myEventsContainer}>
-    <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
-  </View>
-  <Text style={styles.headerText}>spurs happening</Text>
-  <View style={styles.otherEventsContainer}>
-    <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
-  </View>
-</View>
-        <AddSpurButton navigation={navigation} />
-      </ScrollView>
+        <Text style={styles.headerText}>spurs happening</Text>
+        <View style={styles.otherEventsContainer}>
+          <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
+        </View>
+      </View>
+
+      <AddSpurButton navigation={navigation} />
     </SafeAreaView>
   );
 };
