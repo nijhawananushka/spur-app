@@ -11,16 +11,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Regular',
     fontWeight: 300,
     marginTop: '5%',
-},
+  },
   myEventsContainer: {
     flex: 1,
-    marginTop: 5, // Adjust the margin top as per your preference
-    marginBottom: -80, // Adjust the margin bottom as per your preference
+    marginTop: 5, 
     justifyContent: 'space-between',
-    marginTop: 5,
-    marginBottom: 10,
     marginLeft: 20,
-    marginRight:0,
+    marginRight: 0,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -28,14 +25,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
   },
-
   myEvents: {
     flex: 1,
   },
   otherEventsContainer: {
     flex: 2,
-    marginBottom: 0,
-    marginTop: -10,  // This is the new line
+    marginTop: 10,  // Changed the negative value to positive
+    marginBottom: 100,  // Increased marginBottom to provide more spacing at the bottom
   },
   headerText: {
     marginTop: 20,
@@ -44,15 +40,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   contentContainer: {
-    flex: 1,
-    marginBottom:-10,
+    flex: 1,  // This line is necessary for the scroll view to work
   },
   addSpurContainer: {
-    alignItems: 'center', // Align the button to the right side
+    alignItems: 'center',
     marginRight: 20,
   },
 });
 
-
 export default styles;
+
 
