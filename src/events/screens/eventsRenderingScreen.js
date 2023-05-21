@@ -134,7 +134,7 @@ const EventRenderingScreen = ({ navigation, route }) => {
       }
 
       // Fetch 'otherEvents' events that you have been invited to, but not yet accepted (vertical scroll)
-      const otherEventIds = Array.isArray(userDocData.invitedEvents) ? userDocData.invitedEvents : [];
+      const otherEventIds = Array.isArray(userDocData.otherEvents) ? userDocData.otherEvents : [];
 
       if (otherEventIds.length === 0) {
         setOtherEvents([]);
