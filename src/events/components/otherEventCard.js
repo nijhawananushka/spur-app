@@ -16,14 +16,12 @@ const OtherEventCard = ({ event }) => {
       month: 'long',
       day: 'numeric',
       year: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
     });
   }
 
   return (
     <View style={[styles.card, { borderColor: randomColor }]}>
-      <Text style={styles.dateTime}>{formattedDateTime}</Text>
+      <Text style={styles.dateTime}>{event.startTime}</Text>
       <Text style={styles.title}>{event.title}</Text>
       <View style={styles.locationWrapper}>
         <Text style={styles.location}>{event.location}</Text>

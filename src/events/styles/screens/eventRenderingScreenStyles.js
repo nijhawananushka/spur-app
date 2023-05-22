@@ -30,11 +30,17 @@ const styles = StyleSheet.create({
   },
   otherEventsContainer: {
     flex: 2,
-    marginTop: 10,  // Changed the negative value to positive
-    marginBottom: 100,  // Increased marginBottom to provide more spacing at the bottom
+    marginTop: 0,  // Changed the negative value to positive
+    marginBottom: 0,  // Increased marginBottom to provide more spacing at the bottom
   },
   headerText: {
-    marginTop: 20,
+    marginTop: 10,
+    marginLeft: 20, 
+    fontFamily: 'Inter',
+    fontSize: 20,
+  },
+  headerTextOtherEvents: {
+    marginTop: 40,
     marginLeft: 20, 
     fontFamily: 'Inter',
     fontSize: 20,
