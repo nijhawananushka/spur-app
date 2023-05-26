@@ -9,7 +9,7 @@ import firestore from '@react-native-firebase/firestore';
 GoogleSignin.configure({
   webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
   scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
-  offlineAccess: false,
+  offlineAccess: true,      // for refresh token
 });
 
 const SignInWithGoogleButton = ({ navigation }) => {
@@ -20,7 +20,7 @@ const SignInWithGoogleButton = ({ navigation }) => {
       setLoading(true);
       await GoogleSignin.hasPlayServices();
       const { idToken } = await GoogleSignin.signIn();
-      const { _, accessToken } = await GoogleSignin.getTokens();
+      const { accessToken, refreshToken } = await GoogleSignin.getTokens();
 
       // Sign in with Firebase using the Google ID token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
@@ -36,6 +36,12 @@ const SignInWithGoogleButton = ({ navigation }) => {
           await AsyncStorage.setItem('calAccessToken', accessToken);
         } else {
           await AsyncStorage.removeItem('calAccessToken');
+        }
+        // Store the refresh token
+        if (refreshToken) {
+          await AsyncStorage.setItem('calRefreshToken', refreshToken);
+        } else {
+          await AsyncStorage.removeItem('calRefreshToken');
         }
         navigation.replace('EventsRendering');
       } else {
