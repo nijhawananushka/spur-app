@@ -108,43 +108,31 @@ const AddFriendsCircles = ({ navigation, route }) => {
     try {
       const eventRef = db.collection('Events').doc();
       const eventId = eventRef.id;
-
-      // Getting participant ids from selected circles
-      const circleParticipantIds = selectedCircles
-        ? selectedCircles.reduce(
-            (allParticipantIds, currentCircle) => {
-              return currentCircle.participants
-                ? [...allParticipantIds, ...currentCircle.participants]
-                : allParticipantIds;
-            },
-            []
-          )
-        : [];
-
+  
       const eventData = {
         title: event.title,
         description: event.description,
-        participants: [...selectedFriends, ...circleParticipantIds],
+        participants: [...selectedFriends, ...selectedCircles],
         eventDate: event.eventDate.toString(),
         startTime: event.selectedStartTime.toString(),
         endTime: event.selectedEndTime.toString(),
       };
-
+  
       console.log('Creating event:', eventData); // Log the event data for debugging purposes
-
+  
       await eventRef.set(eventData);
-
+  
       // Update the event details for the current user
       const currentUserProfile = await db.collection('UserProfiles').doc(currentUser.uid).get();
       const myEvents = Array.isArray(currentUserProfile.data()?.myEvents)
         ? [...currentUserProfile.data().myEvents, eventId]
         : [eventId];
       await currentUserProfile.ref.update({ myEvents });
-
+  
       // Update the event details for other participants
       const participantUserProfiles = await Promise.all(
-        eventData.participants.map(async (participantId) => {
-          const participantProfile = await db.collection('UserProfiles').doc(participantId).get();
+        eventData.participants.map(async (participant) => {
+          const participantProfile = await db.collection('UserProfiles').doc(participant.id).get();
           const otherEvents = Array.isArray(participantProfile.data()?.otherEvents)
             ? [...participantProfile.data().otherEvents, eventId]
             : [eventId];
@@ -152,11 +140,11 @@ const AddFriendsCircles = ({ navigation, route }) => {
           return participantProfile;
         })
       );
-
+  
       // Reset selected friends and circles
       setSelectedFriends([]);
       setSelectedCircles([]);
-
+  
       // Navigate to the desired screen
       navigation.navigate('EventsRendering', { timestamp: Date.now() });
     } catch (error) {

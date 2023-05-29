@@ -146,21 +146,22 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
                 <Text>Back</Text>
               </TouchableOpacity>
               <TouchableOpacity
-  style={{ backgroundColor: 'grey', alignContent: 'center', justifyContent: 'center' }}
-  onPress={() => {
-    const eventObject = {
-      color: color,
-      title: title,
-      description: description,
-      eventDate: eventDate,
-      selectedStartTime: selectedStartTime.toString(),
-      selectedEndTime: selectedEndTime.toString(),
-    };
-    navigation.navigate('AddFriendsCirclesEventFlow', { event: eventObject });
-  }}
->
-  <Text>Accept</Text>
-</TouchableOpacity>
+                style={{ backgroundColor: 'grey', alignContent: 'center', justifyContent: 'center' }}
+                onPress={() => {
+                  const eventObject = {
+                    color: color,
+                    title: title,
+                    description: description,
+                    eventDate: eventDate,
+                    selectedStartTime: selectedStartTime,
+                    selectedEndTime: selectedEndTime,
+                  };
+                  navigation.navigate('AddFriendsCirclesEventFlow', { event: eventObject });
+
+                }}
+              >
+                <Text>Accept</Text>
+              </TouchableOpacity>
             </View>
           </View>
         )}

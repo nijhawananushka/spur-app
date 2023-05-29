@@ -12,17 +12,18 @@ const OtherEventCard = ({ event }) => {
 
   let formattedDateTime = '';
   if (event.dateTime && event.dateTime.seconds) {
-    formattedDateTime = new Date(event.dateTime.seconds * 1000).toLocaleString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  }
+    var date = new Date(event.dateTime.seconds * 1000);
+    var day = date.toLocaleString('en-US', { weekday: 'long' });
+    var time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    formattedDateTime = `${day}, ${time}`;
+}
 
   return (
     <View style={[styles.card, { borderColor: randomColor }]}>
-      <Text style={styles.dateTime}>{event.startTime}</Text>
       <Text style={styles.title}>{event.title}</Text>
+      {/* <Text style={styles.dateTime}>{formattedDateTime}</Text> */}
+      <Text style={styles.startTime}>{event.startTime}</Text>
+      <Text style={styles.startTime}>{event.endTime}</Text>
       <View style={styles.locationWrapper}>
         <Text style={styles.location}>{event.location}</Text>
       </View>

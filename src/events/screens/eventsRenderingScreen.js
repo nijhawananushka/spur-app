@@ -83,6 +83,7 @@ const EventRenderingScreen = ({ navigation, route }) => {
         const participants = event.participants.map((id) => userIdToUser[id.trim()]); // Trim the id
         // Format and display the eventDate property
         const formattedEventDate = new Date(event.eventDate.seconds * 1000).toLocaleDateString('en-US', {
+            weekday: 'short',
             month: 'long',
             day: 'numeric',
             year: 'numeric',
