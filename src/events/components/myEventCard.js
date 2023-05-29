@@ -7,7 +7,7 @@ const MyEventCard = ({ event }) => {
     const startTime = new Date(event.startTime);
     const endTime = new Date(event.endTime);
     // get the participant images,max2
-    const participantImages = event.participantImages ? event.participantImages.slice(0, 2) : [];
+    const participantImages = event.participantImages ? event.participantImages.slice(0, 4) : [];
 
     const formattedDate = eventDate
       ? eventDate.toLocaleDateString('en-US', {
