@@ -10,20 +10,38 @@ const OtherEventCard = ({ event }) => {
     setRandomColor(pastelColors[Math.floor(Math.random() * pastelColors.length)]);
   }, []);
 
-  let formattedDateTime = '';
-  if (event.dateTime && event.dateTime.seconds) {
-    var date = new Date(event.dateTime.seconds * 1000);
-    var day = date.toLocaleString('en-US', { weekday: 'long' });
-    var time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    formattedDateTime = `${day}, ${time}`;
-}
+  const eventDate = new Date(event.eventDate);
+  const startTime = new Date(event.startTime);
+  const endTime = new Date(event.endTime);
+
+  const formattedDate = eventDate
+    ? eventDate.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'long',
+        day: 'numeric',
+      })
+    : '';
+
+  const formattedStartTime = startTime
+    ? startTime.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      })
+    : '';
+
+    const formattedEndTime = endTime
+    ? endTime.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      })
+    : '';
 
   return (
     <View style={[styles.card, { borderColor: randomColor }]}>
       <Text style={styles.title}>{event.title}</Text>
-      {/* <Text style={styles.dateTime}>{formattedDateTime}</Text> */}
-      <Text style={styles.startTime}>{event.startTime}</Text>
-      <Text style={styles.startTime}>{event.endTime}</Text>
+      <Text style={styles.time}>{formattedDate} . {formattedStartTime} - {formattedEndTime}</Text>
       <View style={styles.locationWrapper}>
         <Text style={styles.location}>{event.location}</Text>
       </View>

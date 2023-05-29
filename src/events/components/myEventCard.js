@@ -12,7 +12,6 @@ const MyEventCard = ({ event }) => {
           weekday: 'short',
           month: 'long',
           day: 'numeric',
-          year: 'numeric',
         })
       : '';
   
@@ -31,11 +30,12 @@ const MyEventCard = ({ event }) => {
           hour12: true
         })
       : '';
+
   return (
     <View style={styles.card}>
-      <Text style={styles.time}>{formattedStartTime}</Text>
-      <Text style={styles.time}>{formattedEndTime}</Text>
-      <Text style={styles.title}>{event.title}</Text>
+     <Text style={styles.title}>{event.title}</Text>
+     <Text style={styles.time}>{formattedDate} . {formattedStartTime} - {formattedEndTime}</Text>
+    
       <View style={styles.locationWrapper}>
         <Text style={styles.location}>{event.location}</Text>
       </View>
@@ -44,4 +44,3 @@ const MyEventCard = ({ event }) => {
 };
 
 export default MyEventCard;
-   
