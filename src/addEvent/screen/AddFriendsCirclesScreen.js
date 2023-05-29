@@ -108,7 +108,7 @@ const AddFriendsCircles = ({ navigation, route }) => {
     try {
       const eventRef = db.collection('Events').doc();
       const eventId = eventRef.id;
-
+  
       // Getting participant ids from selected circles
       const circleParticipantIds = selectedCircles
         ? selectedCircles.reduce(
@@ -120,43 +120,64 @@ const AddFriendsCircles = ({ navigation, route }) => {
             []
           )
         : [];
-
+  
+      // Get all participant ids including the current user
+      const allParticipantIds = [currentUser.uid, ...selectedFriends, ...circleParticipantIds];
+      // Get all invited participants NOT including the current user 
+      const invitedParticipantIds = [...selectedFriends, ...circleParticipantIds]
+      // Fetch profiles of all participants including current user
+      const participantProfiles = await Promise.all(
+        allParticipantIds.map(async (id) => {
+          const doc = await db.collection('UserProfiles').doc(id).get();
+          return doc.data();
+        })
+      );
+  
+      // Extract profile image urls from profiles
+      const participantImages = participantProfiles.map(
+        (profile) => profile.photoURL
+      );
+  
       const eventData = {
         title: event.title,
         description: event.description,
-        participants: [...selectedFriends, ...circleParticipantIds],
+        participants: invitedParticipantIds,
+        participantImages: participantImages, // new field
+        joinedParticipants: [currentUser.uid], // field to track joined participants
         eventDate: event.eventDate.toString(),
         startTime: event.selectedStartTime.toString(),
         endTime: event.selectedEndTime.toString(),
+        description: event.description,
+        color: event.color,
       };
-
-      console.log('Creating event:', eventData); // Log the event data for debugging purposes
-
+  
+      console.log('Creating event:', eventData);
+  
       await eventRef.set(eventData);
-
+  
+  
       // Update the event details for the current user
       const currentUserProfile = await db.collection('UserProfiles').doc(currentUser.uid).get();
       const myEvents = Array.isArray(currentUserProfile.data()?.myEvents)
         ? [...currentUserProfile.data().myEvents, eventId]
         : [eventId];
       await currentUserProfile.ref.update({ myEvents });
-
+  
       // Update the event details for other participants
-      const participantUserProfiles = await Promise.all(
-        eventData.participants.map(async (participantId) => {
-          const participantProfile = await db.collection('UserProfiles').doc(participantId).get();
-          const otherEvents = Array.isArray(participantProfile.data()?.otherEvents)
-            ? [...participantProfile.data().otherEvents, eventId]
+      await Promise.all(
+        invitedParticipantIds.map(async (id) => {
+          const doc = await db.collection('UserProfiles').doc(id).get();
+          const otherEvents = Array.isArray(doc.data()?.otherEvents)
+            ? [...doc.data().otherEvents, eventId]
             : [eventId];
-          await participantProfile.ref.update({ otherEvents });
-          return participantProfile;
+          await doc.ref.update({ otherEvents });
         })
       );
-
+  
       // Reset selected friends and circles
       setSelectedFriends([]);
       setSelectedCircles([]);
-
+  
       // Navigate to the desired screen
       navigation.navigate('EventsRendering', { timestamp: Date.now() });
     } catch (error) {

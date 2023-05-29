@@ -2,9 +2,9 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     myEvents: {
-    marginTop: 10, // Adjust the margin top as per your preference
-    marginBottom: 10, // Adjust the margin bottom as per your preference
-  },
+        marginTop: 10, 
+        marginBottom: 10,
+    },
     card: {
         width: 250,
         height: 150,
@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 20,
         marginRight: 20,
-        fontFamily: 'Inter-Regular',
     },
     title: {
         fontSize: 20,
@@ -30,15 +29,32 @@ const styles = StyleSheet.create({
     },
     locationWrapper: {
         position: 'absolute',
-        bottom: '5%',  // This will align the locationWrapper to the bottom of the card
-        left: 0,  // This will align the locationWrapper to the start (left) of the card
+        bottom: '5%',  
+        left: 0, 
         flexDirection: 'row',
         alignItems: 'center',
-      
     },
     location: {
         marginLeft: 5,
         fontFamily: 'Inter-Regular',
+    },
+    joinButton: {
+        position: 'absolute',
+        bottom: 40,
+        right: 0,
+        padding: 10,
+    },
+    participantImage: {
+        width: 30, 
+        height: 30, 
+        borderRadius: 15, 
+        marginLeft: -10,
+    },
+    participantImageContainer: {
+        flexDirection: 'row',
+        bottom: 20,
+        position: 'absolute',
+        right: 20,
     },
 });
 

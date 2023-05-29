@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Image,Text, Button } from 'react-native';
 import styles from '../styles/components/myEventCardStyles';
 
 const MyEventCard = ({ event }) => {
     const eventDate = new Date(event.eventDate);
     const startTime = new Date(event.startTime);
     const endTime = new Date(event.endTime);
-  
+    // get the participant images,max2
+    const participantImages = event.participantImages ? event.participantImages.slice(0, 2) : [];
+
     const formattedDate = eventDate
       ? eventDate.toLocaleDateString('en-US', {
           weekday: 'short',
@@ -38,6 +40,14 @@ const MyEventCard = ({ event }) => {
     
       <View style={styles.locationWrapper}>
         <Text style={styles.location}>{event.location}</Text>
+      </View>
+      <View style = {styles.joinButton}>
+        <Button title="join" onPress = {() => console.log("Join button pressed")} />
+      </View>
+      <View style={styles.participantImageContainer}>
+        {participantImages.map((image, index) => (
+          <Image key={index} source={{ uri: image }} style={styles.participantImage} />
+        ))}
       </View>
     </View>
   );

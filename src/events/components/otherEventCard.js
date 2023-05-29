@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button, Image } from 'react-native';
 import styles from '../styles/components/otherEventCardStyles';
 
 const OtherEventCard = ({ event }) => {
   const [randomColor, setRandomColor] = useState('#F6BCD5');
-
+    // get the participant images,max2
+  const participantImages = event.participantImages ? event.participantImages.slice(0, 2) : [];
   useEffect(() => {
     const pastelColors = ['#F6BCD5', '#BCC5F3', '#BCEBF3', '#E8ECF8'];
     setRandomColor(pastelColors[Math.floor(Math.random() * pastelColors.length)]);
@@ -44,6 +45,14 @@ const OtherEventCard = ({ event }) => {
       <Text style={styles.time}>{formattedDate} . {formattedStartTime} - {formattedEndTime}</Text>
       <View style={styles.locationWrapper}>
         <Text style={styles.location}>{event.location}</Text>
+      </View>
+      <View style = {styles.joinButton}>
+        <Button title="join" onPress = {() => console.log("Join button pressed")} />
+      </View>
+      <View style={styles.participantImageContainer}>
+        {participantImages.map((image, index) => (
+          <Image key={index} source={{ uri: image }} style={styles.participantImage} />
+        ))}
       </View>
     </View>
   );

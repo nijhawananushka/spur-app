@@ -32,6 +32,24 @@ const styles = StyleSheet.create({
     location: {
         marginLeft: 5,
     },
+    participantImageContainer: {
+        flexDirection: 'row',
+        bottom: 20,
+        position: 'absolute',
+        right: 20,
+    },
+    joinButton: {
+        position: 'absolute',
+        bottom: 40,
+        right: 0,
+        padding: 10,
+    },
+    participantImage: {
+        width: 30, 
+        height: 30, 
+        borderRadius: 15, 
+        marginLeft: -10,
+    },
 });
 
 export default styles;
