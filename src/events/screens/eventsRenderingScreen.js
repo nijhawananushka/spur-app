@@ -6,7 +6,7 @@ import firebase from '@react-native-firebase/app';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "../styles/screens/eventRenderingScreenStyles";
 import AddSpurButton from '../../feed/components/addSpurButton';
-import LogOutButton from '../../feed/components/logOutButton';
+import LogOutButton from '../../auth/components/logOutButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const EventRenderingScreen = ({ navigation, route }) => {

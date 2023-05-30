@@ -9,7 +9,7 @@ import firestore from '@react-native-firebase/firestore';
 GoogleSignin.configure({
   webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
   scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
-  offlineAccess: false,
+  offlineAccess: true,      // for refresh token
 });
 
 const SignInWithGoogleButton = ({ navigation }) => {
@@ -19,30 +19,39 @@ const SignInWithGoogleButton = ({ navigation }) => {
     try {
       setLoading(true);
       await GoogleSignin.hasPlayServices();
-      const { idToken } = await GoogleSignin.signIn();
-      const { _, accessToken } = await GoogleSignin.getTokens();
-
+      const { idToken, serverAuthCode } = await GoogleSignin.signIn();
+      const { id, accessToken } = await GoogleSignin.getTokens();
       // Sign in with Firebase using the Google ID token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       const userCredential = await auth().signInWithCredential(googleCredential);
       const userUid = userCredential.user.uid;
       const user = await firestore().collection('UserProfiles').doc(userUid).get();
 
+      // Get the current user to access the refreshToken
+      const currentUser = await GoogleSignin.getCurrentUser();
+      const refreshToken = currentUser?.serverAuthCode || '';
+      if (accessToken) {
+        await AsyncStorage.setItem('calAccessToken', accessToken);
+        console.log('Access Token:', accessToken);
+      } else {
+        await AsyncStorage.removeItem('calAccessToken');
+      }
+      if (refreshToken) {
+        await AsyncStorage.setItem('calRefreshToken', refreshToken);
+        console.log('Refresh Token:', refreshToken);
+      } else {
+        await AsyncStorage.removeItem('calRefreshToken');
+      }
+
       if (user.exists) {
         // User document exists, navigate to Main Screen
         await AsyncStorage.setItem('uid', user.data().uid);
         await AsyncStorage.setItem('userToken', idToken);
-        if (accessToken) {
-          await AsyncStorage.setItem('calAccessToken', accessToken);
-        } else {
-          await AsyncStorage.removeItem('calAccessToken');
-        }
         navigation.replace('EventsRendering');
       } else {
         // User document doesn't exist, navigate to Onboarding Screen
         navigation.navigate('Onboard', {idToken});
       }
-
     } catch (error) {
       console.log('Google Sign-In Error:', error);
       Alert.alert('Unable to Sign In!');

@@ -111,21 +111,19 @@ const AddEventScreen = ({ navigation, route }) => {
                 <Icon name="chevron-back-outline" size={20} color="black" />
               </TouchableOpacity>
               <TouchableOpacity
-                style={{ backgroundColor: 'grey', alignContent: 'center', justifyContent: 'center' }}
+                style={{ padding: '2.5%', alignContent: 'center', justifyContent: 'center' }}
                 onPress={() => {
                   const eventObject = {
                     color: color,
                     title: title,
                     description: description,
                     eventDate: eventDate,
-                    selectedStartTime: selectedStartTime,
-                    selectedEndTime: selectedEndTime,
+                    selectedStartTime: selectedStartTime.toString(),
+                    selectedEndTime: selectedEndTime.toString(),
                   };
                   navigation.navigate('AddFriendsCirclesEventFlow', { event: eventObject });
-
-                }}
-              >
-                <Text>Accept</Text>
+                }}>
+                <Icon name="checkmark-outline" size={20} color="black" />
               </TouchableOpacity>
             </View>
           </View>
