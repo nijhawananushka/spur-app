@@ -4,25 +4,23 @@ import addEventStyles from '../styles/AddEventStyles';
 import { TitleInputComponent, DescriptionInputComponent } from '../components/InputComponents';
 import Camera from '../components/Camera';
 import PastelColorPicker from '../components/PastelColorPicker';
-import CalendarView from '../components/ChooseDateCalendar';
+import CalendarView from '../components/CalendarView';
 import DatePicker from 'react-native-date-picker';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const AddEventScreen = ({ navigation, route }) => {
-  
   const date = new Date();
   const [isCameraVisible, setIsCameraVisible] = useState(false);
   const [calendarVisible, setCalendarVisible] = useState(false);
   const [imageURI, setimageURI] = useState(false);
   const [color, setColor] = useState('#FFFFFF');
-  const [open, setOpen] = useState(false);
-  const [open1, setOpen1] = useState(false);
-
+  const [open, setOpen] = useState(false)
+  const [open1, setOpen1] = useState(false)
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [selectedStartTime, setSelectedStartTime] = useState(new Date().toString());
-const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 60 * 60 * 1000).toString()); // Initial duration is set to 60 minutes
+  const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 60 * 60 * 1000).toString()); // Initial duration is set to 60 minutes
   const descriptionRef = useRef(null);
   const focusOnDescription = () => {
     descriptionRef.current.focus();
@@ -44,31 +42,19 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
         )}
         {isCameraVisible && !imageURI && (
           <>
-            <Camera setColor={color} onPhotoTaken={setimageURI} cameraVisbility={setIsCameraVisible} />
-            <TouchableOpacity
-              style={{ position: 'absolute', top: '20%', right: '5%' }}
-              onPress={() => {
-                setimageURI(null);
-                setIsCameraVisible(false);
-              }}
-            >
-              <Text style={{ fontFamily: 'Inter-ExtraBold', fontSize: 30, lineHeight: 18, paddingTop: 6, zIndex: 2 }}>
-                x
-              </Text>
-            </TouchableOpacity>
+          <Camera setColor={color} onPhotoTaken={setimageURI} cameraVisbility={setIsCameraVisible}/>
+            <TouchableOpacity style={{position: 'absolute', top: '20%', right: '5%'}} 
+                onPress={() => {setimageURI(null); setIsCameraVisible(false);}}>
+              <Icon name="close" size={25} color="white" />
+          </TouchableOpacity>
           </>
         )}
         {imageURI && !isCameraVisible && (
           <>
             <Image source={{ uri: imageURI }} style={addEventStyles.imagePreview} />
-            <TouchableOpacity
-              style={{ position: 'absolute', top: '20%', right: '5%' }}
-              onPress={() => {
-                setimageURI(null);
-                setIsCameraVisible(false);
-              }}
-            >
-              <Text style={{ fontFamily: 'Inter-ExtraBold', fontSize: 30, lineHeight: 18, paddingTop: 6 }}>x</Text>
+            <TouchableOpacity style={{position: 'absolute', top: '20%', right: '5%'}} 
+              onPress={() => {setimageURI(null); setIsCameraVisible(false);}}>
+              <Icon name="close" size={25} color="white" />
             </TouchableOpacity>
           </>
         )}
@@ -76,38 +62,25 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
       <View style={[addEventStyles.roundedContainer, { borderColor: color }]}>
         {!calendarVisible && (
           <View style={addEventStyles.inputContainer}>
-            <PastelColorPicker setColor={setColor} />
-            <View style={[addEventStyles.navigationButtonsContainer, { paddingTop: '5%' }]}>
-              <Button
-                title="x"
-                style={{ fontFamily: 'Inter-Bold', color: 'black', zIndex: 2, height: '10%', width: '10%' }}
-                onPress={() => navigation.goBack()}
-              />
-              <Button
-                title=">"
-                style={{ fontFamily: 'Inter-Bold', color: 'black', zIndex: 2, height: '10%', width: '10%' }}
-                onPress={() => setCalendarVisible(true)}
-              />
+            <PastelColorPicker setColor={setColor}/>
+            <View style={[addEventStyles.navigationButtonsContainer, {paddingTop: '5%'}]}>
+              <TouchableOpacity style={{zIndex: 2}} onPress={() => navigation.goBack()}>
+                <Icon name="chevron-back-outline" size={22} color="black" />
+              </TouchableOpacity>
+              <TouchableOpacity style={{zIndex: 2}} onPress={() => setCalendarVisible(true)}>
+                <Icon name="chevron-forward-outline" size={22} color="black" />
+              </TouchableOpacity>
             </View>
             <TitleInputComponent onTitleChange={setTitle} onEnterPressed={focusOnDescription} />
-            <DescriptionInputComponent
-              ref={descriptionRef}
-              onDescriptionChange={setDescription}
-              onEnterPressed={() => setCalendarVisible(true)}
-            />
+            <DescriptionInputComponent ref={descriptionRef} onDescriptionChange={setDescription} onEnterPressed={() => setCalendarVisible(true)}/>
           </View>
         )}
         {calendarVisible && (
           <View style={addEventStyles.calendarContainer}>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: '5%', paddingTop: '2%' }}
-            >
+              style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: '5%', paddingTop: '2%' }}>
               <Button title="Start Time" onPress={() => setOpen(true)} />
-              <DatePicker
-                modal
-                open={open}
-                date={date}
-                mode="time"
+              <DatePicker modal open={open} date={date} mode="time"
                 onConfirm={(date) => {
                   setOpen(false);
                   setSelectedStartTime(date);
@@ -117,13 +90,8 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
                 }}
               />
               <Button title="End Time" onPress={() => setOpen1(true)} />
-              <DatePicker
-                modal
-                open={open1}
-                date={date}
-                mode="time"
-                onConfirm={(date) => {
-                  setOpen1(false);
+              <DatePicker modal open={open1} date={date} mode="time" onConfirm={(date) => 
+                { setOpen1(false);
                   if (date < selectedStartTime) {
                     const nextDate = new Date(date.getTime());
                     nextDate.setDate(date.getDate() + 1);
@@ -137,13 +105,10 @@ const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 6
                 }}
               />
             </View>
-            <CalendarView color={color} returnSelectedDate={setSelectedDate} setEventDate={setEventDate} />
-            <View style={{ position: 'absolute', top: 500, width: '90%', alignSelf: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
-              <TouchableOpacity
-                style={{ backgroundColor: 'grey', padding: '5%', alignContent: 'center', justifyContent: 'center' }}
-                onPress={() => setCalendarVisible(false)}
-              >
-                <Text>Back</Text>
+            <CalendarView color={color} setEventDate={setEventDate}/>
+            <View style={[{position:'absolute', top: 500, width:'90%', alignSelf: 'center', justifyContent:'space-between', flexDirection: 'row'}]}>
+              <TouchableOpacity style={{padding: '2.5%', alignContent: 'center', justifyContent: 'center'}} onPress={() => setCalendarVisible(false)}>
+                <Icon name="chevron-back-outline" size={20} color="black" />
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ backgroundColor: 'grey', alignContent: 'center', justifyContent: 'center' }}

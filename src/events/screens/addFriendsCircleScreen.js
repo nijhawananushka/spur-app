@@ -4,18 +4,16 @@ import { ScrollView, TextInput, View, Button,TouchableOpacity, Text } from 'reac
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import FriendCard from '../../auth/components/friendCard';
-import OnboardingCompleteButton from '../../auth/components/onboardingCompleteButton';
 import HapticFeedback from 'react-native-haptic-feedback';
 import styles from '../styles/screens/addFriendsCircleScreenStyles';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 const AddFriendsCircleScreen = ({ navigation }) => {
   const [friends, setFriends] = useState([]);
   const [searchText, setSearchText] = useState('');
   const db = firestore();
   const currentUser = auth().currentUser;
   
-  const handleAddCirlce = async () => {
-    navigation.replace('AddCircle');
-  };
   // need to modify this to all the people on spur that you are not yet friends with
   useEffect(() => {
     if (currentUser) {
@@ -78,23 +76,19 @@ const AddFriendsCircleScreen = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-         <TouchableOpacity style={styles.backButton} onPress={() => navigation.replace("EventsRendering")}>
-        <Text style={styles.backButtonText}>{'<'}</Text>
-    </TouchableOpacity>
-    <View style={{ alignItems: 'center', marginTop: 55 }}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>add new friends</Text>
-
-    </View>
-      <TouchableOpacity style={styles.buttonStyle} onPress = {handleAddCirlce}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.replace("EventsRendering")}>
+        <Icon name="arrow-back-outline" size={28} color="black"/>
+      </TouchableOpacity>
+      <View style={{ alignItems: 'center', marginTop: '20%' }}>
+        <Text style={{ fontSize: 20, fontFamily: 'Inter-Medium'}}>add new friends</Text>
+      </View>
+      <TouchableOpacity style={styles.buttonStyle} onPress = {() => navigation.navigate('AddCircle')}>
         <Text style={styles.buttonText}>create a new circle</Text>
-        </TouchableOpacity>
-        
-     
-      <View style={{ borderRadius: 10, borderWidth: 1, marginTop: 20, marginLeft: 30, marginRight: 30 }}>
-        
+      </TouchableOpacity>
+      <View style={styles.searchContainer}>
         <TextInput
-          style={{ height: 40, paddingHorizontal: 10 }}
-          onChangeText={handleSearchTextChange}
+          style={{ padding: '3%', height: '4%' }}
+          onChangeText={() => navigation.replace('AddCircle')}
           value={searchText}
           placeholder="search for people to add"
         />

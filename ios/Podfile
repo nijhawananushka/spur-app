@@ -34,6 +34,7 @@ target 'spurapp' do
   pod 'GoogleSignIn', :modular_headers => true
   pod 'FirebaseAuth', :modular_headers => true
   pod 'react-native-camera', path: '../node_modules/react-native-camera'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   # Flags change depending on the env values.
   flags = get_default_flags()
 

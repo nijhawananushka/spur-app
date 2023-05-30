@@ -4,8 +4,8 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import FriendCard from '../../auth/components/friendCard';
 import HapticFeedback from 'react-native-haptic-feedback';
-import buttonStyles from '../styles/components/addFriendsCircleButtonStyles';
 import styles from '../styles/screens/addFriendsCircleScreenStyles';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const CreateNewCircleWithFriends = ({ navigation, route }) => {
   const [friends, setFriends] = useState([]);
@@ -63,9 +63,9 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
   });
 
   const saveCircle = async () => {
+    HapticFeedback.trigger('impactMedium');
     try {
       const circlesRef = db.collection('Circles');
-      
       const circleData = {
         title: circleTitle,
         owner: currentUser.uid,
@@ -91,17 +91,17 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
   return (
     <View style={{ flex: 1 }}>
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Text style={styles.backButtonText}>{'<'}</Text>
+        <Icon name="arrow-back-outline" size={28} color="black"/>
       </TouchableOpacity>
-      <View style={{ borderRadius: 10, borderWidth: 1, marginTop: 100, marginLeft: 30, marginRight: 30 }}>
+      <View style={{ borderRadius: 10, borderWidth: 1, marginTop: '30%', marginLeft: '7.5%', marginRight: '7.5%' }}>
         <TextInput
-          style={{ height: 40, paddingHorizontal: 10 }}
+          style={{ height: 40, marginLeft: '10%', fontFamily: 'Inter-Regular' }}
           onChangeText={handleSearchTextChange}
           value={searchText}
-          placeholder="Search friends"
+          placeholder="search friends"
         />
       </View>
-      <ScrollView contentContainerStyle={{ paddingTop: 40, paddingBottom: 100 }}>
+      <ScrollView contentContainerStyle={{ paddingTop: '8%', paddingBottom: 100 }}>
         {filteredFriends.map((friend) => (
           <FriendCard
             key={friend.uid}
@@ -111,8 +111,8 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
           />
         ))}
       </ScrollView>
-      <TouchableOpacity style={buttonStyles.buttonStyle} onPress={saveCircle} activeOpacity={0.5}>
-        <Text style={buttonStyles.buttonText}>Create Circle</Text>
+      <TouchableOpacity style={styles.buttonStyle} onPress={saveCircle} activeOpacity={0.5}>
+        <Text style={styles.buttonText}>Create Circle</Text>
       </TouchableOpacity>
     </View>
   );

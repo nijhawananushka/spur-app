@@ -4,10 +4,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FEFDF9',
+    justifyContent: 'space-between',
   },
   header: {
     fontSize: 20,
-    marginBottom: 20,
+    marginBottom: '5%',
     fontFamily: 'Inter-Regular',
     fontWeight: 300,
     marginTop: '5%',

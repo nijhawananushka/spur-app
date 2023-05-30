@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, BackHandler } from 'react-native'; // Import BackHandler
+import { SafeAreaView, StyleSheet, View, Text, BackHandler, TouchableOpacity } from 'react-native'; // Import BackHandler
 import EventFeed from '../components/eventFeed';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "../styles/screens/eventRenderingScreenStyles";
 import AddSpurButton from '../../feed/components/addSpurButton';
-import AddFriendsCirclesButton from '../components/addFriendsCirclesButton';
 import LogOutButton from '../../feed/components/logOutButton';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const EventRenderingScreen = ({ navigation, route }) => {
   const [myEvents, setMyEvents] = useState([]);
   const [otherEvents, setOtherEvents] = useState([]);
-
   const [user, setUser] = useState(null);
   const [greetingMessage, setGreetingMessage] = useState('');
   const [today, setToday] = useState('');
@@ -177,12 +176,14 @@ const EventRenderingScreen = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>{`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`}</Text>
-        <AddFriendsCirclesButton navigation={navigation} />
+        <Text style={styles.header}> {`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`} </Text>
+        <TouchableOpacity onPress={() => {navigation.replace('AddNewFriendsCircles')}}>
+          <Icon name="people-outline" size={28} color="black"/>
+        </TouchableOpacity>
       </View>
-      <View style={styles.contentContainer}>
-        <LogOutButton navigation={navigation} />
-        <Text style={styles.headerText}>your spurs</Text>
+    <View style={styles.contentContainer}>
+    <LogOutButton navigation={navigation} /> 
+      <Text style={styles.headerText}>your spurs</Text>
         <View style={styles.myEventsContainer}>
           <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
         </View>

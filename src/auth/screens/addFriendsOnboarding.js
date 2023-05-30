@@ -63,7 +63,7 @@ const AddFriendsOnboarding = ({ navigation }) => {
           style={{ height: 40, paddingHorizontal: 10 }}
           onChangeText={handleSearchTextChange}
           value={searchText}
-          placeholder="Search friends"
+          placeholder="search friends"
         />
       </View>
       <ScrollView contentContainerStyle={{ paddingTop: 40 }}>
