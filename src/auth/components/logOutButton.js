@@ -8,6 +8,7 @@ const LogOutButton = ({ navigation }) => {
         await AsyncStorage.removeItem('userToken');
         await AsyncStorage.removeItem('uid');
         await AsyncStorage.removeItem('calAccessToken');
+        await AsyncStorage.removeItem('calRefreshToken');
         navigation.replace('Login');
     };
     return (

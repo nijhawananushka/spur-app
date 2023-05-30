@@ -87,7 +87,7 @@ const CalendarView = ({color, setEventDate}) => {
   useEffect(() => {
     async function fetchToken() {
       const token = await AsyncStorage.getItem('calAccessToken');
-      setAccessToken(token);
+      await setAccessToken(token);
     }
     fetchToken();
   }, []);
@@ -106,7 +106,7 @@ const CalendarView = ({color, setEventDate}) => {
         }).start();
       }
       else{
-        console.log('Unable to fetch events');
+        console.log('Unable to fetch events', accessToken);
       }
     };
     fetchInitialEvents();
