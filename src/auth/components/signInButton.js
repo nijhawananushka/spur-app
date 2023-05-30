@@ -7,7 +7,7 @@ import logInButtonStyles from '../styles/components/signInButtonStyles';
 import firestore from '@react-native-firebase/firestore';
 
 GoogleSignin.configure({
-  webClientId: '469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com',
+  webClientId: '469727035724-ohvcq11f86v39udoauv7nncvq32prlo4.apps.googleusercontent.com',
   scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
   offlineAccess: true,      // for refresh token
 });

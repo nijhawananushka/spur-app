@@ -87,7 +87,7 @@ const CalendarView = ({color, setEventDate}) => {
   useEffect(() => {
     async function fetchToken() {
       const token = await AsyncStorage.getItem('calAccessToken');
-      await setAccessToken(token);
+      setAccessToken(token);
     }
     fetchToken();
   }, []);
