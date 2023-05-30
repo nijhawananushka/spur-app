@@ -82,12 +82,11 @@ const EventRenderingScreen = ({ navigation, route }) => {
         const participants = event.participants.map((id) => userIdToUser[id.trim()]); // Trim the id
         // Format and display the eventDate property
         const formattedEventDate = new Date(event.eventDate.seconds * 1000).toLocaleDateString('en-US', {
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-        });
+            weekday: 'short',
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          });
         return {
           ...event,
           participants,
@@ -133,7 +132,7 @@ const EventRenderingScreen = ({ navigation, route }) => {
       }
 
       // Fetch 'otherEvents' events that you have been invited to, but not yet accepted (vertical scroll)
-      const otherEventIds = Array.isArray(userDocData.invitedEvents) ? userDocData.invitedEvents : [];
+      const otherEventIds = Array.isArray(userDocData.otherEvents) ? userDocData.otherEvents : [];
 
       if (otherEventIds.length === 0) {
         setOtherEvents([]);
@@ -188,13 +187,14 @@ const EventRenderingScreen = ({ navigation, route }) => {
         <View style={styles.myEventsContainer}>
           <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
         </View>
-      <Text style={styles.headerText}>spurs happening</Text>
-      <View style={styles.otherEvents}>
-        <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
+        <Text style={styles.headerTextOtherEvents}>spurs happening</Text>
+        <View style={styles.otherEventsContainer}>
+          <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
+        </View>
       </View>
-    </View>
-    <AddSpurButton navigation={navigation} />
-  </SafeAreaView>
+
+      <AddSpurButton navigation={navigation} />
+    </SafeAreaView>
   );
 };
 

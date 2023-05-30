@@ -4,10 +4,13 @@ const styles = StyleSheet.create({
     card: {
         borderWidth: 4,
         padding: 10,
-        margin: 20,
         borderRadius: 15,
-        height: '80%',
+        height: 200,
         fontFamily: 'Inter',
+        marginTop: '10%',
+        marginBottom: '-5%',
+        marginLeft: 15,
+        marginRight: 15,
     },
     title: {
         fontSize: 20,
@@ -28,6 +31,24 @@ const styles = StyleSheet.create({
     },
     location: {
         marginLeft: 5,
+    },
+    participantImageContainer: {
+        flexDirection: 'row',
+        bottom: 20,
+        position: 'absolute',
+        right: 20,
+    },
+    joinButton: {
+        position: 'absolute',
+        bottom: 40,
+        right: 0,
+        padding: 10,
+    },
+    participantImage: {
+        width: 30, 
+        height: 30, 
+        borderRadius: 15, 
+        marginLeft: -10,
     },
 });
 
