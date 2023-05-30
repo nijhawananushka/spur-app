@@ -1070,7 +1070,7 @@ PODS:
     - React-Core
   - react-native-date-picker (4.2.13):
     - React-Core
-  - react-native-image-picker (5.4.0):
+  - react-native-image-picker (5.3.1):
     - React-Core
   - react-native-safe-area-context (4.5.3):
     - RCT-Folly
@@ -1182,7 +1182,7 @@ PODS:
     - RNFBApp
   - RNGestureHandler (2.10.1):
     - React-Core
-  - RNGoogleSignin (9.1.0):
+  - RNGoogleSignin (9.0.2):
     - GoogleSignIn (~> 6.2)
     - React-Core
   - RNReactNativeHapticFeedback (2.0.3):
@@ -1460,7 +1460,7 @@ SPEC CHECKSUMS:
   React-logger: 342f358b8decfbf8f272367f4eacf4b6154061be
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-date-picker: 04e866ba4e7857f83abd504ad42e787f0f02ae00
-  react-native-image-picker: 709d04e7df67bd3a90f376c3eedb2e8b8334dd04
+  react-native-image-picker: ec9b713e248760bfa0f879f0715391de4651a7cb
   react-native-safe-area-context: b8979f5eda6ed5903d4dbc885be3846ea3daa753
   react-native-slider: 33b8d190b59d4f67a541061bb91775d53d617d9d
   React-perflogger: d21f182895de9d1b077f8a3cd00011095c8c9100
@@ -1482,7 +1482,7 @@ SPEC CHECKSUMS:
   RNFBAuth: 54e598bb1358a0cf6c0a187f43161cd1bde90455
   RNFBFirestore: 4edfb28f95cb461ef8423c6ae4354dfe98186586
   RNGestureHandler: 42ec7c28dd02d540ed6c9159c57a98ff016492dc
-  RNGoogleSignin: c15bdaa7e8a9e190b6169d9c96a4e8380a740f22
+  RNGoogleSignin: 22e468a9474dbcb8618d8847205ad4f0b2575d13
   RNReactNativeHapticFeedback: afa5bf2794aecbb2dba2525329253da0d66656df
   RNReanimated: b1220a0e5168745283ff5d53bfc7d2144b2cee1b
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f

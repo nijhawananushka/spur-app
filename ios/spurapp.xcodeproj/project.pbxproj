@@ -608,7 +608,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.spur;
+				PRODUCT_BUNDLE_IDENTIFIER = spurapp;
 				PRODUCT_NAME = spurapp;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -640,7 +640,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.spur;
+				PRODUCT_BUNDLE_IDENTIFIER = spurapp;
 				PRODUCT_NAME = spurapp;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
