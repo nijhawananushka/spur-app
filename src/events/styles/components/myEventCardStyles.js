@@ -9,8 +9,6 @@ const overlapMargin = Dimensions.get('window').width * -0.022;
 const styles = StyleSheet.create({
     myEvents: {
         marginTop: '5%', 
-        // marginBottom: '5%',
-        paddingRight: '40%',
     },
     card: {
         width: cardWidth,
@@ -20,8 +18,13 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 15,
         padding: '3%',
-        paddingLeft: '5%',
         marginTop: '5%',
+        marginRight: 10,
+        paddingRight: 20,
+    },
+    cardContent: {
+        flex: 1,
+        paddingLeft: '2%',
     },
     title: {
         fontSize: 20,
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         bottom: '10%',
         position: 'absolute',
-        left: '9%',
+        left: '5%',
     },
 });
 

@@ -18,7 +18,7 @@ const AddEventScreen = ({ navigation, route }) => {
   const [open1, setOpen1] = useState(false)
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [eventDate, setEventDate] = useState('');
+  const [eventDate, setEventDate] = useState(date);
   const descriptionRef = useRef(null);
 
   const currentTime = new Date();

@@ -3,6 +3,7 @@ import { View, Image, Text, Animated, TouchableOpacity, Easing, Alert } from 're
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from '../styles/components/myEventCardStyles';
 import CreateGCalEventRequest from '../../utils/CreateGCalEventRequest.js';
+import HapticFeedback from 'react-native-haptic-feedback';
 
 const dateStringFormatLocationStyle = 'en-US';
 
@@ -44,6 +45,7 @@ const MyEventCard = ({ event }) => {
     });
 
     const handlePress = () => {
+      HapticFeedback.trigger('ImpactHeavy');
       Animated.timing(animatedValue, {
         toValue: 1,
         duration: 500,
@@ -72,20 +74,22 @@ const MyEventCard = ({ event }) => {
 
   return (
     <View style={styles.card}>
-     <Text style={styles.title}>{event.title}</Text>
-     <Text style={styles.time}>{formattedDate} . {formattedStartTime} - {formattedEndTime}</Text>
-      <View style={styles.locationWrapper}>
-        <Text style={styles.location}>{event.location}</Text>
-      </View>
-      <TouchableOpacity style={styles.joinButton} onPress={handlePress}>
-        <Animated.View style={{ transform: [{ rotate: rotateIcon }] }}>
-          <Ionicons name={joinState} size={24} color="black" />
-        </Animated.View>
-      </TouchableOpacity>
-      <View style={styles.participantImageContainer}>
-        {participantImages.map((image, index) => (
-          <Image key={index} source={{ uri: image }} style={styles.participantImage} />
-        ))}
+      <View style={styles.cardContent}>
+        <Text style={styles.title}>{event.title}</Text>
+        <Text style={styles.time}>{formattedDate} {formattedStartTime} - {formattedEndTime}</Text>
+        <View style={styles.locationWrapper}>
+          <Text style={styles.location}>{event.location}</Text>
+        </View>
+        <TouchableOpacity style={styles.joinButton} onPress={handlePress}>
+          <Animated.View style={{ transform: [{ rotate: rotateIcon }] }}>
+            <Ionicons name={joinState} size={24} color="black" />
+          </Animated.View>
+        </TouchableOpacity>
+        <View style={styles.participantImageContainer}>
+          {participantImages.map((image, index) => (
+            <Image key={index} source={{ uri: image }} style={styles.participantImage} />
+          ))}
+        </View>
       </View>
     </View>
   );
