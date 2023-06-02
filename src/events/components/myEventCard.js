@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Image,Text, Button } from 'react-native';
 import styles from '../styles/components/myEventCardStyles';
 
+const dateStringFormatLocationStyle = 'en-US';
+
 const MyEventCard = ({ event }) => {
     const eventDate = new Date(event.eventDate);
     const startTime = new Date(event.startTime);
@@ -10,7 +12,7 @@ const MyEventCard = ({ event }) => {
     const participantImages = event.participantImages ? event.participantImages.slice(0, 4) : [];
 
     const formattedDate = eventDate
-      ? eventDate.toLocaleDateString('en-US', {
+      ? eventDate.toLocaleDateString(dateStringFormatLocationStyle, {
           weekday: 'short',
           month: 'long',
           day: 'numeric',
@@ -18,7 +20,7 @@ const MyEventCard = ({ event }) => {
       : '';
   
     const formattedStartTime = startTime
-      ? startTime.toLocaleTimeString('en-US', {
+      ? startTime.toLocaleTimeString(dateStringFormatLocationStyle, {
           hour: 'numeric',
           minute: 'numeric',
           hour12: true
@@ -26,7 +28,7 @@ const MyEventCard = ({ event }) => {
       : '';
 
       const formattedEndTime = endTime
-      ? endTime.toLocaleTimeString('en-US', {
+      ? endTime.toLocaleTimeString(dateStringFormatLocationStyle, {
           hour: 'numeric',
           minute: 'numeric',
           hour12: true

@@ -192,7 +192,6 @@ const EventRenderingScreen = ({ navigation, route }) => {
           <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
         </View>
       </View>
-
       <AddSpurButton navigation={navigation} />
     </SafeAreaView>
   );
