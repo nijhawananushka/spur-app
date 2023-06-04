@@ -18,10 +18,15 @@ const AddEventScreen = ({ navigation, route }) => {
   const [open1, setOpen1] = useState(false)
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [eventDate, setEventDate] = useState('');
-  const [selectedStartTime, setSelectedStartTime] = useState(new Date().toString());
-  const [selectedEndTime, setSelectedEndTime] = useState((new Date().getTime() + 60 * 60 * 1000).toString()); // Initial duration is set to 60 minutes
+  const [eventDate, setEventDate] = useState(date);
   const descriptionRef = useRef(null);
+
+  const currentTime = new Date();
+  const [selectedStartTime, setSelectedStartTime] = useState(currentTime.toString());
+  // Get the current time and add 1 hour to it
+  currentTime.setHours(currentTime.getHours() + 1);
+  const [selectedEndTime, setSelectedEndTime] = useState(currentTime.toString()); // Initial duration is set to 60 minutes
+
   const focusOnDescription = () => {
     descriptionRef.current.focus();
   };
@@ -117,7 +122,7 @@ const AddEventScreen = ({ navigation, route }) => {
                     color: color,
                     title: title,
                     description: description,
-                    eventDate: eventDate,
+                    eventDate: eventDate.toString(),
                     selectedStartTime: selectedStartTime.toString(),
                     selectedEndTime: selectedEndTime.toString(),
                   };

@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FEFDF9',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   header: {
     fontSize: 20,
@@ -14,44 +14,33 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
   myEventsContainer: {
-    flex: 1,
-    marginTop: 5, 
-    justifyContent: 'space-between',
-    marginLeft: 20,
-    marginRight: 0,
+    height: '25%',
+    marginTop: '1.5%', 
+    marginLeft: '6%',
   },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-  },
-  myEvents: {
-    flex: 1,
+    paddingHorizontal: '4%',
   },
   otherEventsContainer: {
     flex: 2,
-    marginTop: 0,  // Changed the negative value to positive
-    marginBottom: 0,  // Increased marginBottom to provide more spacing at the bottom
   },
   headerText: {
-    marginTop: 10,
-    marginLeft: 20, 
+    marginTop: '2.5%',
+    marginLeft: '5%', 
     fontFamily: 'Inter',
     fontSize: 20,
   },
   headerTextOtherEvents: {
-    marginTop: 40,
-    marginLeft: 20, 
+    marginLeft: '5%',
     fontFamily: 'Inter',
     fontSize: 20,
   },
   contentContainer: {
     flex: 1,  // This line is necessary for the scroll view to work
-  },
-  addSpurContainer: {
-    alignItems: 'center',
-    marginRight: 20,
+    flexDirection: 'column',
   },
 });
 

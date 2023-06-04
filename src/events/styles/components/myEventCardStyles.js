@@ -1,20 +1,30 @@
 import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
+
+const cardWidth = Dimensions.get('window').width * 0.65;
+const cardHeight = Dimensions.get('window').height * 0.15;
+const imageRadius = Dimensions.get('window').width * 0.075;
+const overlapMargin = Dimensions.get('window').width * -0.022;
 
 const styles = StyleSheet.create({
     myEvents: {
-        marginTop: 10, 
-        marginBottom: 10,
+        marginTop: '5%', 
     },
     card: {
-        width: 250,
-        height: 150,
+        width: cardWidth,
+        height: cardHeight,
         backgroundColor: '#FFFFFF',
         borderColor: '#AEABAB',
         borderWidth: 2,
         borderRadius: 15,
-        padding: 10,
-        marginTop: 20,
-        marginRight: 20,
+        padding: '3%',
+        marginTop: '5%',
+        marginRight: 10,
+        paddingRight: 20,
+    },
+    cardContent: {
+        flex: 1,
+        paddingLeft: '2%',
     },
     title: {
         fontSize: 20,
@@ -40,21 +50,20 @@ const styles = StyleSheet.create({
     },
     joinButton: {
         position: 'absolute',
-        bottom: 40,
-        right: 0,
-        padding: 10,
+        bottom: '10%',
+        right: '5%',
     },
     participantImage: {
-        width: 30, 
-        height: 30, 
-        borderRadius: 15, 
-        marginLeft: -10,
+        width: imageRadius, 
+        height: imageRadius, 
+        borderRadius: imageRadius * 0.5, 
+        marginLeft: overlapMargin,
     },
     participantImageContainer: {
         flexDirection: 'row',
-        bottom: 20,
+        bottom: '10%',
         position: 'absolute',
-        right: 20,
+        left: '5%',
     },
 });
 

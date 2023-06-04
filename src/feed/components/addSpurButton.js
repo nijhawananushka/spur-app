@@ -2,8 +2,6 @@ import addSpurButtonStyles from '../styles/components/addSpurButtonStyles';
 import HapticFeedback from 'react-native-haptic-feedback';
 import React, { useState } from 'react';
 import { TouchableOpacity, Animated, Text, View, Alert, Dimensions, TouchableWithoutFeedback, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { TransitionPresets } from '@react-navigation/stack';
 
 const AddSpurButton = ({ navigation }) => {
   const [isExpanded, setIsExpanded] = useState(false);

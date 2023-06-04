@@ -1,17 +1,31 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 export const refreshToken = async () => {
-    try {
-        const refreshToken = await AsyncStorage.getItem('calRefreshToken');
-        const response = await fetch('https://oauth2.googleapis.com/token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `client_id=469727035724-jqjifc7sj20ftvivttoh21k01k583fbh.apps.googleusercontent.com&client_secret=3Q4Z3Z3Z3Z3Z3Z3Z3Z3Z3Z3Z&refresh_token=${refreshToken}&grant_type=refresh_token`,
-    });
-        const data = await response.json();
-        await AsyncStorage.setItem('calAccessToken', data.access_token);
-        return data.access_token;
-    } catch (error) {
-        console.error('Failed to refresh token:', error);
+  try {
+    const refreshToken = await AsyncStorage.getItem('calRefreshToken');
+    if (!refreshToken) {
+      console.log('No refresh token found in AsyncStorage');
+      return null;
     }
+
+    const { idToken, serverAuthCode } = await GoogleSignin.signInSilently();
+    if (!idToken) {
+      console.log('No ID token received');
+      return null;
+    }
+
+    const { accessToken } = await GoogleSignin.getTokens();
+    if (!accessToken) {
+      console.log('No access token received');
+      return null;
+    }
+
+    await AsyncStorage.setItem('calAccessToken', accessToken);
+    return accessToken;
+  } catch (error) {
+    console.error('Failed to refresh token:', error);
+    return null;
+  }
 };
