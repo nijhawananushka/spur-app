@@ -15,7 +15,7 @@ const addFriendsCirclesStyles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   buttonContainer: {
-    backgroundColor: 'grey',
+    backgroundColor: '#0095F6',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,

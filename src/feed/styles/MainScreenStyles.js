@@ -9,9 +9,11 @@ const mainScreenStyles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 20,
         marginLeft: 20,
-        fontFamily: 'Inter-Regular',
+        fontFamily: 'Georgia-Bold',
         fontWeight: 300,
         marginTop: '20%',
+        color: '#75226D'
+
     },
     logoContainer: {
         alignItems: 'center',
@@ -36,7 +38,7 @@ const mainScreenStyles = StyleSheet.create({
         fontWeight: 500,
         fontSize: 20,
         lineHeight: 24,
-        color: '#000000',
+        color: '#75226D',
     },
     scrollContainer: {
         paddingLeft: 20,

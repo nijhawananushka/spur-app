@@ -178,20 +178,21 @@ const EventRenderingScreen = ({ navigation, route }) => {
       <View style={styles.headerContainer}>
         <Text style={styles.header}> {`${greetingMessage}, ${user?.displayName.toLowerCase().split(' ')[0]}`} </Text>
         <TouchableOpacity onPress={() => {navigation.replace('AddNewFriendsCircles')}}>
-          <Icon name="people-outline" size={28} color="black"/>
+          <Icon name="people-outline" size={28} color="#2E765E"/>
         </TouchableOpacity>
       </View>
-      <View style={styles.contentContainer}>
-        <LogOutButton navigation={navigation} /> 
-        <Text style={styles.headerText}>your spurs</Text>
-          <View style={styles.myEventsContainer}>
-            <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
-          </View>
+    <View style={styles.contentContainer}>
+    <LogOutButton navigation={navigation} /> 
+      <Text style={styles.headerText}>your spurs</Text>
+        <View style={styles.myEventsContainer}>
+          <EventFeed events={myEvents} isHorizontal={true} isMyEvent={true} />
+        </View>
         <Text style={styles.headerTextOtherEvents}>spurs happening</Text>
         <View style={styles.otherEventsContainer}>
           <EventFeed events={otherEvents} isHorizontal={false} isMyEvent={false} />
         </View>
       </View>
+
       <AddSpurButton navigation={navigation} />
     </SafeAreaView>
   );

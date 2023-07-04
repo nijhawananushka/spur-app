@@ -1,14 +1,16 @@
 import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
+
 const cardWidth = Dimensions.get('window').width * 0.65;
-const cardHeight = Dimensions.get('window').height * 0.15;
+const cardHeight = Dimensions.get('window').height * 0.20;
 const imageRadius = Dimensions.get('window').width * 0.075;
 const overlapMargin = Dimensions.get('window').width * -0.022;
 
+
 const styles = StyleSheet.create({
     myEvents: {
-        marginTop: '5%', 
+        marginTop: '5%',
     },
     card: {
         width: cardWidth,
@@ -27,9 +29,11 @@ const styles = StyleSheet.create({
         paddingLeft: '2%',
     },
     title: {
-        fontSize: 20,
+        fontSize: 24,
         color: 'black',
-        fontFamily: 'Inter-Regular',
+        fontFamily: 'Georgia Bold',
+        fontWeight: '900',
+        marginBottom: '2%',
     },
     dateTime: {
         fontSize: 16,
@@ -65,6 +69,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: '5%',
     },
+    
 });
 
 export default styles;

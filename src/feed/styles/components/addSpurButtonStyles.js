@@ -41,7 +41,7 @@ const addSpurButtonStyles = StyleSheet.create({
         height: 70,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#979CF9',
+        backgroundColor: '#2E765E',
     },
     plusButtonText: {
         color: '#fff',

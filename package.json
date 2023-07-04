@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo-google-fonts/calistoga": "^0.2.3",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-native-fontawesome": "^0.3.0",
@@ -25,6 +26,7 @@
     "core-js": "^3.30.2",
     "date-fns": "^2.30.0",
     "deprecated-react-native-prop-types": "^4.1.0",
+    "expo-font": "^11.1.1",
     "firebase": "^9.22.0",
     "moment": "^2.29.4",
     "react": "18.2.0",

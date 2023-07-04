@@ -32,7 +32,7 @@ const circleCardStyles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 20,
         marginRight: 30,
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#0095F6',
         alignItems: 'center',
       },
   });

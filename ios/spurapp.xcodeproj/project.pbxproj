@@ -27,6 +27,7 @@
 		77938ABAC03948C9BB142ADC /* Inter-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = FC426A69FD9E41858D7F327A /* Inter-ExtraBoldItalic.otf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		824C94A3BA3241E58D7E4AF0 /* Inter-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2BDA0AE9F61C4FAB892D13BE /* Inter-BlackItalic.otf */; };
+		9B9015232A54C5D7005269A7 /* Calistoga in Resources */ = {isa = PBXBuildFile; fileRef = 9B9015222A54C5D7005269A7 /* Calistoga */; };
 		9C99A30CCFF3BDED13D36CA7 /* Pods_spurapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C957F93ACA390EC133D52A93 /* Pods_spurapp.framework */; };
 		BABCFAAE870B2CC6DBF914B9 /* Pods_spurapp_spurappTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E481D19B07B67C236B2B46 /* Pods_spurapp_spurappTests.framework */; };
 		BF066357B5A44A3F9E1FB644 /* Inter-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = AD537FF6310E4649AE00187C /* Inter-ExtraBold.otf */; };
@@ -72,6 +73,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = spurapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-spurapp-spurappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spurapp-spurappTests.release.xcconfig"; path = "Target Support Files/Pods-spurapp-spurappTests/Pods-spurapp-spurappTests.release.xcconfig"; sourceTree = "<group>"; };
 		8C3CDAA6088042E3A46CC52E /* Inter-LightItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-LightItalic.otf"; path = "../assets/fonts/Inter-LightItalic.otf"; sourceTree = "<group>"; };
+		9B9015222A54C5D7005269A7 /* Calistoga */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Calistoga; path = ../src/assets/fonts/Calistoga; sourceTree = "<group>"; };
 		A6008DDAC58F4530915305AD /* Inter-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Light.otf"; path = "../assets/fonts/Inter-Light.otf"; sourceTree = "<group>"; };
 		AD537FF6310E4649AE00187C /* Inter-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-ExtraBold.otf"; path = "../assets/fonts/Inter-ExtraBold.otf"; sourceTree = "<group>"; };
 		B5594D9109CD4D7AB78F5465 /* Inter-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.otf"; path = "../assets/fonts/Inter-Medium.otf"; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				9B9015222A54C5D7005269A7 /* Calistoga */,
 				13B07FAE1A68108700A75B9A /* spurapp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* spurappTests */,
@@ -312,6 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B9015232A54C5D7005269A7 /* Calistoga in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				E3C79A362A0FD6D600D4C96C /* GoogleService-Info.plist in Resources */,

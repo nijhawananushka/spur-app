@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './src/auth/screens/LoginScreen';
+import {  Text, View, styles } from 'react-native';
 import MainScreen from './src/feed/screens/MainScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreen from './src/auth/screens/OnboardingScreenUsername';
@@ -106,6 +107,8 @@ const RootStack = () => {
 }
 
 const App = () => {
+
+
   return (
     <NavigationContainer>
       <RootStack />

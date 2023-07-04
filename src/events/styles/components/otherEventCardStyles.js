@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         height: 200,
         fontFamily: 'Inter',
-        marginTop: '10%',
+        marginTop: '5%',
         marginBottom: '-5%',
         marginLeft: 15,
         marginRight: 15,
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         color: 'black',
-        fontFamily: 'Inter',
+        fontFamily: 'Georgia-Bold',
     },
     dateTime: {
         fontSize: 16,

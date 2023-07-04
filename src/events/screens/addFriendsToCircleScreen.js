@@ -91,7 +91,7 @@ const CreateNewCircleWithFriends = ({ navigation, route }) => {
   return (
     <View style={{ flex: 1 }}>
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Icon name="arrow-back-outline" size={28} color="black"/>
+        <Icon name="arrow-back-outline" size={36} color="#2E765E"/>
       </TouchableOpacity>
       <View style={{ borderRadius: 10, borderWidth: 1, marginTop: '30%', marginLeft: '7.5%', marginRight: '7.5%' }}>
         <TextInput

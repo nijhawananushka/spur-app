@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     zIndex: 1, // To make sure the button is above other elements
   },
   buttonStyle: {
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: '#75226D',
     borderRadius: 10, 
     borderWidth: 1, 
     marginTop: '8%', 
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     margin: '3%',
+    color: 'white',
   },
   searchContainer: {
     borderRadius: 10, 
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     marginTop: '3.5%', 
     width: '83%', 
     alignSelf: 'center', 
-    justifyContent: 'center' 
+    justifyContent: 'center', 
   },
 });
 

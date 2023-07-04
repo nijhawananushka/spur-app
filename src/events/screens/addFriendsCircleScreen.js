@@ -77,7 +77,7 @@ const AddFriendsCircleScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.replace("EventsRendering")}>
-        <Icon name="arrow-back-outline" size={28} color="black"/>
+        <Icon name="arrow-back-outline" size={36} color="#2E765E"/>
       </TouchableOpacity>
       <View style={{ alignItems: 'center', marginTop: '20%' }}>
         <Text style={{ fontSize: 20, fontFamily: 'Inter-Medium'}}>add new friends</Text>

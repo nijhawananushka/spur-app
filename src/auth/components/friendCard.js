@@ -31,7 +31,7 @@ const FriendCard = ({ friend, onAddFriend, onRemoveFriend, resetState }) => {
       <TouchableOpacity
         style={[
           friendCardStyles.addButton,
-          { backgroundColor: isAdded ? '#DDDDDD' : '#444444' },
+          { backgroundColor: isAdded ? '#DDDDDD' : '#0095F6' },
         ]}
         onPress={handleAddFriend}
       >
